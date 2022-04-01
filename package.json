@@ -5,9 +5,9 @@
   "repository": "https://github.com/Neptune-FEC/Atelier.git",
   "author": "acea68 <alancea01@gmail.com>",
   "license": "MIT",
-  "type": "module",
   "dependencies": {
     "dotenv": "^16.0.0",
+    "dotenv-webpack": "^7.1.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   },
