@@ -1,7 +1,7 @@
 {
   "name": "Atelier",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "index.jsx",
   "repository": "https://github.com/Neptune-FEC/Atelier.git",
   "author": "acea68 <alancea01@gmail.com>",
   "license": "MIT",
