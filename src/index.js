@@ -1,7 +1,7 @@
 import React from 'react';
 import reactDOM from 'react-dom';
 import './main.css'
-import QnA from './components/QnA.js';
+import QnA from './components/QnA.jsx';
 
 class App extends React.Component {
   constructor(props) {
