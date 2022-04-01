@@ -1,10 +1,23 @@
 import React from 'react';
 import reactDOM from 'react-dom';
-import "./main.css"
+import './main.css'
+import QnA from './components/QnA.js';
 
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {}
+  }
 
-const App = () => {
-  return <h1>Hello Neptune!</h1>
-};
+  render() {
+    return (
+      <div>
+        <h2>Hello Neptune!!!</h2>
+        <QnA/>
+      </div>
+    )
+  }
 
-reactDOM.render(<App/>, document.getElementById("root"));
+}
+
+reactDOM.render(<App />, document.getElementById("root"));
