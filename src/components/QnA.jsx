@@ -3,7 +3,7 @@ import React from 'react';
 class QnA extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {}
+    this.state = {};
   }
 
   render() {
@@ -11,9 +11,8 @@ class QnA extends React.Component {
       <div>
         <h3>Questions and Answers</h3>
       </div>
-    )
+    );
   }
-
 }
 
 export default QnA;

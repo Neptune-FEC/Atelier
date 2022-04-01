@@ -1,0 +1,4 @@
+**/node_modules
+**/other_stuff_to_ignore
+**/webpack.config.js
+**/bundle.js
