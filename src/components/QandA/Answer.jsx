@@ -15,7 +15,7 @@ class Answer extends React.Component {
     // console.log('answer: ', ans)
 
     return (
-      <div>
+      <div class="answer">
         <h4>A:</h4>
         <p>{ans.body}</p>
         <PhotoList photoList={ans.photos} />

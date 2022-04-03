@@ -1,3 +1,24 @@
 body {
   background-color: aquamarine;
 }
+
+/* -------------------------------- */
+/* QUESTION & ANSWER WIDGET STYLING */
+/* -------------------------------- */
+.thumbnail {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  padding: 5px 0px;
+}
+
+.question {
+  border: 2px solid black;
+  border-radius: 5px;
+  margin-top: 5px;
+  padding: 0px 10px;
+}
+
+.answer {
+  border-top: 1px solid black;
+}

@@ -18,7 +18,7 @@ class Question extends React.Component {
     // console.log('array of answers in a Q: ', ansList)
 
     return (
-      <div>
+      <div class="question">
         <h4>Q:</h4>
         <p>{this.props.question.question_body}</p>
         <AnsList

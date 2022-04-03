@@ -8,7 +8,8 @@ class QnA extends React.Component {
     this.state = {
       product_id: qListData.product_id,
       listOfQuestions: qListData.results,
-      numQsShowing: qListData.results.length
+      numQsShowing: 2
+      // numQsShowing: qListData.results.length
     };
   }
 

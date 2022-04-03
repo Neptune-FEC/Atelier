@@ -15,9 +15,7 @@ class Photo extends React.Component {
     // console.log('answer: ', ans)
 
     return (
-      <div>
-        <img src={this.props.photo}/>
-      </div>
+      <img class="thumbnail" src={this.props.photo} />
     );
   }
 }
