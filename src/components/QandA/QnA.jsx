@@ -8,7 +8,7 @@ class QnA extends React.Component {
     this.state = {
       product_id: qListData.product_id,
       listOfQuestions: qListData.results,
-      numQsShowing: 2
+      numQsShowing: qListData.results.length
     };
   }
 
@@ -21,7 +21,7 @@ class QnA extends React.Component {
   render() {
     return (
       <div>
-        <h3>Questions and Answers</h3>
+        <h3>QUESTIONS & ANSWERS</h3>
         <QList
           qList={this.state.listOfQuestions}
           numQs={this.state.numQsShowing}

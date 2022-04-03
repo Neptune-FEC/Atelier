@@ -1,5 +1,6 @@
 
 // GET/products
+/*
 [
     {
         "id": 66642,
@@ -57,8 +58,10 @@
         "updated_at": "2022-03-31T21:13:15.875Z"
     }
 ]
+*/
 
 // GET /products/:product styles (for product #:66646)
+/*
 {
     "product_id": "66646",
         "results": [
@@ -460,7 +463,7 @@
             }
         ]
 }
-
+*/
 
 // GET/qa/questions (for product #:66646)
 var qListData = {

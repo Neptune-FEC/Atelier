@@ -1,21 +1,30 @@
 import React from 'react';
-// import Question from './Question';
+import AnsList from './AnsList';
 
 
 class Question extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      listofAnswers: this.props.question.answers,
+      numAnsShowing: 2
+    };
   }
 
 
 
   render() {
+    var ansList = Object.values(this.props.question.answers)
+    // console.log('array of answers in a Q: ', ansList)
 
     return (
       <div>
         <h4>Q:</h4>
-
+        <p>{this.props.question.question_body}</p>
+        <AnsList
+          ansList={ansList}
+          numAns={this.state.numAnsShowing}
+        />
       </div>
     );
   }
@@ -23,6 +32,3 @@ class Question extends React.Component {
 
 export default Question;
 
-/*
-<p>{this.props.question.question_body}</p>
-*/
