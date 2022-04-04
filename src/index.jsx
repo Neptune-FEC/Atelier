@@ -1,7 +1,8 @@
 import React from 'react';
 import reactDOM from 'react-dom';
 import './main.css';
-import QnA from './components/QandA/QnA';
+// import QnA from './components/QandA/QnA';
+import ProductDetailPage from './components/ProductDetailPage';
 
 class App extends React.Component {
   constructor(props) {
@@ -13,7 +14,7 @@ class App extends React.Component {
     return (
       <div>
         <h2>Hello Neptune!!!</h2>
-        <QnA />
+        <ProductDetailPage />
       </div>
     );
   }
