@@ -91,7 +91,7 @@ const voteAnswer = (answerId) => instance.put(
   `/qa/answers/${answerId}/helpful`,
 );
 
-// PUT request, Report Question
+// PUT request, Report Answer
 const reportAnswer = (answerId) => instance.put(
   `/qa/answers/${answerId}/report`,
 );

@@ -12,7 +12,7 @@ class QandA extends React.Component {
       // listOfQuestions: qListData.results,
       // numQsShowing: qListData.results.length,
       listOfQuestions: [],
-      numQsShowing: 5,
+      numQsShowing: 2,
     };
   }
 

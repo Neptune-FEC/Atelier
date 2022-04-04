@@ -3,19 +3,50 @@ import React from 'react';
 import moment from 'moment';
 import PhotoList from './PhotoList';
 
+const { voteAnswer } = require('../../helpers/HttpClient');
+
 class Answer extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      helpfulness: 0,
+      isReported: false,
+    };
+
+    this.handleHelpfulAnswer = this.handleHelpfulAnswer.bind(this);
+    this.toggleReported = this.toggleReported.bind(this);
   }
 
-  helpfulAnswerHandler = (event) => {
-    
+  componentDidMount() {
+    const { answer } = this.props;
+    this.setState({ helpfulness: answer.helpfulness });
+  }
+
+  handleHelpfulAnswer(event) {
+    event.preventDefault();
+    const { answer } = this.props;
+    voteAnswer(answer.id).then(() => {
+      // console.log('response: ', response);
+      const { helpfulness } = this.state;
+      const newHelpfulness = helpfulness + 1;
+      this.setState({ helpfulness: newHelpfulness });
+    })
+      .catch((err) => {
+        console.warn('Error in retrieving questions.', err);
+      });
+  }
+
+  toggleReported(event) {
+    event.preventDefault();
+    this.setState((oldState) => ({
+      isReported: !oldState.isReported,
+    }));
   }
 
   render() {
     const { answer } = this.props;
-    console.log('answer: ', answer);
+    const { helpfulness, isReported } = this.state;
+    // console.log('answer: ', answer);
 
     return (
       <div className="answer">
@@ -36,17 +67,31 @@ class Answer extends React.Component {
           &nbsp;&nbsp;&nbsp;
           <span>
             Helpful?&nbsp;&nbsp;
-            <u onCick={this.helpfulAnswerHandler}>Yes</u>
+            <u
+              role="button"
+              tabIndex={0}
+              onClick={this.handleHelpfulAnswer}
+              onKeyUp={this.handleHelpfulAnswer}
+            >
+              Yes
+            </u>
             &nbsp;
             (
-            {answer.helpfulness}
+            {helpfulness}
             )
           </span>
           &nbsp;&nbsp;&nbsp;
           |
           &nbsp;&nbsp;&nbsp;
           <span>
-            <u>Report</u>
+            <u
+              role="button"
+              tabIndex={0}
+              onClick={this.toggleReported}
+              onKeyUp={this.toggleReported}
+            >
+              {isReported ? 'Reported' : 'Report'}
+            </u>
           </span>
         </div>
         <div />
