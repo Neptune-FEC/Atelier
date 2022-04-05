@@ -103,7 +103,6 @@ module.exports = {
   getReviewMeta,
   getProduct,
   getStyles,
-<<<<<<< HEAD
   getQuestions,
   getAnswers,
   addQuestion,
@@ -112,7 +111,5 @@ module.exports = {
   reportQuestion,
   voteAnswer,
   reportAnswer,
-=======
   getRelatedIds,
->>>>>>> e9ca6320f018e3289960b8c83d1f1abb7bc184f7
 };
