@@ -41,7 +41,7 @@ class RelatedItemsWidget extends React.Component {
 
   render() {
     const { relatedProducts, currentProduct } = this.state;
-    console.log('inside render', relatedProducts);
+    // console.log('inside render', relatedProducts);
     return (
       <div>
         <h2>Related Items & Comparison</h2>

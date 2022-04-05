@@ -15,7 +15,7 @@ class RelatedProductsList extends React.Component {
     this.setState({
       relatedProducts,
     });
-    console.log('inside compo did mount of list ----', relatedProducts);
+    // console.log('inside compo did mount of list ----', relatedProducts);
   }
 
   render() {
@@ -30,7 +30,7 @@ class RelatedProductsList extends React.Component {
             </div>
           ))
         }
-        {console.log('inside render of list compo-----', relatedProducts)}
+        {/* {console.log('inside render of list compo-----', relatedProducts)} */}
       </div>
     );
   }
