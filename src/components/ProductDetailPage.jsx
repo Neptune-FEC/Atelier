@@ -1,5 +1,6 @@
 import React from 'react';
 import Overview from './Overview/Overview';
+import RelatedItemsWidget from './RelatedItems/RelatedItemsWidget';
 
 const { averageRating } = require('../helpers/ProductHelper');
 
@@ -46,12 +47,20 @@ class ProductDetailPage extends React.Component {
     return (
       (Object.keys(product).length && Object.keys(reviewMeta).length && starRating && numReviews
         ? (
-          <Overview
-            product={product}
-            starRating={starRating}
-            numReviews={numReviews}
-            reviewMeta={reviewMeta}
-          />
+          <div>
+            <Overview
+              product={product}
+              starRating={starRating}
+              numReviews={numReviews}
+              reviewMeta={reviewMeta}
+            />
+            <RelatedItemsWidget
+              product={product}
+              starRating={starRating}
+              numReviews={numReviews}
+              reviewMeta={reviewMeta}
+            />
+          </div>
         )
         : <div> loading</div>
       )
