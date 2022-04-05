@@ -1,6 +1,7 @@
 import React from 'react';
 import Overview from './Overview/Overview';
 import RelatedItemsWidget from './RelatedItems/RelatedItemsWidget';
+import QandA from './QandA/QandA';
 
 const { averageRating } = require('../helpers/ProductHelper');
 
@@ -14,8 +15,8 @@ class ProductDetailPage extends React.Component {
     this.state = {
       product: {},
       reviewMeta: {},
-      numReviews: 0,
       starRating: 0,
+      numReviews: 0,
     };
     this.fetchData = this.fetchData.bind(this);
   }
@@ -60,6 +61,7 @@ class ProductDetailPage extends React.Component {
               numReviews={numReviews}
               reviewMeta={reviewMeta}
             />
+            <QandA product={product} />
           </div>
         )
         : <div> loading</div>

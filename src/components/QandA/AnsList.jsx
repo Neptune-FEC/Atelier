@@ -1,28 +1,27 @@
 import React from 'react';
 import Answer from './Answer';
 
-
 class AnsList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
   }
 
-
-
   render() {
-    // console.log('ansList: ', this.props.ansList)
-    // console.log('numQs in AnsList: ', this.props.numAns)
+    const { ansList, numAns } = this.props;
 
     return (
       <div>
-        <div>{this.props.ansList.slice(0, this.props.numAns).map((ans =>
-          <Answer
-            answer={ans}
-            key={ans.id}
-          />
-        ))
-        }</div>
+        <div>
+          {ansList.slice(0, numAns).map(((ans) => (
+            <Answer
+              answer={ans}
+              key={ans.id}
+            />
+          )
+          ))}
+
+        </div>
       </div>
     );
   }

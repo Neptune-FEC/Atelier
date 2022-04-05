@@ -1,6 +1,6 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 // import PhotoList from './PhotoList';
-
 
 class Photo extends React.Component {
   constructor(props) {
@@ -8,17 +8,13 @@ class Photo extends React.Component {
     this.state = {};
   }
 
-
-
   render() {
-    // var ans = this.props.answer
-    // console.log('answer: ', ans)
+    const { photo } = this.props;
 
     return (
-      <img class="thumbnail" src={this.props.photo} />
+      <img className="thumbnail" src={photo} alt="Customer submitted a discriptive visualization of the product" />
     );
   }
 }
 
 export default Photo;
-

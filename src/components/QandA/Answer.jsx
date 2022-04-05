@@ -1,6 +1,7 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
+import AnsFooter from './AnsFooter';
 import PhotoList from './PhotoList';
-
 
 class Answer extends React.Component {
   constructor(props) {
@@ -8,21 +9,21 @@ class Answer extends React.Component {
     this.state = {};
   }
 
-
-
   render() {
-    var ans = this.props.answer
-    // console.log('answer: ', ans)
+    const { answer } = this.props;
+    // console.log('answer: ', answer);
 
     return (
-      <div class="answer">
+      <div className="answer">
         <h4>A:</h4>
-        <p>{ans.body}</p>
-        <PhotoList photoList={ans.photos} />
+        <div>{answer.body}</div>
+        <br />
+        <AnsFooter answer={answer} />
+        <div />
+        <PhotoList photoList={answer.photos} />
       </div>
     );
   }
 }
 
 export default Answer;
-

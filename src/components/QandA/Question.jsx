@@ -1,29 +1,32 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
+import QuestionHeader from './QuestionHeader';
 import AnsList from './AnsList';
-
 
 class Question extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      listofAnswers: this.props.question.answers,
-      numAnsShowing: 2
+      // listofAnswers: this.props.question.answers,
+      numAnsShowing: 2,
     };
   }
 
-
-
   render() {
-    var ansList = Object.values(this.props.question.answers)
-    // console.log('array of answers in a Q: ', ansList)
+    const { numAnsShowing } = this.state;
+    // eslint-disable-next-line camelcase
+    const { question } = this.props;
+    const ansList = Object.values(question.answers);
 
     return (
-      <div class="question">
+      <div className="question">
         <h4>Q:</h4>
-        <p>{this.props.question.question_body}</p>
+        {/* eslint-disable-next-line camelcase */}
+        <p>{question.question_body}</p>
+        <QuestionHeader question={question} />
         <AnsList
           ansList={ansList}
-          numAns={this.state.numAnsShowing}
+          numAns={numAnsShowing}
         />
       </div>
     );
@@ -31,4 +34,3 @@ class Question extends React.Component {
 }
 
 export default Question;
-
