@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
 import moment from 'moment';
 import PhotoList from './PhotoList';
@@ -10,7 +9,8 @@ class AnsFooter extends React.Component {
     super(props);
     this.state = {
       helpfulness: 0,
-      isReported: false,
+      isAnsReported: false,
+      isAnsHelpful: false,
     };
 
     this.handleHelpfulAnswer = this.handleHelpfulAnswer.bind(this);
@@ -29,7 +29,10 @@ class AnsFooter extends React.Component {
       // console.log('response: ', response);
       const { helpfulness } = this.state;
       const newHelpfulness = helpfulness + 1;
-      this.setState({ helpfulness: newHelpfulness });
+      this.setState({
+        helpfulness: newHelpfulness,
+        isAnsHelpful: true,
+      });
     })
       .catch((err) => {
         console.warn('Error in retrieving questions.', err);
@@ -38,14 +41,15 @@ class AnsFooter extends React.Component {
 
   toggleReported(event) {
     event.preventDefault();
+    // TODO: make API call to report answer and store persistent data in db
     this.setState((oldState) => ({
-      isReported: !oldState.isReported,
+      isAnsReported: !oldState.isAnsReported,
     }));
   }
 
   render() {
     const { answer } = this.props;
-    const { helpfulness, isReported } = this.state;
+    const { helpfulness, isAnsReported, isAnsHelpful } = this.state;
     // console.log('answer: ', answer);
 
     return (
@@ -63,14 +67,18 @@ class AnsFooter extends React.Component {
         &nbsp;&nbsp;&nbsp;
         <span>
           Helpful?&nbsp;&nbsp;
-          <u
-            role="button"
-            tabIndex={0}
-            onClick={this.handleHelpfulAnswer}
-            onKeyUp={this.handleHelpfulAnswer}
-          >
-            Yes
-          </u>
+          {isAnsHelpful
+            ? <u>Yes</u>
+            : (
+              <u
+                role="button"
+                tabIndex={0}
+                onClick={this.handleHelpfulAnswer}
+                onKeyUp={this.handleHelpfulAnswer}
+              >
+                Yes
+              </u>
+            )}
           &nbsp;
           (
           {helpfulness}
@@ -80,14 +88,19 @@ class AnsFooter extends React.Component {
         |
         &nbsp;&nbsp;&nbsp;
         <span>
-          <u
-            role="button"
-            tabIndex={0}
-            onClick={this.toggleReported}
-            onKeyUp={this.toggleReported}
-          >
-            {isReported ? 'Reported' : 'Report'}
-          </u>
+          {isAnsReported
+            ? <u>Reported</u>
+            : (
+              <u
+                role="button"
+                tabIndex={0}
+                onClick={this.toggleReported}
+                onKeyUp={this.toggleReported}
+              >
+                Report
+              </u>
+            )}
+
         </span>
       </div>
     );

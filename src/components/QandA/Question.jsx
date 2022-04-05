@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
 import QuestionHeader from './QuestionHeader';
 import AnsList from './AnsList';

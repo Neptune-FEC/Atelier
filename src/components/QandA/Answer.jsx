@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
 import AnsFooter from './AnsFooter';
 import PhotoList from './PhotoList';

@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
 import QList from './QList';
 // import qListData from '../../data/serverData';
