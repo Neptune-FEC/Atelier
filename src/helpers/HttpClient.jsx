@@ -32,6 +32,8 @@ const getReviewMeta = (productId) => instance.get('reviews/meta', {
 
 const getStyles = (productId) => instance.get(`/products/${productId}/styles`);
 
+const getRelatedIds = (productId) => instance.get(`/products/${productId}/related`);
+
 // const postReview = (productId) => instance.post('reviews', {
 //   product_id: productId,
 //   summary: 'testing2',
@@ -101,6 +103,7 @@ module.exports = {
   getReviewMeta,
   getProduct,
   getStyles,
+<<<<<<< HEAD
   getQuestions,
   getAnswers,
   addQuestion,
@@ -109,4 +112,7 @@ module.exports = {
   reportQuestion,
   voteAnswer,
   reportAnswer,
+=======
+  getRelatedIds,
+>>>>>>> e9ca6320f018e3289960b8c83d1f1abb7bc184f7
 };
