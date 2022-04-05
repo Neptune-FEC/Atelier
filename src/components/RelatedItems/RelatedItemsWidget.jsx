@@ -8,7 +8,9 @@ const {
 class RelatedItemsWidget extends React.Component {
   constructor(props) {
     super(props);
+    const { product } = this.props;
     this.state = {
+      currentProduct: product,
       relatedProducts: [],
     };
   }
@@ -30,18 +32,22 @@ class RelatedItemsWidget extends React.Component {
       .catch((err) => { console.log('ERROR getRelatedIds--------', err); })
       .then(() => {
         this.setState({
+          currentProduct: product,
           relatedProducts,
         });
+        // console.log('inside .then ----', relatedProducts);
       });
   }
 
   render() {
-    const { relatedProducts } = this.state;
+    const { relatedProducts, currentProduct } = this.state;
+    // console.log('inside render', relatedProducts);
     return (
       <div>
-        Related Items & Comparison
+        <h2>Related Items & Comparison</h2>
         <div>
           <RelatedProductsList
+            currentProduct={currentProduct}
             relatedProducts={relatedProducts}
           />
         </div>
