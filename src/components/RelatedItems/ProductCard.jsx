@@ -9,8 +9,12 @@ class ProductCard extends React.Component {
   }
 
   render() {
+    // const { product } = this.props;
+
     return (
-      <div>Product card</div>
+      <div>
+        Product card
+      </div>
     );
   }
 }
