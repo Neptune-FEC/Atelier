@@ -5,32 +5,27 @@ class RelatedProductsList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      relatedProducts: [],
+
     };
   }
 
-  componentDidMount() {
-    const { relatedProducts } = this.props;
-
-    this.setState({
-      relatedProducts,
-    });
-    // console.log('inside compo did mount of list ----', relatedProducts);
-  }
-
   render() {
-    const { relatedProducts } = this.state;
+    const { relatedProducts, currentProduct } = this.props;
+
     return (
       <div className="relatedProductList">
         <h3>Product list</h3>
         {
-          relatedProducts.map((prod, index) => (
-            <div className="productCard">
-              <ProductCard product={prod} index={index} />
-            </div>
-          ))
+          relatedProducts.length
+            ? relatedProducts.map((product) => (
+              <ProductCard
+                product={product}
+                key={product.id}
+                currentProduct={currentProduct}
+              />
+            ))
+            : <div>loading</div>
         }
-        {/* {console.log('inside render of list compo-----', relatedProducts)} */}
       </div>
     );
   }
