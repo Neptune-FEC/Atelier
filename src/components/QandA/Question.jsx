@@ -3,18 +3,17 @@ import QuestionHeader from './QuestionHeader';
 import AnsList from './AnsList';
 
 const { getAnswers } = require('../../helpers/HttpClient');
+const { sortAnsHelper } = require('../../helpers/ProductHelper');
 
 class Question extends React.Component {
   constructor(props) {
     super(props);
 
-    // const { question } = this.props;
-    // const ansList = Object.values(question.answers);
-
     this.state = {
       listOfAnswers: [],
       numAnsShowing: 2,
     };
+
     this.callbackRenderAnsList = this.callbackRenderAnsList.bind(this);
     this.updateAnsStateHelper = this.updateAnsStateHelper.bind(this);
   }
@@ -23,7 +22,7 @@ class Question extends React.Component {
     this.updateAnsStateHelper();
   }
 
-  callbackRenderAnsList() {
+  callbackRenderAnsList() { // invoked from AnsFooter component
     this.updateAnsStateHelper();
   }
 
@@ -31,8 +30,7 @@ class Question extends React.Component {
     const { question } = this.props;
     getAnswers(question.question_id)
       .then((response) => {
-        const sortedAnsList = response.data.results;
-        sortedAnsList.sort((a, b) => b.helpfulness - a.helpfulness);
+        const sortedAnsList = sortAnsHelper(response.data.results);
         this.setState({
           listOfAnswers: sortedAnsList,
         });

@@ -33,7 +33,7 @@ class AnsFooter extends React.Component {
           isAnsHelpful: true,
         });
       })
-      .then(() => callbackRenderAnsList())
+      .then(() => callbackRenderAnsList()) // callsback to Question component
       .catch((err) => {
         console.warn('Error in retrieving answers.', err);
       });
