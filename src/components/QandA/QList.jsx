@@ -8,7 +8,9 @@ class QList extends React.Component {
   }
 
   render() {
-    const { qList, numQs, updateQsStateHelper } = this.props;
+    const {
+      qList, numQs, updateQsStateHelper, product,
+    } = this.props;
 
     return (
       <div>
@@ -18,6 +20,7 @@ class QList extends React.Component {
               question={q}
               updateQsStateHelper={updateQsStateHelper}
               key={q.question_id}
+              product={product}
             />
           )
           ))}

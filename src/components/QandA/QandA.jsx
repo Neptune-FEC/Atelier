@@ -43,7 +43,9 @@ class QandA extends React.Component {
 
   render() {
     const { listOfQuestions, numQsShowing } = this.state;
-    console.log('listOfQuestions: ', listOfQuestions);
+    // console.log('listOfQuestions: ', listOfQuestions);
+    const { product } = this.props;
+    // console.log('product, QnA: ', product);
 
     return (
       <div>
@@ -55,6 +57,7 @@ class QandA extends React.Component {
           qList={listOfQuestions}
           numQs={numQsShowing}
           updateQsStateHelper={this.updateQsStateHelper}
+          product={product}
         />
       </div>
     );

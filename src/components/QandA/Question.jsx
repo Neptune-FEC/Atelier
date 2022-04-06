@@ -12,19 +12,16 @@ class Question extends React.Component {
     this.state = {
       listOfAnswers: [],
       numAnsShowing: 2,
+      // showAnsModal: false,
     };
 
-    // this.callbackRenderAnsList = this.callbackRenderAnsList.bind(this);
     this.updateAnsStateHelper = this.updateAnsStateHelper.bind(this);
+    // this.toggleAnsModal = this.toggleAnsModal.bind(this);
   }
 
   componentDidMount() {
     this.updateAnsStateHelper();
   }
-
-  // callbackRenderAnsList() { // invoked from AnsFooter component
-  //   this.updateAnsStateHelper();
-  // }
 
   updateAnsStateHelper() { // is also a callback for AnsFooter component
     const { question } = this.props;
@@ -34,7 +31,7 @@ class Question extends React.Component {
         this.setState({
           listOfAnswers: sortedAnsList,
         });
-        console.log('sortedAnsList, Q: ', sortedAnsList);
+        // console.log('sortedAnsList, Q: ', sortedAnsList);
       })
       .catch((err) => {
         console.warn('Error in retrieving answers.', err);
@@ -43,10 +40,14 @@ class Question extends React.Component {
 
   // TODO: add More Answers button & update numAnsShowing state.
   // use modal window
+  // toggleAnsModal() {
+  //   const { showAnsModal } = this.state;
+  //   this.setState({ showAnsModal: !showAnsModal });
+  // }
 
   render() {
     const { listOfAnswers, numAnsShowing } = this.state;
-    const { question, updateQsStateHelper } = this.props;
+    const { question, updateQsStateHelper, product } = this.props;
     // console.log('this.props, Q: ', this.props);
 
     return (
@@ -57,6 +58,8 @@ class Question extends React.Component {
         <QuestionHeader
           question={question}
           updateQsStateHelper={updateQsStateHelper}
+          product={product}
+          // toggleAnsModal={toggleAnsModal}
         />
         <span>
           by
