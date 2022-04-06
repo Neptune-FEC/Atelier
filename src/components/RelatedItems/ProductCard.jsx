@@ -1,4 +1,5 @@
 import React from 'react';
+import ComparisonModal from './ComparisonModal';
 
 class ProductCard extends React.Component {
   constructor(props) {
@@ -9,11 +10,18 @@ class ProductCard extends React.Component {
   }
 
   render() {
-    // const { product } = this.props;
+    const { product, currentProduct } = this.props;
 
     return (
-      <div>
-        Product card
+      <div className="productCard">
+        {/* {console.log(product)} */}
+        <ComparisonModal
+          product={product}
+          currentProduct={currentProduct}
+        />
+        <p>{product.category}</p>
+        <h3>{product.name}</h3>
+        <span>{product.default_price}</span>
       </div>
     );
   }

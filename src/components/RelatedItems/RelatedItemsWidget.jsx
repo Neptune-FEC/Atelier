@@ -17,31 +17,22 @@ class RelatedItemsWidget extends React.Component {
 
   componentDidMount() {
     const { product } = this.props;
-    const relatedProducts = [];
 
     getRelatedIds(product.id)
       .then((idList) => {
-        idList.data.forEach((id) => {
-          getProduct(id)
-            .then((relatedProd) => {
-              relatedProducts.push(relatedProd.data);
-            })
-            .catch((err) => { console.log('ERROR getProduct~~~~~~~~~', err); });
-        });
-      })
-      .catch((err) => { console.log('ERROR getRelatedIds--------', err); })
-      .then(() => {
-        this.setState({
-          currentProduct: product,
-          relatedProducts,
-        });
-        // console.log('inside .then ----', relatedProducts);
+        const promises = idList.data.map((id) => getProduct(id).then((result) => result.data));
+        Promise.all(promises).then((result) => this.setRelatedProducts(result));
       });
+  }
+
+  setRelatedProducts(relatedProducts) {
+    this.setState({
+      relatedProducts,
+    });
   }
 
   render() {
     const { relatedProducts, currentProduct } = this.state;
-    // console.log('inside render', relatedProducts);
     return (
       <div>
         <h2>Related Items & Comparison</h2>
@@ -57,3 +48,17 @@ class RelatedItemsWidget extends React.Component {
 }
 
 export default RelatedItemsWidget;
+
+// .then((relatedProd) => {
+//   // prods.push(relatedProd.data);
+
+//   prods.push(1);
+//   this.setRelatedProducts(prods);
+// })
+// .catch((err) => { console.log('ERROR getProduct~~~~~~~~~', err); });
+// .catch((err) => { console.log('ERROR getRelatedIds--------', err); })
+// .then((result) => {
+//   // console.log(relatedProducts.length);
+//   console.log('END OF PROMISE CHAIN', result);
+//   this.setRelatedProducts(prods);
+// });
