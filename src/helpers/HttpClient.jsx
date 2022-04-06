@@ -16,6 +16,11 @@ const instance = axios.create({
 // GET request to get the list of all the products
 const getProducts = () => instance.get(
   'products',
+  {
+    params: {
+      count: 50,
+    },
+  },
 );
 
 // GET request to get the product based on product_id
@@ -44,6 +49,12 @@ const getRelatedIds = (productId) => instance.get(`/products/${productId}/relate
 //   photos: ['https://images.unsplash.com/photo-1519857609704-61…hcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80'],
 //   characteristics: { 14: 5, 15: 5 },
 // });
+const getCart = () => instance.get('cart');
+
+const postCart = (skuId, quantity) => instance.post('cart', {
+  sku_id: skuId,
+  count: quantity,
+});
 
 //----------------
 // ---------------QUESTIONS AND ANSWERS WIDGET
@@ -112,4 +123,6 @@ module.exports = {
   voteAnswer,
   reportAnswer,
   getRelatedIds,
+  postCart,
+  getCart,
 };

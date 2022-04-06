@@ -8,7 +8,6 @@ class StyleSelector extends React.Component {
 
   handleClick(style) {
     const { handleStyleSelect } = this.props;
-    console.log(style);
     handleStyleSelect(style);
   }
 

@@ -13,7 +13,6 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <h2>Hello Neptune!!!</h2>
         <ProductDetailPage />
       </div>
     );

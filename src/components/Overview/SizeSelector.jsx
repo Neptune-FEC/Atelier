@@ -10,6 +10,7 @@ function SizeSelector(props) {
   }
   return (
     <select onChange={handleChange}>
+      <option value="none" selected disabled hidden>Select an Option</option>
       {allSkuIds.map((skuId) => (
         <option key={skuId} value={skuId}>
           {skus[skuId].size}
