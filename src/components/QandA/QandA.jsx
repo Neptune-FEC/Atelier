@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
 import QList from './QList';
 // import qListData from '../../data/serverData';
@@ -9,12 +8,36 @@ class QandA extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      // product_id: qListData.product_id, // may not need this state...
       // listOfQuestions: qListData.results,
       // numQsShowing: qListData.results.length,
       listOfQuestions: [],
       numQsShowing: 2,
     };
+    this.callbackRenderQsList = this.callbackRenderQsList.bind(this);
+    this.updateQsStateHelper = this.updateQsStateHelper.bind(this);
+  }
+
+  componentDidMount() {
+    this.updateQsStateHelper();
+  }
+
+  callbackRenderQsList() {
+    this.updateQsStateHelper();
+  }
+
+  updateQsStateHelper() {
+    const { product } = this.props;
+    getQuestions(product.id)
+      .then((response) => {
+        const sortedQsList = response.data.results;
+        sortedQsList.sort((a, b) => b.question_helpfulness - a.question_helpfulness);
+        this.setState({
+          listOfQuestions: sortedQsList,
+        });
+      })
+      .catch((err) => {
+        console.warn('Error in retrieving questions.', err);
+      });
   }
 
   // numofQsToRender = (props) => {
@@ -22,19 +45,6 @@ class QandA extends React.Component {
   //     listOfQuestions: qListData.results.slice(0, 2)
   //   })
   // }
-
-  componentDidMount() {
-    const { product } = this.props;
-    getQuestions(product.id).then((response) => {
-      // console.log('response: ', response);
-      this.setState({
-        listOfQuestions: response.data.results,
-      });
-    })
-      .catch((err) => {
-        console.warn('Error in retrieving questions.', err);
-      });
-  }
 
   render() {
     const { listOfQuestions, numQsShowing } = this.state;
@@ -49,6 +59,7 @@ class QandA extends React.Component {
         <QList
           qList={listOfQuestions}
           numQs={numQsShowing}
+          callbackRenderQsList={this.callbackRenderQsList}
         />
       </div>
     );

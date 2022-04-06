@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
 import AnsFooter from './AnsFooter';
 import PhotoList from './PhotoList';
@@ -10,7 +9,7 @@ class Answer extends React.Component {
   }
 
   render() {
-    const { answer } = this.props;
+    const { answer, callbackRenderAnsList } = this.props;
     // console.log('answer: ', answer);
 
     return (
@@ -18,8 +17,12 @@ class Answer extends React.Component {
         <h4>A:</h4>
         <div>{answer.body}</div>
         <br />
-        <AnsFooter answer={answer} />
+        <AnsFooter
+          answer={answer}
+          callbackRenderAnsList={callbackRenderAnsList}
+        />
         <div />
+        <br />
         <PhotoList photoList={answer.photos} />
       </div>
     );

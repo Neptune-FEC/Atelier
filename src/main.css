@@ -9,7 +9,7 @@ body {
   width: 100px;
   height: 100px;
   object-fit: contain;
-  padding: 5px 0px;
+  padding: 5px 3px;
 }
 
 .question {
