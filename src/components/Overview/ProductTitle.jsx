@@ -4,8 +4,8 @@ function ProductTitle(props) {
   const { product } = props;
   return (
     <div>
-      <div>{product.name}</div>
-      <div>{product.category}</div>
+      <h3>{product.category}</h3>
+      <h2>{product.name}</h2>
     </div>
   );
 }

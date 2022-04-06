@@ -6,7 +6,7 @@ import QandA from './QandA/QandA';
 const { averageRating } = require('../helpers/ProductHelper');
 
 const {
-  getProduct, getReviewMeta,
+  getProduct, getReviewMeta, getProducts,
 } = require('../helpers/HttpClient');
 
 class ProductDetailPage extends React.Component {
@@ -22,7 +22,7 @@ class ProductDetailPage extends React.Component {
   }
 
   componentDidMount() {
-    this.fetchData(66742);
+    this.fetchData(66642);
   }
 
   fetchData(productId) {
@@ -46,26 +46,28 @@ class ProductDetailPage extends React.Component {
       product, starRating, reviewMeta, numReviews,
     } = this.state;
     return (
-      (Object.keys(product).length && Object.keys(reviewMeta).length && starRating && numReviews
-        ? (
-          <div>
-            <Overview
-              product={product}
-              starRating={starRating}
-              numReviews={numReviews}
-              reviewMeta={reviewMeta}
-            />
-            <RelatedItemsWidget
-              product={product}
-              starRating={starRating}
-              numReviews={numReviews}
-              reviewMeta={reviewMeta}
-            />
-            <QandA product={product} />
-          </div>
-        )
-        : <div> loading</div>
-      )
+      <div className="main">
+        <div className="header">Hello Neptune!!!</div>
+        {Object.keys(product).length && Object.keys(reviewMeta).length && starRating && numReviews
+          ? (
+            <div>
+              <Overview
+                product={product}
+                starRating={starRating}
+                numReviews={numReviews}
+                reviewMeta={reviewMeta}
+              />
+              <RelatedItemsWidget
+                product={product}
+                starRating={starRating}
+                numReviews={numReviews}
+                reviewMeta={reviewMeta}
+              />
+              <QandA product={product} />
+            </div>
+          )
+          : <div> loading</div>}
+      </div>
     );
   }
 }

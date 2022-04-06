@@ -1,12 +1,33 @@
+/* eslint-disable camelcase */
 import React from 'react';
 
 function ProductPrice(props) {
   const { selectedStyle } = props;
-  // eslint-disable-next-line camelcase
   const { original_price, sale_price } = selectedStyle;
   return (
-    // eslint-disable-next-line camelcase
-    (sale_price && <div>{sale_price}</div>) || <div>{original_price}</div>
+    <div className="overview-price">
+      {!sale_price
+        && (
+          <span className="price-current">
+            $
+            {Math.floor(original_price)}
+          </span>
+        )}
+
+      {sale_price
+        && (
+          <>
+            <span className="price-old">
+              $
+              {Math.floor(original_price)}
+            </span>
+            <span className="price-current">
+              $
+              {sale_price}
+            </span>
+          </>
+        )}
+    </div>
   );
 }
 

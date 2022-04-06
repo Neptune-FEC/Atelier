@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 function QuantitySelector(props) {
   const { skus, skuId, handleQuantitySelect } = props;
@@ -25,7 +25,7 @@ function QuantitySelector(props) {
   }
   return (
     // skuId ? <div>{skus[skuId]}</div> : <div>No size selected</div>
-    <div>None</div>
+    <div />
   );
 }
 
