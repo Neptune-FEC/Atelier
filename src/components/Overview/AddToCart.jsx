@@ -32,13 +32,14 @@ class AddToCart extends React.Component {
 
   handleSubmit(e) {
     const { skuId, selectedQuantity } = this.state;
-    getStyles(66742).then((beforeStyles) => {
-      getCart().then((response) => {
-        postCart(skuId, selectedQuantity).then((postResponse) => {
-          getCart().then((cartResponse) => {
-            getStyles(66742).then((afterStyles) => {
-            });
-          });
+    console.log('skuId', skuId);
+    console.log('selectedQuantity', selectedQuantity);
+    getCart().then((response) => {
+      console.log('cart before adding', response.data);
+      postCart(skuId, selectedQuantity).then((postResponse) => {
+        console.log('sucess', postResponse.data);
+        getCart().then((cartResponse) => {
+          console.log('cart after adding', cartResponse.data);
         });
       });
     });
