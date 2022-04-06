@@ -4,11 +4,14 @@ import Answer from './Answer';
 class AnsList extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      // answersList: [],
+    };
   }
 
   render() {
-    const { ansList, numAns } = this.props;
+    const { ansList, numAns, callbackRenderAnsList } = this.props;
+    // console.log('ansList from props in AnsList component: ', ansList);
 
     return (
       <div>
@@ -16,7 +19,8 @@ class AnsList extends React.Component {
           {ansList.slice(0, numAns).map(((ans) => (
             <Answer
               answer={ans}
-              key={ans.id}
+              key={ans.answer_id}
+              callbackRenderAnsList={callbackRenderAnsList}
             />
           )
           ))}

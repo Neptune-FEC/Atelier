@@ -7,6 +7,7 @@ class QuestionHeader extends React.Component {
     super(props);
     this.state = {
       helpfulness: 0,
+      isQHelpful: false,
     };
 
     this.handleHelpfulQuestion = this.handleHelpfulQuestion.bind(this);
@@ -17,21 +18,25 @@ class QuestionHeader extends React.Component {
     this.setState({ helpfulness: question.question_helpfulness });
   }
 
-  handleHelpfulQuestion(event) {
-    event.preventDefault();
-    const { question } = this.props;
-    voteQuestion(question.question_id).then(() => {
-      const { helpfulness } = this.state;
-      const newHelpfulness = helpfulness + 1;
-      this.setState({ helpfulness: newHelpfulness });
-    })
+  handleHelpfulQuestion() {
+    const { question, callbackRenderQsList } = this.props;
+    voteQuestion(question.question_id)
+      .then(() => {
+        const { helpfulness } = this.state;
+        const newHelpfulness = helpfulness + 1;
+        this.setState({
+          helpfulness: newHelpfulness,
+          isQHelpful: true,
+        });
+      })
+      .then(() => callbackRenderQsList())
       .catch((err) => {
-        console.warn('Error in submitting vote.', err);
+        console.warn('Error in submitting helpful question vote.', err);
       });
   }
 
   render() {
-    const { helpfulness } = this.state;
+    const { helpfulness, isQHelpful } = this.state;
     // console.log('this.props: ', this.props);
 
     return (
@@ -39,14 +44,18 @@ class QuestionHeader extends React.Component {
         <span>
           <span>
             Helpful?&nbsp;&nbsp;
-            <u
-              role="button"
-              tabIndex={0}
-              onClick={this.handleHelpfulQuestion}
-              onKeyUp={this.handleHelpfulQuestion}
-            >
-              Yes
-            </u>
+            {isQHelpful
+              ? <u>Yes</u>
+              : (
+                <u
+                  role="button"
+                  tabIndex={0}
+                  onClick={this.handleHelpfulQuestion}
+                  onKeyUp={this.handleHelpfulQuestion}
+                >
+                  Yes
+                </u>
+              )}
             &nbsp;
             (
             {helpfulness}

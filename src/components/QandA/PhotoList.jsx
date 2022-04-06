@@ -11,6 +11,7 @@ class PhotoList extends React.Component {
 
   render() {
     const { photoList } = this.props;
+    // console.log('photoList: ', photoList);
 
     return (
       <div>

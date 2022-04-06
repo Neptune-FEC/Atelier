@@ -1,8 +1,7 @@
 import React from 'react';
 import moment from 'moment';
-import PhotoList from './PhotoList';
 
-const { voteAnswer } = require('../../helpers/HttpClient');
+const { voteAnswer, reportAnswer } = require('../../helpers/HttpClient');
 
 class AnsFooter extends React.Component {
   constructor(props) {
@@ -14,7 +13,7 @@ class AnsFooter extends React.Component {
     };
 
     this.handleHelpfulAnswer = this.handleHelpfulAnswer.bind(this);
-    this.toggleReported = this.toggleReported.bind(this);
+    this.toggleReportedAnswer = this.toggleReportedAnswer.bind(this);
   }
 
   componentDidMount() {
@@ -22,29 +21,34 @@ class AnsFooter extends React.Component {
     this.setState({ helpfulness: answer.helpfulness });
   }
 
-  handleHelpfulAnswer(event) {
-    event.preventDefault();
-    const { answer } = this.props;
-    voteAnswer(answer.id).then(() => {
-      // console.log('response: ', response);
-      const { helpfulness } = this.state;
-      const newHelpfulness = helpfulness + 1;
-      this.setState({
-        helpfulness: newHelpfulness,
-        isAnsHelpful: true,
-      });
-    })
+  handleHelpfulAnswer() {
+    const { answer, callbackRenderAnsList } = this.props;
+    // console.log('answer in footer, after click: ', answer);
+    voteAnswer(answer.answer_id)
+      .then(() => {
+        const { helpfulness } = this.state;
+        const newHelpfulness = helpfulness + 1;
+        this.setState({
+          helpfulness: newHelpfulness,
+          isAnsHelpful: true,
+        });
+      })
+      .then(() => callbackRenderAnsList())
       .catch((err) => {
-        console.warn('Error in retrieving questions.', err);
+        console.warn('Error in retrieving answers.', err);
       });
   }
 
-  toggleReported(event) {
-    event.preventDefault();
-    // TODO: make API call to report answer and store persistent data in db
-    this.setState((oldState) => ({
-      isAnsReported: !oldState.isAnsReported,
-    }));
+  toggleReportedAnswer() {
+    const { answer } = this.props;
+    reportAnswer(answer.answer_id).then(() => {
+      this.setState((oldState) => ({
+        isAnsReported: !oldState.isAnsReported,
+      }));
+    })
+      .catch((err) => {
+        console.warn('Error in retrieving answers.', err);
+      });
   }
 
   render() {
@@ -94,8 +98,8 @@ class AnsFooter extends React.Component {
               <u
                 role="button"
                 tabIndex={0}
-                onClick={this.toggleReported}
-                onKeyUp={this.toggleReported}
+                onClick={this.toggleReportedAnswer}
+                onKeyUp={this.toggleReportedAnswer}
               >
                 Report
               </u>
