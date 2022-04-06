@@ -22,7 +22,7 @@ class AnsFooter extends React.Component {
   }
 
   handleHelpfulAnswer() {
-    const { answer, callbackRenderAnsList } = this.props;
+    const { answer, updateAnsStateHelper } = this.props;
     // console.log('answer in footer, after click: ', answer);
     voteAnswer(answer.answer_id)
       .then(() => {
@@ -33,7 +33,7 @@ class AnsFooter extends React.Component {
           isAnsHelpful: true,
         });
       })
-      .then(() => callbackRenderAnsList()) // callsback to Question component
+      .then(() => updateAnsStateHelper()) // callsback to Question component
       .catch((err) => {
         console.warn('Error in retrieving answers.', err);
       });
@@ -41,11 +41,11 @@ class AnsFooter extends React.Component {
 
   toggleReportedAnswer() {
     const { answer } = this.props;
-    reportAnswer(answer.answer_id).then(() => {
-      this.setState((oldState) => ({
-        isAnsReported: !oldState.isAnsReported,
-      }));
-    })
+    reportAnswer(answer.answer_id)
+      .then(() => {
+        const { isAnsReported } = this.state;
+        this.setState({ isAnsReported: !isAnsReported });
+      })
       .catch((err) => {
         console.warn('Error in retrieving answers.', err);
       });

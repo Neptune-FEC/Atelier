@@ -1,4 +1,6 @@
 import React from 'react';
+import AddAns from './AddAns';
+import AnsModal from './AnsModal';
 
 const { voteQuestion } = require('../../helpers/HttpClient');
 
@@ -19,7 +21,7 @@ class QuestionHeader extends React.Component {
   }
 
   handleHelpfulQuestion() {
-    const { question, callbackRenderQsList } = this.props;
+    const { question, updateQsStateHelper } = this.props;
     voteQuestion(question.question_id)
       .then(() => {
         const { helpfulness } = this.state;
@@ -29,15 +31,17 @@ class QuestionHeader extends React.Component {
           isQHelpful: true,
         });
       })
-      .then(() => callbackRenderQsList())
+      .then(() => updateQsStateHelper())
       .catch((err) => {
         console.warn('Error in submitting helpful question vote.', err);
       });
   }
 
   render() {
-    const { helpfulness, isQHelpful } = this.state;
+    const { helpfulness, isQHelpful, toggleAnsModal } = this.state;
     // console.log('this.props: ', this.props);
+    // eslint-disable-next-line camelcase
+    const { question: { question_body }, product } = this.props;
 
     return (
       <div>
@@ -65,14 +69,12 @@ class QuestionHeader extends React.Component {
           |
           &nbsp;&nbsp;&nbsp;
           <span>
-            <u
-              role="button"
-              tabIndex={0}
-              onClick={this.toggleReported}
-              onKeyUp={this.toggleReported}
-            >
-              Add Answer
-            </u>
+            <AddAns
+              // toggleAnsModal={toggleAnsModal}
+              // eslint-disable-next-line camelcase
+              question_body={question_body}
+              product={product}
+            />
           </span>
         </span>
       </div>

@@ -10,7 +10,7 @@ class AnsList extends React.Component {
   }
 
   render() {
-    const { ansList, numAns, callbackRenderAnsList } = this.props;
+    const { ansList, numAns, updateAnsStateHelper } = this.props;
     // console.log('ansList from props in AnsList component: ', ansList);
 
     return (
@@ -20,11 +20,10 @@ class AnsList extends React.Component {
             <Answer
               answer={ans}
               key={ans.answer_id}
-              callbackRenderAnsList={callbackRenderAnsList}
+              updateAnsStateHelper={updateAnsStateHelper}
             />
           )
           ))}
-
         </div>
       </div>
     );
