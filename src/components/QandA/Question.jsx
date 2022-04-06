@@ -14,7 +14,7 @@ class Question extends React.Component {
       numAnsShowing: 2,
     };
 
-    this.callbackRenderAnsList = this.callbackRenderAnsList.bind(this);
+    // this.callbackRenderAnsList = this.callbackRenderAnsList.bind(this);
     this.updateAnsStateHelper = this.updateAnsStateHelper.bind(this);
   }
 
@@ -22,11 +22,11 @@ class Question extends React.Component {
     this.updateAnsStateHelper();
   }
 
-  callbackRenderAnsList() { // invoked from AnsFooter component
-    this.updateAnsStateHelper();
-  }
+  // callbackRenderAnsList() { // invoked from AnsFooter component
+  //   this.updateAnsStateHelper();
+  // }
 
-  updateAnsStateHelper() {
+  updateAnsStateHelper() { // is also a callback for AnsFooter component
     const { question } = this.props;
     getAnswers(question.question_id)
       .then((response) => {
@@ -34,6 +34,7 @@ class Question extends React.Component {
         this.setState({
           listOfAnswers: sortedAnsList,
         });
+        console.log('sortedAnsList, Q: ', sortedAnsList);
       })
       .catch((err) => {
         console.warn('Error in retrieving answers.', err);
@@ -45,7 +46,7 @@ class Question extends React.Component {
 
   render() {
     const { listOfAnswers, numAnsShowing } = this.state;
-    const { question, callbackRenderQsList } = this.props;
+    const { question, updateQsStateHelper } = this.props;
     // console.log('this.props, Q: ', this.props);
 
     return (
@@ -55,7 +56,7 @@ class Question extends React.Component {
         <div>{question.question_body}</div>
         <QuestionHeader
           question={question}
-          callbackRenderQsList={callbackRenderQsList}
+          updateQsStateHelper={updateQsStateHelper}
         />
         <span>
           by
@@ -66,7 +67,7 @@ class Question extends React.Component {
         <AnsList
           ansList={listOfAnswers}
           numAns={numAnsShowing}
-          callbackRenderAnsList={this.callbackRenderAnsList}
+          updateAnsStateHelper={this.updateAnsStateHelper}
         />
       </div>
     );

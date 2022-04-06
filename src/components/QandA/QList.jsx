@@ -8,7 +8,7 @@ class QList extends React.Component {
   }
 
   render() {
-    const { qList, numQs, callbackRenderQsList } = this.props;
+    const { qList, numQs, updateQsStateHelper } = this.props;
 
     return (
       <div>
@@ -16,7 +16,7 @@ class QList extends React.Component {
           {qList.slice(0, numQs).map(((q) => (
             <Question
               question={q}
-              callbackRenderQsList={callbackRenderQsList}
+              updateQsStateHelper={updateQsStateHelper}
               key={q.question_id}
             />
           )

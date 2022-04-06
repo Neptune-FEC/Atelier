@@ -19,7 +19,7 @@ class QuestionHeader extends React.Component {
   }
 
   handleHelpfulQuestion() {
-    const { question, callbackRenderQsList } = this.props;
+    const { question, updateQsStateHelper } = this.props;
     voteQuestion(question.question_id)
       .then(() => {
         const { helpfulness } = this.state;
@@ -29,7 +29,7 @@ class QuestionHeader extends React.Component {
           isQHelpful: true,
         });
       })
-      .then(() => callbackRenderQsList())
+      .then(() => updateQsStateHelper())
       .catch((err) => {
         console.warn('Error in submitting helpful question vote.', err);
       });

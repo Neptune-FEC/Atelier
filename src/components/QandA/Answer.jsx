@@ -9,7 +9,7 @@ class Answer extends React.Component {
   }
 
   render() {
-    const { answer, callbackRenderAnsList } = this.props;
+    const { answer, updateAnsStateHelper } = this.props;
     // console.log('answer: ', answer);
 
     return (
@@ -19,7 +19,7 @@ class Answer extends React.Component {
         <br />
         <AnsFooter
           answer={answer}
-          callbackRenderAnsList={callbackRenderAnsList}
+          updateAnsStateHelper={updateAnsStateHelper}
         />
         <div />
         <br />
