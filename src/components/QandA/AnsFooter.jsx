@@ -41,11 +41,11 @@ class AnsFooter extends React.Component {
 
   toggleReportedAnswer() {
     const { answer } = this.props;
-    reportAnswer(answer.answer_id).then(() => {
-      this.setState((oldState) => ({
-        isAnsReported: !oldState.isAnsReported,
-      }));
-    })
+    reportAnswer(answer.answer_id)
+      .then(() => {
+        const { isAnsReported } = this.state;
+        this.setState({ isAnsReported: !isAnsReported });
+      })
       .catch((err) => {
         console.warn('Error in retrieving answers.', err);
       });

@@ -24,7 +24,6 @@ class AnsList extends React.Component {
             />
           )
           ))}
-
         </div>
       </div>
     );
