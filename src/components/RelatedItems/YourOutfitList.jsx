@@ -1,5 +1,5 @@
 import React from 'react';
-import ProductCard from './ProductCard';
+import ProductCardYO from './ProductCardYO';
 
 class YourOutfitList extends React.Component {
   constructor(props) {
@@ -14,7 +14,7 @@ class YourOutfitList extends React.Component {
       <div>
         Your Outfit List
         <div>
-          <ProductCard />
+          <ProductCardYO />
         </div>
       </div>
     );
