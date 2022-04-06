@@ -13,16 +13,20 @@ class ProductCard extends React.Component {
     const { product, currentProduct } = this.props;
 
     return (
-      <div className="productCard">
+      <li className="productCard">
         {/* {console.log(product)} */}
         <ComparisonModal
           product={product}
           currentProduct={currentProduct}
         />
-        <p>{product.category}</p>
-        <h3>{product.name}</h3>
-        <span>{product.default_price}</span>
-      </div>
+        <span className="productCardThumbnail">Thumbnail IMG</span>
+        <p className="productCardCategory">{product.category}</p>
+        <p className="productCardName"><b>{product.name}</b></p>
+        <span className="productCardDefaultPrice">
+          $
+          {product.default_price}
+        </span>
+      </li>
     );
   }
 }

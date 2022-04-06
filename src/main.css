@@ -22,3 +22,68 @@ body {
 .answer {
   border-top: 1px solid black;
 }
+
+
+/* -------------------------------- */
+/*   RELATED ITEMS WIDGET STYLING   */
+/* -------------------------------- */
+
+.productCardList {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  list-style-type: none;
+}
+
+.productCard {
+  padding-left: 15px;
+  padding-top: 10px;
+  margin: 20px;
+  border-color: black;
+  border-width: 1px;
+  border-style: groove;
+  position: relative;
+  max-width: 150px;
+  height: 200px;
+}
+
+.productCardThumbnail {
+  top: 20%;
+  position: relative;
+}
+
+.productCardCategory {
+  font-size: small;
+  top: 46%;
+  position: relative;
+}
+
+.productCardName {
+  top: 68%;
+  position: absolute;
+}
+
+.productCardDefaultPrice {
+  font-size: 14px;
+  top: 90%;
+  position: absolute;
+}
+
+.actionButtonCompModal {
+  top: 0%;
+  right: 0%;
+  position: absolute;
+}
+
+.comparisonModal {
+  display: grid;
+  /* position: relative; */
+  /* grid-template-columns: max-content; */
+  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.25);
+}
+
+.modalContent {
+  background-color: white;
+  position: absolute;
+  z-index: 1;
+}

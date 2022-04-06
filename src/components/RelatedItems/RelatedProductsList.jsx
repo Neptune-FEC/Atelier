@@ -13,19 +13,21 @@ class RelatedProductsList extends React.Component {
     const { relatedProducts, currentProduct } = this.props;
 
     return (
-      <div className="relatedProductList">
+      <div>
         <h3>Product list</h3>
-        {
-          relatedProducts.length
-            ? relatedProducts.map((product) => (
-              <ProductCard
-                product={product}
-                key={product.id}
-                currentProduct={currentProduct}
-              />
-            ))
-            : <div>loading</div>
-        }
+        <ul className="productCardList">
+          {
+            relatedProducts.length <= 4
+              ? relatedProducts.map((product) => (
+                <ProductCard
+                  product={product}
+                  key={product.id}
+                  currentProduct={currentProduct}
+                />
+              ))
+              : <div>loading</div>
+          }
+        </ul>
       </div>
     );
   }
