@@ -8,18 +8,23 @@ class AddAns extends React.Component {
       toggleAnsModal: false,
     };
     this.showAnsModal = this.showAnsModal.bind(this);
+    this.hideAnsModal = this.hideAnsModal.bind(this);
   }
 
   showAnsModal() {
-    const { toggleAnsModal } = this.state;
-    this.setState({ toggleAnsModal: !toggleAnsModal });
-    // toggleAnsModal();
+    this.setState({ toggleAnsModal: true });
+  }
+
+  hideAnsModal() {
+    this.setState({ toggleAnsModal: false });
   }
 
   render() {
     const { toggleAnsModal } = this.state;
     // eslint-disable-next-line camelcase
-    const { question_body, product } = this.props;
+    const { question_body, answers, product } = this.props;
+    const ansList = Object.values(answers);
+    // console.log('ansList, addAns: ', ansList);
 
     return (
       <span>
@@ -28,7 +33,9 @@ class AddAns extends React.Component {
             <AnsModal
               // eslint-disable-next-line camelcase
               question_body={question_body}
+              ansList={ansList}
               product={product}
+              hideAnsModal={this.hideAnsModal}
             />
           )
           : (

@@ -146,6 +146,12 @@ body {
   border-top: 1px solid black;
 }
 
+.modalAddAns {
+  border: 2px solid black;
+  background-color: #a1edff;
+  position: absolute;
+  z-index: 1;
+}
 
 /* -------------------------------- */
 /*   RELATED ITEMS WIDGET STYLING   */

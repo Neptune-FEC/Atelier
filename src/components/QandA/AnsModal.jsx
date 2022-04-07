@@ -12,6 +12,7 @@ class AnsModal extends React.Component {
     this.onChangeAnswer = this.onChangeAnswer.bind(this);
     this.onChangeNickName = this.onChangeNickName.bind(this);
     this.onChangeEmail = this.onChangeEmail.bind(this);
+    this.hideModal = this.hideModal.bind(this);
   }
 
   handleAddAnsSubmit(event) {
@@ -37,13 +38,23 @@ class AnsModal extends React.Component {
     this.setState({ email: event.taget.value });
   }
 
+  hideModal() {
+    const { hideAnsModal } = this.props;
+    hideAnsModal();
+  }
+
   render() {
     // eslint-disable-next-line camelcase
-    const { question_body, product } = this.props;
+    const { question_body, ansList, product } = this.props;
+    console.log('ansList, AnsModal: ', ansList);
 
     return (
-      <form onSubmit={this.handleAddAnsSubmit}>
+      <form
+        onSubmit={this.handleAddAnsSubmit}
+        className="modalAddAns"
+      >
         <h4>Submit your Answer</h4>
+        <br />
         <h5>
           {product.name}
           :
@@ -51,6 +62,7 @@ class AnsModal extends React.Component {
           {/* eslint-disable-next-line camelcase */}
           {question_body}
         </h5>
+        <br />
         <label htmlFor="a">
           Your Answer (mandatory)&nbsp;
           <input
@@ -83,9 +95,22 @@ class AnsModal extends React.Component {
           <div>For authentication reasons, you will not be emailed</div>
         </label>
         <br />
+        {/* {answers.length < 5
+          ? ( */}
+        <input
+          type="button"
+          value="Upload your photos"
+          onClick={this.handleAddPhotos}
+        />
+        {/* ) : null} */}
         <br />
-        {/* integrate UploadPhoto component here */}
         <input type="submit" value="Submit Answer" />
+        {' '}
+        <input
+          type="button"
+          value="Back"
+          onClick={this.hideModal}
+        />
       </form>
     );
   }

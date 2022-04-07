@@ -38,10 +38,10 @@ class QuestionHeader extends React.Component {
   }
 
   render() {
-    const { helpfulness, isQHelpful, toggleAnsModal } = this.state;
-    // console.log('this.props: ', this.props);
+    const { helpfulness, isQHelpful } = this.state;
+    // console.log('this.props, qHeader: ', this.props);
     // eslint-disable-next-line camelcase
-    const { question: { question_body }, product } = this.props;
+    const { question: { question_body, answers }, product } = this.props;
 
     return (
       <div>
@@ -73,6 +73,7 @@ class QuestionHeader extends React.Component {
               // toggleAnsModal={toggleAnsModal}
               // eslint-disable-next-line camelcase
               question_body={question_body}
+              answers={answers}
               product={product}
             />
           </span>

@@ -66,7 +66,7 @@ class ProductDetailPage extends React.Component {
         {Object.keys(product).length && Object.keys(reviewMeta).length && starRating && numReviews
           ? (
             <div>
-              {/* <Overview
+              <Overview
                 product={product}
                 starRating={starRating}
                 numReviews={numReviews}
@@ -82,7 +82,7 @@ class ProductDetailPage extends React.Component {
                 reviewMeta={reviewMeta}
                 styles={styles}
                 selectedStyle={selectedStyle}
-              /> */}
+              />
               <QandA product={product} />
             </div>
           )
