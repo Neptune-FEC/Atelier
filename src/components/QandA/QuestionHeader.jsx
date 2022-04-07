@@ -1,6 +1,5 @@
 import React from 'react';
 import AddAns from './AddAns';
-import AnsModal from './AnsModal';
 
 const { voteQuestion } = require('../../helpers/HttpClient');
 

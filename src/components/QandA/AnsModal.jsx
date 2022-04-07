@@ -13,7 +13,7 @@ class AnsModal extends React.Component {
     this.onChangeAnswer = this.onChangeAnswer.bind(this);
     this.onChangeNickName = this.onChangeNickName.bind(this);
     this.onChangeEmail = this.onChangeEmail.bind(this);
-    this.hideModal = this.hideModal.bind(this);
+    this.closeAnsModal = this.closeAnsModal.bind(this);
     this.showPhotoModal = this.showPhotoModal.bind(this);
     this.hidePhotoModal = this.hidePhotoModal.bind(this);
   }
@@ -49,9 +49,9 @@ class AnsModal extends React.Component {
     this.setState({ togglePhotoModal: false });
   }
 
-  hideModal() {
-    const { hideAnsModal } = this.props;
-    hideAnsModal();
+  closeAnsModal() {
+    const { toggleAnsModal } = this.props;
+    toggleAnsModal();
   }
 
   render() {
@@ -121,7 +121,7 @@ class AnsModal extends React.Component {
           <input
             type="button"
             value="Back"
-            onClick={this.hideModal}
+            onClick={this.closeAnsModal}
           />
         </form>
       </div>
