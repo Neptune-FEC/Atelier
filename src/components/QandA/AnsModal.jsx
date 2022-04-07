@@ -7,12 +7,15 @@ class AnsModal extends React.Component {
       answer: '',
       nickName: '',
       email: '',
+      togglePhotoModal: false,
     };
     this.handleAddAnsSubmit = this.handleAddAnsSubmit.bind(this);
     this.onChangeAnswer = this.onChangeAnswer.bind(this);
     this.onChangeNickName = this.onChangeNickName.bind(this);
     this.onChangeEmail = this.onChangeEmail.bind(this);
     this.hideModal = this.hideModal.bind(this);
+    this.showPhotoModal = this.showPhotoModal.bind(this);
+    this.hidePhotoModal = this.hidePhotoModal.bind(this);
   }
 
   handleAddAnsSubmit(event) {
@@ -38,6 +41,14 @@ class AnsModal extends React.Component {
     this.setState({ email: event.taget.value });
   }
 
+  showPhotoModal() {
+    this.setState({ togglePhotoModal: true });
+  }
+
+  hidePhotoModal() {
+    this.setState({ togglePhotoModal: false });
+  }
+
   hideModal() {
     const { hideAnsModal } = this.props;
     hideAnsModal();
@@ -49,69 +60,71 @@ class AnsModal extends React.Component {
     console.log('ansList, AnsModal: ', ansList);
 
     return (
-      <form
-        onSubmit={this.handleAddAnsSubmit}
-        className="modalAddAns"
-      >
-        <h4>Submit your Answer</h4>
-        <br />
-        <h5>
-          {product.name}
-          :
-          {' '}
-          {/* eslint-disable-next-line camelcase */}
-          {question_body}
-        </h5>
-        <br />
-        <label htmlFor="a">
-          Your Answer (mandatory)&nbsp;
-          <input
-            type="text"
-            maxLength="1000"
-            onChange={this.onChangeAnswer}
-          />
-        </label>
-        <br />
-        <br />
-        <label htmlFor="a">
-          What is your nickname (mandatory)&nbsp;
-          <input
-            type="text"
-            maxLength="60"
-            placeholder="Example: jack543!"
-            onChange={this.onChangeNickName}
-          />
-          <div>For authentication reasons, do not use your full name or email address</div>
-        </label>
-        <br />
-        <label htmlFor="a">
-          Your email (mandatory)&nbsp;
-          <input
-            type="text"
-            maxLength="60"
-            placeholder="Example: jack@email.com"
-            onChange={this.onChangeEmail}
-          />
-          <div>For authentication reasons, you will not be emailed</div>
-        </label>
-        <br />
-        {/* {answers.length < 5
+      <div className="backgroundAnsModal">
+        <form
+          onSubmit={this.handleAddAnsSubmit}
+          className="modalAddAns"
+        >
+          <h4>Submit your Answer</h4>
+          <br />
+          <h5>
+            {product.name}
+            :
+            {' '}
+            {/* eslint-disable-next-line camelcase */}
+            {question_body}
+          </h5>
+          <br />
+          <label htmlFor="a">
+            Your Answer (mandatory)&nbsp;
+            <input
+              type="text"
+              maxLength="1000"
+              onChange={this.onChangeAnswer}
+            />
+          </label>
+          <br />
+          <br />
+          <label htmlFor="a">
+            What is your nickname (mandatory)&nbsp;
+            <input
+              type="text"
+              maxLength="60"
+              placeholder="Example: jack543!"
+              onChange={this.onChangeNickName}
+            />
+            <div>For authentication reasons, do not use your full name or email address</div>
+          </label>
+          <br />
+          <label htmlFor="a">
+            Your email (mandatory)&nbsp;
+            <input
+              type="text"
+              maxLength="60"
+              placeholder="Example: jack@email.com"
+              onChange={this.onChangeEmail}
+            />
+            <div>For authentication reasons, you will not be emailed</div>
+          </label>
+          <br />
+          {/* {answers.length < 5
           ? ( */}
-        <input
-          type="button"
-          value="Upload your photos"
-          onClick={this.handleAddPhotos}
-        />
-        {/* ) : null} */}
-        <br />
-        <input type="submit" value="Submit Answer" />
-        {' '}
-        <input
-          type="button"
-          value="Back"
-          onClick={this.hideModal}
-        />
-      </form>
+          <input
+            type="button"
+            value="Upload your photos"
+            onClick={this.handleAddPhotos}
+          />
+          {/* ) : null} */}
+          <br />
+          <input type="submit" value="Submit Answer" />
+          {' '}
+          <input
+            type="button"
+            value="Back"
+            onClick={this.hideModal}
+          />
+        </form>
+      </div>
     );
   }
 }

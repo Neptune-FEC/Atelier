@@ -139,7 +139,7 @@ body {
   border: 2px solid black;
   border-radius: 5px;
   margin-top: 5px;
-  padding: 0px 10px;
+  padding: 10px 10px;
 }
 
 .answer {
@@ -151,6 +151,11 @@ body {
   background-color: #a1edff;
   position: absolute;
   z-index: 1;
+  top: 25%;
+  left: 30%;
+  padding: 10px 10px;
+  width: 50%;
+  /* height: 50%; */
 }
 
 /* -------------------------------- */
@@ -205,7 +210,7 @@ body {
   width: 15px;
 }
 
-.comparisonModal {
+.comparisonModal, .backgroundAnsModal {
   /* display: grid; */
   /* position: absolute; */
   /* grid-template-columns: max-content; */

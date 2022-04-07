@@ -70,7 +70,6 @@ class QuestionHeader extends React.Component {
           &nbsp;&nbsp;&nbsp;
           <span>
             <AddAns
-              // toggleAnsModal={toggleAnsModal}
               // eslint-disable-next-line camelcase
               question_body={question_body}
               answers={answers}
