@@ -6,7 +6,7 @@ import QandA from './QandA/QandA';
 const { averageRating } = require('../helpers/ProductHelper');
 
 const {
-  getProduct, getReviewMeta, getProducts,
+  getProduct, getReviewMeta, getStyles,
 } = require('../helpers/HttpClient');
 
 class ProductDetailPage extends React.Component {
@@ -15,20 +15,35 @@ class ProductDetailPage extends React.Component {
     this.state = {
       product: {},
       reviewMeta: {},
+      styles: {},
+      selectedStyle: {},
       starRating: 0,
       numReviews: 0,
     };
     this.fetchData = this.fetchData.bind(this);
+    this.handleStyleSelect = this.handleStyleSelect.bind(this);
   }
 
   componentDidMount() {
     this.fetchData(66642);
   }
 
+  handleStyleSelect(style) {
+    this.setState({
+      selectedStyle: style,
+    });
+  }
+
   fetchData(productId) {
     getProduct(productId).then((product) => {
       this.setState({
         product: product.data,
+      });
+    });
+    getStyles(productId).then((response) => {
+      this.setState({
+        styles: response.data,
+        selectedStyle: response.data.results[0],
       });
     });
     getReviewMeta(productId).then((reviewMeta) => {
@@ -43,7 +58,7 @@ class ProductDetailPage extends React.Component {
 
   render() {
     const {
-      product, starRating, reviewMeta, numReviews,
+      product, starRating, reviewMeta, numReviews, styles, selectedStyle,
     } = this.state;
     return (
       <div className="main">
@@ -56,12 +71,17 @@ class ProductDetailPage extends React.Component {
                 starRating={starRating}
                 numReviews={numReviews}
                 reviewMeta={reviewMeta}
+                styles={styles}
+                selectedStyle={selectedStyle}
+                handleStyleSelect={this.handleStyleSelect}
               />
               <RelatedItemsWidget
                 product={product}
                 starRating={starRating}
                 numReviews={numReviews}
                 reviewMeta={reviewMeta}
+                styles={styles}
+                selectedStyle={selectedStyle}
               />
               <QandA product={product} />
             </div>
