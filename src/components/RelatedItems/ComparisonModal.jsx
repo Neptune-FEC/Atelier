@@ -16,58 +16,114 @@ class ComparisonModal extends React.Component {
     });
   }
 
+  generateComparison(relatedProduct, currentProduct) {
+    const relatedProductArray = relatedProduct.features.map(({ feature, value }) => (
+      value
+        ? (
+          `${value.replace(/["]+/g, '')} ${feature}`
+        )
+        : (
+          feature
+        )
+    ));
+    const currentProductArray = currentProduct.features.map(({ feature, value }) => (
+      value
+        ? (
+          `${value.replace(/["]+/g, '')} ${feature}`
+        )
+        : (
+          feature
+        )
+    ));
+
+    const featuresWithDuplicates = relatedProductArray.concat(currentProductArray);
+    const features = [...new Set(featuresWithDuplicates)];
+    const relatedCheckmarks = [];
+    const currentCheckmarks = [];
+
+    features.forEach((feature, i) => {
+      if (relatedProductArray.includes(feature)) {
+        relatedCheckmarks.push('\u2713');
+      } else {
+        relatedCheckmarks.push('');
+      }
+      if (currentProductArray.includes(feature)) {
+        currentCheckmarks.push('\u2713');
+      } else {
+        currentCheckmarks.push('');
+      }
+    });
+
+    return {
+      features,
+      relatedCheckmarks,
+      currentCheckmarks,
+    };
+  }
+
   render() {
     const { product, currentProduct } = this.props;
     const { isVisible } = this.state;
+    const features = this.generateComparison(product, currentProduct);
+    console.log(features);
 
     return (
       isVisible
         ? (
           <div
             className="comparisonModal"
+            onClick={() => this.toggleModal()}
           >
             <div
               className="modalContent"
             >
-              comparison modal
               <button
                 type="button"
+                className="comparisonModalCloseButton"
                 onClick={() => this.toggleModal()}
               >
                 X
               </button>
-              {
-                product.features.map(({ feature, value }, i) => (
-                  value
-                    ? (
-                      <p key={i}>
-                        {value.replace(/["]+/g, '')}
-                      </p>
-                    )
-                    : (
-                      <p key={i}>
+              <div>
+                <span
+                  className="modalRelatedName"
+                >
+                  {product.name}
+                </span>
+                <span
+                  className="modalCurrentName"
+                >
+                  {currentProduct.name}
+                </span>
+              </div>
+              <div
+                className="modalFeatureList"
+              >
+                {
+                  features.features.map((feature, i) => (
+                    <div
+                      key={i}
+                      className="modalFeatureRow"
+                    >
+                      <span
+                        className="modalCurrentProductCheckmark"
+                      >
+                        {features.currentCheckmarks[i]}
+                      </span>
+                      <span
+                        className="modalComparisonFeature"
+                      >
                         {feature}
-                      </p>
-                    )
-
-                ))
-              }
-              {
-                currentProduct.features.map(({ feature, value }, i) => (
-                  value
-                    ? (
-                      <p key={i}>
-                        {value.replace(/["]+/g, '')}
-                      </p>
-                    )
-                    : (
-                      <p key={i}>
-                        {feature}
-                      </p>
-                    )
-
-                ))
-              }
+                      </span>
+                      <span
+                        className="modalRelatedProductCheckmark"
+                      >
+                        {features.relatedCheckmarks[i]}
+                      </span>
+                    </div>
+                  ))
+                }
+              </div>
             </div>
           </div>
         )
