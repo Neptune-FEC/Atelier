@@ -49,12 +49,16 @@ const getRelatedIds = (productId) => instance.get(`/products/${productId}/relate
 //   photos: ['https://images.unsplash.com/photo-1519857609704-61…hcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80'],
 //   characteristics: { 14: 5, 15: 5 },
 // });
+
 const getCart = () => instance.get('cart');
 
-const postCart = (skuId, quantity) => instance.post('cart', {
-  sku_id: skuId,
-  count: quantity,
-});
+const postCart = (skuId, quantity) => {
+  console.log('quantity', quantity);
+  return instance.post('cart', {
+    sku_id: skuId,
+    count: quantity,
+  });
+};
 
 //----------------
 // ---------------QUESTIONS AND ANSWERS WIDGET
