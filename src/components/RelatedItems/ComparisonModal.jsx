@@ -65,7 +65,6 @@ class ComparisonModal extends React.Component {
     const { product, currentProduct } = this.props;
     const { isVisible } = this.state;
     const features = this.generateComparison(product, currentProduct);
-    console.log(features);
 
     return (
       isVisible
