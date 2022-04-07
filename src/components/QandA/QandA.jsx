@@ -11,7 +11,7 @@ class QandA extends React.Component {
       // listOfQuestions: qListData.results,
       // numQsShowing: qListData.results.length,
       listOfQuestions: [],
-      numQsShowing: 2,
+      numQsShowing: 5,
     };
     this.updateQsStateHelper = this.updateQsStateHelper.bind(this);
   }
