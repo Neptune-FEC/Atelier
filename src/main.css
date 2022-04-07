@@ -158,6 +158,18 @@ body {
   /* height: 50%; */
 }
 
+.modalAddPhoto {
+  border: 2px solid black;
+  background-color: white;
+  position: absolute;
+  z-index: 1;
+  padding: 10px 10px;
+  top: 15%;
+  left: 5%;
+  width: 90%;
+  /* height: 50%; */
+}
+
 /* -------------------------------- */
 /*   RELATED ITEMS WIDGET STYLING   */
 /* -------------------------------- */
@@ -210,7 +222,7 @@ body {
   width: 15px;
 }
 
-.comparisonModal, .backgroundAnsModal {
+.comparisonModal, .backgroundAnsModal, backgroundPhotoModal {
   /* display: grid; */
   /* position: absolute; */
   /* grid-template-columns: max-content; */

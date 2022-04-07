@@ -1,4 +1,5 @@
 import React from 'react';
+import PhotoModal from './PhotoModal';
 
 class AnsModal extends React.Component {
   constructor(props) {
@@ -7,19 +8,20 @@ class AnsModal extends React.Component {
       answer: '',
       nickName: '',
       email: '',
-      togglePhotoModal: false,
+      photos: [],
+      isShowingPhotoModal: false,
     };
     this.handleAddAnsSubmit = this.handleAddAnsSubmit.bind(this);
     this.onChangeAnswer = this.onChangeAnswer.bind(this);
     this.onChangeNickName = this.onChangeNickName.bind(this);
     this.onChangeEmail = this.onChangeEmail.bind(this);
+    this.togglePhotoModal = this.togglePhotoModal.bind(this);
     this.closeAnsModal = this.closeAnsModal.bind(this);
-    this.showPhotoModal = this.showPhotoModal.bind(this);
-    this.hidePhotoModal = this.hidePhotoModal.bind(this);
   }
 
   handleAddAnsSubmit(event) {
     event.preventDefault();
+    // update to consider empty arr for photos and isShowingPhMod false
     const stateVals = Object.values(this.state);
     stateVals.forEach((value) => {
       if (value === '') {
@@ -41,12 +43,9 @@ class AnsModal extends React.Component {
     this.setState({ email: event.taget.value });
   }
 
-  showPhotoModal() {
-    this.setState({ togglePhotoModal: true });
-  }
-
-  hidePhotoModal() {
-    this.setState({ togglePhotoModal: false });
+  togglePhotoModal() {
+    const { isShowingPhotoModal } = this.state;
+    this.setState({ isShowingPhotoModal: !isShowingPhotoModal });
   }
 
   closeAnsModal() {
@@ -55,15 +54,17 @@ class AnsModal extends React.Component {
   }
 
   render() {
+    const { isShowingPhotoModal } = this.state;
     // eslint-disable-next-line camelcase
-    const { question_body, ansList, product } = this.props;
-    console.log('ansList, AnsModal: ', ansList);
+    const { question_body, product } = this.props;
+    // console.log('ansList, AnsModal: ', ansList);
 
     return (
       <div className="backgroundAnsModal">
         <form
-          onSubmit={this.handleAddAnsSubmit}
           className="modalAddAns"
+          id="addAnswer"
+          onSubmit={this.handleAddAnsSubmit}
         >
           <h4>Submit your Answer</h4>
           <br />
@@ -107,14 +108,18 @@ class AnsModal extends React.Component {
             <div>For authentication reasons, you will not be emailed</div>
           </label>
           <br />
-          {/* {answers.length < 5
-          ? ( */}
-          <input
-            type="button"
-            value="Upload your photos"
-            onClick={this.handleAddPhotos}
-          />
-          {/* ) : null} */}
+          {isShowingPhotoModal ? (
+            <PhotoModal
+              togglePhotoModal={this.togglePhotoModal}
+            />
+          )
+            : (
+              <input
+                type="button"
+                value="Upload your photos"
+                onClick={this.togglePhotoModal}
+              />
+            )}
           <br />
           <input type="submit" value="Submit Answer" />
           {' '}
