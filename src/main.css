@@ -227,6 +227,8 @@ body {
   top: 50%;
   left: 30%;
   padding-top: 10px;
+  /* border-width: 1px; */
+  border-style: groove;
 }
 
 .comparisonModalCloseButton {
@@ -259,11 +261,13 @@ body {
 .modalCurrentProductCheckmark {
   position: relative;
   right: 60%;
+  font-size: large;
 }
 
 .modalRelatedProductCheckmark {
   position: relative;
   left: 40%;
+  font-size: large;
 }
 
 .modalRelatedName {

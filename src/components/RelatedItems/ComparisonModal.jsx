@@ -76,23 +76,16 @@ class ComparisonModal extends React.Component {
             <div
               className="modalContent"
             >
-              <button
-                type="button"
-                className="comparisonModalCloseButton"
-                onClick={() => this.toggleModal()}
-              >
-                X
-              </button>
               <div>
                 <span
                   className="modalRelatedName"
                 >
-                  {product.name}
+                  <b>{product.name}</b>
                 </span>
                 <span
                   className="modalCurrentName"
                 >
-                  {currentProduct.name}
+                  <b>{currentProduct.name}</b>
                 </span>
               </div>
               <div
