@@ -30,25 +30,16 @@ class AddToCart extends React.Component {
     });
   }
 
-  // handleSubmit(selectedSize, selectedQuantity) {
-  //   console.log(selectedSize, selectedQuantity);
-  // }
-
   handleSubmit(e) {
     const { skuId, selectedQuantity } = this.state;
     console.log('skuId', skuId);
-    getStyles(66742).then((beforeStyles) => {
-      console.log('styles before post', beforeStyles.data.results[0].skus);
-      getCart().then((response) => {
-        console.log('getcart', response.data);
-        postCart(skuId, selectedQuantity).then((postResponse) => {
-          console.log('postcart', postResponse.data);
-          getCart().then((cartResponse) => {
-            console.log('getcart after post', cartResponse.data);
-            getStyles(66742).then((afterStyles) => {
-              console.log('styles after post', afterStyles.data.results[0].skus);
-            });
-          });
+    console.log('selectedQuantity', selectedQuantity);
+    getCart().then((response) => {
+      console.log('cart before adding', response.data);
+      postCart(skuId, selectedQuantity).then((postResponse) => {
+        console.log('sucess', postResponse.data);
+        getCart().then((cartResponse) => {
+          console.log('cart after adding', cartResponse.data);
         });
       });
     });
