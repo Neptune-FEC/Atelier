@@ -29,28 +29,37 @@ class AnsModal extends React.Component {
       answer, nickName, email, photos,
     } = this.state;
     if (answer === '' || nickName === '' || email === '') {
-      alert('Please fill out all form inputs.');
+      // eslint-disable-next-line no-alert
+      alert(
+        `You must enter the following:
+      This error will occur if:
+      1. Any mandatory fields are blank
+      2. The email address provided is not in correct email format
+      3. The images selected are invalid of unable to be uploaded.`,
+      );
     } else {
-      console.log('questionId, answer, nickName, email, photos: ', [questionId, answer, nickName, email, photos]);
-      addAnswer(questionId, answer, nickName, email, photos);
+      addAnswer(questionId, answer, nickName, email, photos)
+        .then(() => this.closeAnsModal())
+        .catch((err) => {
+          // eslint-disable-next-line no-console
+          console.warn('Error in submitting answer.', err);
+        });
     }
-
-    // envoke callback from ProductDetailPage level with API call to submit new answer
   }
 
   onChangeAnswer(event) {
-    this.setState({ answer: event.taget.value });
+    this.setState({ answer: event.target.value });
   }
 
   onChangeNickName(event) {
-    this.setState({ nickName: event.taget.value });
+    this.setState({ nickName: event.target.value });
   }
 
   onChangeEmail(event) {
-    this.setState({ email: event.taget.value });
+    this.setState({ email: event.target.value });
   }
 
-  attachPhotos(images) {
+  attachPhotos(images) { // callback from PhotoModal
     this.setState({ photos: images });
   }
 
@@ -91,6 +100,7 @@ class AnsModal extends React.Component {
           <label htmlFor="a">
             Your Answer (mandatory)&nbsp;
             <input
+              required
               type="text"
               maxLength="1000"
               value={answer}
@@ -102,6 +112,7 @@ class AnsModal extends React.Component {
           <label htmlFor="a">
             What is your nickname (mandatory)&nbsp;
             <input
+              required
               type="text"
               maxLength="60"
               placeholder="Example: jack543!"
@@ -114,7 +125,9 @@ class AnsModal extends React.Component {
           <label htmlFor="a">
             Your email (mandatory)&nbsp;
             <input
-              type="text"
+              required
+              type="email"
+              size="30"
               maxLength="60"
               placeholder="Example: jack@email.com"
               value={email}

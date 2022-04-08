@@ -5,32 +5,31 @@ class PhotoModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      // thumbnailPrev: [],
       images: [],
     };
     this.handleSubmitPhotos = this.handleSubmitPhotos.bind(this);
-    this.updatePhotoState = this.updatePhotoState.bind(this);
-    this.closePhotoModal = this.closePhotoModal.bind(this);
+    this.updateImagesState = this.updateImagesState.bind(this);
+    this.closePhotoPopup = this.closePhotoPopup.bind(this);
   }
 
   handleSubmitPhotos(event) {
     event.preventDefault();
-    this.updatePhotoState(event); // invokes helper func to update local state in prep to bundle
-    //  photos with new answer to add at parent component level
     const { images } = this.state;
     const { attachPhotos } = this.props;
     if (images.length < 6) {
-      // attach all photos to ans package, then subimt API call
+      // callback to AnsModal: attach all photos to the ans state package
       attachPhotos(images);
-      this.closePhotoModal();
+      this.closePhotoPopup();
     } else {
       alert('Only submitting first 5 images.');
-      const photoArr = attachPhotos(images.slice(0, 5));
+      const photoArr = images.slice(0, 5);
       attachPhotos(photoArr);
-      this.closeProtoModal();
+      this.closePhotoPopup();
     }
   }
 
-  updatePhotoState(event) {
+  updateImagesState(event) {
     const { images } = this.state;
     const storePrev = images.slice();
     storePrev.push(URL.createObjectURL(event.target.files[0]));
@@ -39,13 +38,14 @@ class PhotoModal extends React.Component {
     });
   }
 
-  closePhotoModal() {
+  closePhotoPopup() {
     const { closePhotoModal } = this.props;
     closePhotoModal();
   }
 
   render() {
     const { images } = this.state;
+
     // console.log('images.length: ', images.length);
 
     return (
@@ -56,14 +56,14 @@ class PhotoModal extends React.Component {
           <p>Submit up to 5 photos with your answer.</p>
           <p>Note: If you uploaded more than 5 images, only the first 5 will be submitted.</p>
           <br />
-          <input type="file" onChange={this.updatePhotoState} form="AddAnswer" />
+          <input type="file" onChange={this.updateImagesState} form="AddAnswer" />
           <br />
           <div>Thumbnail preview</div>
           <br />
           {images.length ? images.map((image) => (
             <img
               src={image}
-              alt="user is uploading a visual"
+              alt="user uploaded a visual"
               className="thumbnail"
               key={uuidv4()}
             />
@@ -79,7 +79,7 @@ class PhotoModal extends React.Component {
           <input
             type="button"
             value="Back"
-            onClick={this.closePhotoModal}
+            onClick={this.closePhotoPopup}
           />
         </div>
       </div>

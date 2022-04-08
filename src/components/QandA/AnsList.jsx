@@ -4,9 +4,7 @@ import Answer from './Answer';
 class AnsList extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      // answersList: [],
-    };
+    this.state = {};
   }
 
   render() {

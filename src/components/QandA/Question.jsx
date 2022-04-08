@@ -12,11 +12,9 @@ class Question extends React.Component {
     this.state = {
       listOfAnswers: [],
       numAnsShowing: 2,
-      // showAnsModal: false,
     };
 
     this.updateAnsStateHelper = this.updateAnsStateHelper.bind(this);
-    // this.toggleAnsModal = this.toggleAnsModal.bind(this);
   }
 
   componentDidMount() {
@@ -31,7 +29,6 @@ class Question extends React.Component {
         this.setState({
           listOfAnswers: sortedAnsList,
         });
-        // console.log('sortedAnsList, Q: ', sortedAnsList);
       })
       .catch((err) => {
         console.warn('Error in retrieving answers.', err);
@@ -40,10 +37,6 @@ class Question extends React.Component {
 
   // TODO: add More Answers button & update numAnsShowing state.
   // use modal window
-  // toggleAnsModal() {
-  //   const { showAnsModal } = this.state;
-  //   this.setState({ showAnsModal: !showAnsModal });
-  // }
 
   render() {
     const { listOfAnswers, numAnsShowing } = this.state;
