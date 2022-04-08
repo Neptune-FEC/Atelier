@@ -18,7 +18,9 @@ class AddAns extends React.Component {
   render() {
     const { isShowingAnsModal } = this.state;
     // eslint-disable-next-line camelcase
-    const { question_body, answers, product } = this.props;
+    const {
+      questionId, questionBody, answers, product,
+    } = this.props;
     const ansList = Object.values(answers);
     // console.log('ansList, addAns: ', ansList);
 
@@ -28,7 +30,8 @@ class AddAns extends React.Component {
           ? (
             <AnsModal
               // eslint-disable-next-line camelcase
-              question_body={question_body}
+              questionBody={questionBody}
+              questionId={questionId}
               ansList={ansList}
               product={product}
               toggleAnsModal={this.toggleAnsModal}

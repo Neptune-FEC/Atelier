@@ -40,7 +40,8 @@ class QuestionHeader extends React.Component {
     const { helpfulness, isQHelpful } = this.state;
     // console.log('this.props, qHeader: ', this.props);
     // eslint-disable-next-line camelcase
-    const { question: { question_body, answers }, product } = this.props;
+    const { question: { question_id, question_body, answers }, product } = this.props;
+    // console.log('this.props.question, qHeader: ', this.props.question);
 
     return (
       <div>
@@ -70,7 +71,9 @@ class QuestionHeader extends React.Component {
           <span>
             <AddAns
               // eslint-disable-next-line camelcase
-              question_body={question_body}
+              questionId={question_id}
+              // eslint-disable-next-line camelcase
+              questionBody={question_body}
               answers={answers}
               product={product}
             />

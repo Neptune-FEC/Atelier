@@ -1,6 +1,8 @@
 import React from 'react';
 import PhotoModal from './PhotoModal';
 
+const { addAnswer } = require('../../helpers/HttpClient');
+
 class AnsModal extends React.Component {
   constructor(props) {
     super(props);
@@ -15,19 +17,24 @@ class AnsModal extends React.Component {
     this.onChangeAnswer = this.onChangeAnswer.bind(this);
     this.onChangeNickName = this.onChangeNickName.bind(this);
     this.onChangeEmail = this.onChangeEmail.bind(this);
-    this.togglePhotoModal = this.togglePhotoModal.bind(this);
+    this.attachPhotos = this.attachPhotos.bind(this);
+    this.closePhotoModal = this.closePhotoModal.bind(this);
     this.closeAnsModal = this.closeAnsModal.bind(this);
   }
 
   handleAddAnsSubmit(event) {
     event.preventDefault();
-    // update to consider empty arr for photos and isShowingPhMod false
-    const stateVals = Object.values(this.state);
-    stateVals.forEach((value) => {
-      if (value === '') {
-        alert('Update proper input format. See BRD.');
-      }
-    });
+    const { questionId } = this.props;
+    const {
+      answer, nickName, email, photos,
+    } = this.state;
+    if (answer === '' || nickName === '' || email === '') {
+      alert('Please fill out all form inputs.');
+    } else {
+      console.log('questionId, answer, nickName, email, photos: ', [questionId, answer, nickName, email, photos]);
+      addAnswer(questionId, answer, nickName, email, photos);
+    }
+
     // envoke callback from ProductDetailPage level with API call to submit new answer
   }
 
@@ -43,7 +50,11 @@ class AnsModal extends React.Component {
     this.setState({ email: event.taget.value });
   }
 
-  togglePhotoModal() {
+  attachPhotos(images) {
+    this.setState({ photos: images });
+  }
+
+  closePhotoModal() {
     const { isShowingPhotoModal } = this.state;
     this.setState({ isShowingPhotoModal: !isShowingPhotoModal });
   }
@@ -54,9 +65,10 @@ class AnsModal extends React.Component {
   }
 
   render() {
-    const { isShowingPhotoModal } = this.state;
-    // eslint-disable-next-line camelcase
-    const { question_body, product } = this.props;
+    const {
+      answer, nickName, email, isShowingPhotoModal,
+    } = this.state;
+    const { questionBody, product } = this.props;
     // console.log('ansList, AnsModal: ', ansList);
 
     return (
@@ -73,7 +85,7 @@ class AnsModal extends React.Component {
             :
             {' '}
             {/* eslint-disable-next-line camelcase */}
-            {question_body}
+            {questionBody}
           </h5>
           <br />
           <label htmlFor="a">
@@ -81,6 +93,7 @@ class AnsModal extends React.Component {
             <input
               type="text"
               maxLength="1000"
+              value={answer}
               onChange={this.onChangeAnswer}
             />
           </label>
@@ -92,6 +105,7 @@ class AnsModal extends React.Component {
               type="text"
               maxLength="60"
               placeholder="Example: jack543!"
+              value={nickName}
               onChange={this.onChangeNickName}
             />
             <div>For authentication reasons, do not use your full name or email address</div>
@@ -103,6 +117,7 @@ class AnsModal extends React.Component {
               type="text"
               maxLength="60"
               placeholder="Example: jack@email.com"
+              value={email}
               onChange={this.onChangeEmail}
             />
             <div>For authentication reasons, you will not be emailed</div>
@@ -110,14 +125,15 @@ class AnsModal extends React.Component {
           <br />
           {isShowingPhotoModal ? (
             <PhotoModal
-              togglePhotoModal={this.togglePhotoModal}
+              closePhotoModal={this.closePhotoModal}
+              attachPhotos={this.attachPhotos}
             />
           )
             : (
               <input
                 type="button"
                 value="Upload your photos"
-                onClick={this.togglePhotoModal}
+                onClick={this.closePhotoModal}
               />
             )}
           <br />
