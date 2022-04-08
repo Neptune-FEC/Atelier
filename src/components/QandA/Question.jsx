@@ -12,13 +12,24 @@ class Question extends React.Component {
     this.state = {
       listOfAnswers: [],
       numAnsShowing: 2,
+      showingMoreAnswers: false,
     };
 
     this.updateAnsStateHelper = this.updateAnsStateHelper.bind(this);
+    this.handleShowMoreAns = this.handleShowMoreAns.bind(this);
   }
 
   componentDidMount() {
     this.updateAnsStateHelper();
+  }
+
+  // TODO: add More Answers button & update numAnsShowing state.
+  // use modal window
+  handleShowMoreAns() {
+    const { showingMoreAnswers } = this.state;
+    this.setState({
+      showingMoreAnswers: !showingMoreAnswers,
+    });
   }
 
   updateAnsStateHelper() { // is also a callback for AnsFooter component
@@ -35,11 +46,8 @@ class Question extends React.Component {
       });
   }
 
-  // TODO: add More Answers button & update numAnsShowing state.
-  // use modal window
-
   render() {
-    const { listOfAnswers, numAnsShowing } = this.state;
+    const { listOfAnswers, numAnsShowing, showingMoreAnswers } = this.state;
     const { question, updateQsStateHelper, product } = this.props;
     // console.log('this.props, Q: ', this.props);
 
@@ -52,7 +60,7 @@ class Question extends React.Component {
           question={question}
           updateQsStateHelper={updateQsStateHelper}
           product={product}
-          // toggleAnsModal={toggleAnsModal}
+        // toggleAnsModal={toggleAnsModal}
         />
         <span>
           by
@@ -65,7 +73,33 @@ class Question extends React.Component {
           ansList={listOfAnswers}
           numAns={numAnsShowing}
           updateAnsStateHelper={this.updateAnsStateHelper}
+          showingMoreAnswers={showingMoreAnswers}
         />
+        {listOfAnswers.length > 2 && !showingMoreAnswers ? (
+          <div>
+            <b
+              className="moreAns"
+              role="button"
+              tabIndex={0}
+              onClick={this.handleShowMoreAns}
+              onKeyUp={this.handleShowMoreAns}
+            >
+              See More Answers
+            </b>
+          </div>
+        ) : (
+          <div>
+            <b
+              className="moreAns"
+              role="button"
+              tabIndex={0}
+              onClick={this.handleShowMoreAns}
+              onKeyUp={this.handleShowMoreAns}
+            >
+              Collapse Answers
+            </b>
+          </div>
+        )}
       </div>
     );
   }
