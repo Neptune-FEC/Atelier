@@ -85,7 +85,7 @@ class ProductCard extends React.Component {
   }
 
   render() {
-    const { relatedProduct, currentProduct } = this.props;
+    const { relatedProduct, currentProduct, fetchData } = this.props;
     const { thumbnail } = this.state;
     const thumbnailNoImage = 'https://acttochange.org/wp-content/plugins/ninja-forms/assets/img/no-image-available-icon-6.jpg';
 
@@ -100,8 +100,15 @@ class ProductCard extends React.Component {
           alt="Thumbnail for product"
           src={thumbnail || thumbnailNoImage}
         />
-        <p className="productCardCategory">{relatedProduct.category.toUpperCase()}</p>
-        <p className="productCardName"><b>{relatedProduct.name}</b></p>
+        <p className="productCardCategory">
+          {relatedProduct.category.toUpperCase()}
+        </p>
+        <p
+          className="productCardName"
+          onClick={() => fetchData(relatedProduct.id)}
+        >
+          <b>{relatedProduct.name}</b>
+        </p>
         <span>
           {this.displayPrice()}
         </span>

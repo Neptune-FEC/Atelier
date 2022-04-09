@@ -21,7 +21,29 @@ class RelatedItemsWidget extends React.Component {
   }
 
   componentDidMount() {
+    this.updateRelatedList();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    this.updateRelatedList(prevState.currentProduct.id);
+  }
+
+  setRelatedProducts(relatedProducts) {
     const { product } = this.props;
+
+    this.setState({
+      currentProduct: product,
+      relatedProducts,
+      productsToDisplay: relatedProducts.slice(0, 4),
+    });
+  }
+
+  updateRelatedList(prevState) {
+    const { product } = this.props;
+
+    if (prevState === product.id) {
+      return;
+    }
 
     getRelatedIds(product.id)
       .then((idList) => {
@@ -30,17 +52,9 @@ class RelatedItemsWidget extends React.Component {
       });
   }
 
-  setRelatedProducts(relatedProducts) {
-    this.setState({
-      relatedProducts,
-      productsToDisplay: relatedProducts.slice(0, 4),
-
-    });
-  }
-
   cycleRight() {
     let { index } = this.state;
-    const { productsToDisplay, relatedProducts } = this.state;
+    const { relatedProducts } = this.state;
     index += 1;
 
     this.setState({
@@ -51,7 +65,7 @@ class RelatedItemsWidget extends React.Component {
 
   cycleLeft() {
     let { index } = this.state;
-    const { productsToDisplay, relatedProducts } = this.state;
+    const { relatedProducts } = this.state;
     index -= 1;
 
     this.setState({
@@ -64,12 +78,11 @@ class RelatedItemsWidget extends React.Component {
     const {
       relatedProducts, productsToDisplay, currentProduct, index,
     } = this.state;
+    const { fetchData } = this.props;
 
     const displayRightArrow = !(relatedProducts.length - index === 4);
     const displayLeftArrow = (index > 0);
-    // const displayLeftArrow = true;
 
-    console.log(displayLeftArrow);
     return (
       <div>
         <h2>Related Items & Comparison</h2>
@@ -81,6 +94,7 @@ class RelatedItemsWidget extends React.Component {
             displayLeftArrow={displayLeftArrow}
             cycleRight={this.cycleRight}
             cycleLeft={this.cycleLeft}
+            fetchData={fetchData}
           />
         </div>
       </div>

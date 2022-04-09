@@ -11,7 +11,8 @@ class RelatedProductsList extends React.Component {
 
   render() {
     const {
-      displayLeftArrow, relatedProducts, currentProduct, displayRightArrow, cycleRight, cycleLeft,
+      displayLeftArrow, relatedProducts, currentProduct, displayRightArrow,
+      cycleRight, cycleLeft, fetchData,
     } = this.props;
 
     return (
@@ -33,6 +34,7 @@ class RelatedProductsList extends React.Component {
                   relatedProduct={product}
                   key={product.id}
                   currentProduct={currentProduct}
+                  fetchData={fetchData}
                 />
               ))
               : <div>loading</div>

@@ -4,10 +4,11 @@ import RelatedItemsWidget from './RelatedItems/RelatedItemsWidget';
 import QandA from './QandA/QandA';
 
 const { averageRating } = require('../helpers/ProductHelper');
-
 const {
   getProduct, getReviewMeta, getStyles,
 } = require('../helpers/HttpClient');
+
+const testId = 66642;
 
 class ProductDetailPage extends React.Component {
   constructor(props) {
@@ -25,7 +26,7 @@ class ProductDetailPage extends React.Component {
   }
 
   componentDidMount() {
-    this.fetchData(66642);
+    this.fetchData(testId);
   }
 
   handleStyleSelect(style) {
@@ -82,6 +83,7 @@ class ProductDetailPage extends React.Component {
                 reviewMeta={reviewMeta}
                 styles={styles}
                 selectedStyle={selectedStyle}
+                fetchData={this.fetchData}
               />
               <QandA product={product} />
             </div>
