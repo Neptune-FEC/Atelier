@@ -11,7 +11,7 @@ class AddToCart extends React.Component {
     this.state = {
       skus,
       skuId: '',
-      selectedQuantity: '',
+      selectedQuantity: '-',
     };
     this.handleSizeSelect = this.handleSizeSelect.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -32,33 +32,35 @@ class AddToCart extends React.Component {
 
   handleSubmit(e) {
     const { skuId, selectedQuantity } = this.state;
-    console.log('skuId', skuId);
-    console.log('selectedQuantity', selectedQuantity);
-    getCart().then((response) => {
-      console.log('cart before adding', response.data);
-      postCart(skuId, selectedQuantity).then((postResponse) => {
-        console.log('sucess', postResponse.data);
-        getCart().then((cartResponse) => {
-          console.log('cart after adding', cartResponse.data);
-        });
-      });
-    });
+    postCart(skuId, selectedQuantity);
     e.preventDefault();
   }
 
   render() {
-    const { skus, skuId } = this.state;
+    const { skus, skuId, selectedQuantity } = this.state;
     return (
-      <form onSubmit={this.handleSubmit}>
-        Pick your Size and Quantity:
-        <SizeSelector skus={skus} handleSizeSelect={this.handleSizeSelect} />
-        <QuantitySelector
-          skuId={skuId}
-          skus={skus}
-          handleQuantitySelect={this.handleQuantitySelect}
-        />
-        <input type="submit" value="Add to cart" />
-      </form>
+      <>
+        <div className="split">
+          <SizeSelector
+            skus={skus}
+            handleSizeSelect={this.handleSizeSelect}
+            handleQuantitySelect={this.handleQuantitySelect}
+          />
+          <QuantitySelector
+            skuId={skuId}
+            skus={skus}
+            handleQuantitySelect={this.handleQuantitySelect}
+            selectedQuantity={selectedQuantity}
+          />
+        </div>
+        <div className="overview-add-to-cart">
+          <div className="add-to-cart-container">
+            <div role="presentation" onClick={() => { }} className="add-to-cart">Add To Cart</div>
+            <i className="fa fa-plus add-icon" />
+          </div>
+          <div className="heart-icon"><i className="fa fa-heart-o heart-icon" /></div>
+        </div>
+      </>
     );
   }
 }
