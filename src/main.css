@@ -153,81 +153,142 @@ body {
 
 .productCardList {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(6, 1fr);
   list-style-type: none;
 }
 
+.comparisonScrollArrowRight {
+  padding-left: 10px;
+  font-size: 3em;
+  width: 0%;
+  height: 0%;
+  top: 35%;
+  left: 5%;
+  position: relative;
+}
+
+.comparisonScrollArrowLeft {
+  padding-right: 10px;
+  font-size: 3em;
+  width: 0%;
+  height: 0%;
+  top: 35%;
+  left: 70%;
+  position: relative;
+}
+
+.comparisonScrollArrowRight:hover {
+  font-style: italic;
+  cursor: e-resize;
+}
+
+.comparisonScrollArrowLeft:hover {
+  font-style: italic;
+  cursor: w-resize;
+}
+
 .productCard {
-  padding-left: 15px;
-  padding-top: 10px;
+  padding-left: .1px;
+  padding-top: .1px;
   margin: 20px;
   border-color: black;
   border-width: 1px;
   border-style: groove;
   position: relative;
-  max-width: 150px;
-  height: 200px;
+  max-width: 220px;
+  height: 320px;
+  background-color: #ededf2;
 }
 
 .productCardThumbnail {
-  top: 20%;
+  top: 0%;
+  left: 0%;
   position: relative;
+  height: 210px;
+  width: 218px;
 }
 
 .productCardCategory {
-  font-size: small;
-  top: 46%;
+  font-size: 12.5px;
+  top: 0;
+  left: 2%;
   position: relative;
 }
 
 .productCardName {
-  top: 68%;
-  position: absolute;
+  top: 2%;
+  left: 2%;
+  position: relative;
 }
 
 .productCardDefaultPrice {
-  font-size: 14px;
-  top: 90%;
-  position: absolute;
+  font-size: 12.5px;
+  top: 8%;
+  left: 2%;
+  position: relative;
+}
+
+.productCardOrigPriceStrikethru {
+  text-decoration: line-through;
+  padding-right: 5px;
+}
+
+.productCardSalePrice {
+  color: red;
+}
+
+.productCardStars {
+  font-size: 12.5px;
+  top: 11%;
+  left: 2%;
+  position: relative;
 }
 
 .actionButtonCompModal {
   top: 0;
   right: 0;
   position: absolute;
-  margin: 2%;
-  width: 15px;
+  margin: 0%;
+  width: 10%;
+  height: 7.2%;
+  z-index: 1;
+  background-color: rgba(209, 210, 204, 0.4);
+  border-radius: 50%;
+  border: none;
+}
+
+.actionButtonCompModal:hover {
+  background-color: rgba(110, 110, 108, 0.4);
+}
+
+.actionButtonCompModal:active {
+  background-color: rgba(209, 210, 204, 0.4);
+  border-style: groove;
+  border-color: rgba(110, 110, 108, 0.4);
 }
 
 .comparisonModal {
-  /* display: grid; */
-  /* position: absolute; */
-  /* grid-template-columns: max-content; */
-  z-index: 1;
+  z-index: 2;
   background-color: rgba(0, 0, 0, 0.4);
-  /* width: 100%; */
-  /* height: 110px; */
   position: fixed;
   padding: 0;
   margin: 0;
-
   top: 0;
   left: 0;
-
   width: 100%;
   height: 100%;
 }
 
 .modalContent {
-  background-color: white;
+  background-color: rgb(240, 238, 238);
   position: absolute;
-  z-index: 1;
-  width: 500px;
-  height: 250px;
-  top: 50%;
+  z-index: 3;
+  width: 600px;
+  height: fit-content;
+  top: 30%;
   left: 30%;
   padding-top: 10px;
-  /* border-width: 1px; */
+  padding-bottom: 25px;
   border-style: groove;
 }
 
@@ -242,8 +303,6 @@ body {
   left: 35%;
   position: relative;
   margin-top: 15px;
-  /* display: grid; */
-  /* grid-template-rows: max-content; */
   display: grid;
   grid-template-columns: repeat(3, 1fr);
 }

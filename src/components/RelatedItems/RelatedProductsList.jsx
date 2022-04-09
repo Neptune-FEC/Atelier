@@ -10,25 +10,45 @@ class RelatedProductsList extends React.Component {
   }
 
   render() {
-    const { relatedProducts, currentProduct } = this.props;
+    const {
+      displayLeftArrow, relatedProducts, currentProduct, displayRightArrow, cycleRight, cycleLeft,
+    } = this.props;
 
     return (
       <div>
         <h3>Product list</h3>
         <ul className="productCardList">
+          <li className="comparisonScrollArrowLeft"
+            onClick={() => cycleLeft()}>
+            {
+              displayLeftArrow
+                ? '⇦'
+                : ''
+            }
+          </li>
           {
-            relatedProducts.length <= 4
+            relatedProducts.length
               ? relatedProducts.map((product) => (
                 <ProductCard
-                  product={product}
+                  relatedProduct={product}
                   key={product.id}
                   currentProduct={currentProduct}
                 />
               ))
               : <div>loading</div>
           }
+          <li
+            className="comparisonScrollArrowRight"
+            onClick={() => cycleRight()}>
+            {
+              displayRightArrow
+                ? '⇨'
+                : ''
+            }
+          </li>
+
         </ul>
-      </div>
+      </div >
     );
   }
 }

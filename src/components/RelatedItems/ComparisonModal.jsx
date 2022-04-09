@@ -125,7 +125,7 @@ class ComparisonModal extends React.Component {
             type="button"
             onClick={() => this.toggleModal()}
           >
-            *
+            ☆
           </button>
         )
     );

@@ -12,7 +12,12 @@ class RelatedItemsWidget extends React.Component {
     this.state = {
       currentProduct: product,
       relatedProducts: [],
+      productsToDisplay: [],
+      index: 0,
     };
+
+    this.cycleRight = this.cycleRight.bind(this);
+    this.cycleLeft = this.cycleLeft.bind(this);
   }
 
   componentDidMount() {
@@ -28,18 +33,54 @@ class RelatedItemsWidget extends React.Component {
   setRelatedProducts(relatedProducts) {
     this.setState({
       relatedProducts,
+      productsToDisplay: relatedProducts.slice(0, 4),
+
+    });
+  }
+
+  cycleRight() {
+    let { index } = this.state;
+    const { productsToDisplay, relatedProducts } = this.state;
+    index += 1;
+
+    this.setState({
+      productsToDisplay: relatedProducts.slice(index, index + 4),
+      index,
+    });
+  }
+
+  cycleLeft() {
+    let { index } = this.state;
+    const { productsToDisplay, relatedProducts } = this.state;
+    index -= 1;
+
+    this.setState({
+      productsToDisplay: relatedProducts.slice(index, index + 4),
+      index,
     });
   }
 
   render() {
-    const { relatedProducts, currentProduct } = this.state;
+    const {
+      relatedProducts, productsToDisplay, currentProduct, index,
+    } = this.state;
+
+    const displayRightArrow = !(relatedProducts.length - index === 4);
+    const displayLeftArrow = (index > 0);
+    // const displayLeftArrow = true;
+
+    console.log(displayLeftArrow);
     return (
       <div>
         <h2>Related Items & Comparison</h2>
         <div>
           <RelatedProductsList
             currentProduct={currentProduct}
-            relatedProducts={relatedProducts}
+            relatedProducts={productsToDisplay}
+            displayRightArrow={displayRightArrow}
+            displayLeftArrow={displayLeftArrow}
+            cycleRight={this.cycleRight}
+            cycleLeft={this.cycleLeft}
           />
         </div>
       </div>
@@ -48,17 +89,3 @@ class RelatedItemsWidget extends React.Component {
 }
 
 export default RelatedItemsWidget;
-
-// .then((relatedProd) => {
-//   // prods.push(relatedProd.data);
-
-//   prods.push(1);
-//   this.setRelatedProducts(prods);
-// })
-// .catch((err) => { console.log('ERROR getProduct~~~~~~~~~', err); });
-// .catch((err) => { console.log('ERROR getRelatedIds--------', err); })
-// .then((result) => {
-//   // console.log(relatedProducts.length);
-//   console.log('END OF PROMISE CHAIN', result);
-//   this.setRelatedProducts(prods);
-// });
