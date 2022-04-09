@@ -8,9 +8,9 @@ class ImageGallery extends React.Component {
     this.state = {
       index: 0,
     };
-    this.selectedStyle = props.selectedStyle;
-    this.photos = this.selectedStyle.photos;
-    this.numPhotos = this.photos.length;
+    // this.selectedStyle = props.selectedStyle;
+    // this.photos = this.selectedStyle.photos;
+    // this.numPhotos = this.photos.length;
     this.handleOnClick = this.handleOnClick.bind(this);
   }
 
@@ -20,14 +20,18 @@ class ImageGallery extends React.Component {
   }
 
   render() {
+    const { selectedStyle } = this.props;
+    const { photos } = selectedStyle;
+    const numPhotos = photos.length;
+
     return (
       <>
         <button type="button" className="gallery-button" onClick={() => { this.handleOnClick(); }}>Click</button>
 
         <div className="gallery">
 
-          <div className="gallery-items" style={{ width: `${this.numPhotos}00%` }}>
-            {this.photos.map((photo, idx) => <div id={idx} className="gallery-item" style={{ backgroundImage: `url(${photo.url})`, width: `${100 / this.numPhotos}%` }} />)}
+          <div className="gallery-items" style={{ width: `${numPhotos}00%` }}>
+            {photos.map((photo, idx) => <div id={idx} className="gallery-item" style={{ backgroundImage: `url(${photo.url})`, width: `${100 / numPhotos}%` }} />)}
             {/* <div id="f" className="gallery-item" style={{ backgroundColor: 'blue' }}>2</div>
           <div id="g" className="gallery-item" style={{ backgroundColor: 'gray' }}>2</div> */}
           </div>
