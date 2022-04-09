@@ -15,26 +15,36 @@ function Overview(props) {
   } = props;
 
   return Object.keys(styles).length && Object.keys(selectedStyle).length ? (
-    <div className="overview">
-      <div className="overview-upper-part">
-
-        <ImageGallery selectedStyle={selectedStyle} />
-
-        <div className="overview-upper-part-right">
-
-          <StarRating starRating={starRating} numReviews={numReviews} />
-          <ProductTitle product={product} />
-          <ProductPrice selectedStyle={selectedStyle} />
-          <StyleSelector styles={styles} handleStyleSelect={handleStyleSelect} />
-          <AddToCart selectedStyle={selectedStyle} />
-
+    <>
+      <section>
+        <div className="container">
+          <div className="overview-upper-part">
+            <div className="left-container">
+              <ImageGallery selectedStyle={selectedStyle} />
+            </div>
+            <div className="right-container">
+              <StarRating starRating={starRating} numReviews={numReviews} />
+              <ProductTitle product={product} />
+              <ProductPrice selectedStyle={selectedStyle} />
+              <StyleSelector
+                styles={styles}
+                selectedStyle={selectedStyle}
+                handleStyleSelect={handleStyleSelect}
+              />
+              <AddToCart selectedStyle={selectedStyle} />
+              <ShareOnSocialMedia />
+            </div>
+          </div>
         </div>
-      </div>
-      <div className="overview-lower-part">
-        <ProductOverview product={product} />
-        <ShareOnSocialMedia />
-      </div>
-    </div>
+      </section>
+      <section>
+        <div className="container">
+          <div className="overview-lower-part">
+            <ProductOverview product={product} />
+          </div>
+        </div>
+      </section>
+    </>
   ) : (
     <div>loading</div>
   );

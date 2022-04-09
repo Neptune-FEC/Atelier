@@ -14,6 +14,36 @@ const averageRating = (ratingObject) => {
   return { totalCount, avgRating: Math.floor((total / totalCount) * 4) / 4 };
 };
 
+const displayStarRating = (
+  starRating,
+  fullStart,
+  emptyStar,
+  quaterStar,
+  halfStar,
+  thirdQuaterStar,
+) => {
+  const remainderStars = 5 - starRating;
+  const remainder = remainderStars - Math.floor(remainderStars);
+  const stars = [];
+  for (let i = 1; i < starRating; i += 1) {
+    stars.push(fullStart);
+  }
+  if (remainder === 0.5) {
+    stars.push(halfStar);
+  }
+  if (remainder === 0.25) {
+    stars.push(quaterStar);
+  }
+  if (remainder === 0.75) {
+    stars.push(thirdQuaterStar);
+  }
+  for (let i = 1; i < remainderStars; i += 1) {
+    stars.push(emptyStar);
+  }
+
+  return stars;
+};
+
 const sortAnsHelper = (listOfAnswers) => {
   const sellerResponses = [];
   const otherResponses = [];
@@ -26,5 +56,6 @@ const sortAnsHelper = (listOfAnswers) => {
 
 module.exports = {
   averageRating,
+  displayStarRating,
   sortAnsHelper,
 };

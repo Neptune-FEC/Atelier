@@ -1,5 +1,6 @@
 import React from 'react';
 import Overview from './Overview/Overview';
+import ExpandView from './Overview/ExpandView';
 import RelatedItemsWidget from './RelatedItems/RelatedItemsWidget';
 import QandA from './QandA/QandA';
 
@@ -62,11 +63,13 @@ class ProductDetailPage extends React.Component {
       product, starRating, reviewMeta, numReviews, styles, selectedStyle,
     } = this.state;
     return (
-      <div className="main">
-        <div className="header">Hello Neptune!!!</div>
+      <>
+        <header>
+          <h1>Hello Neptune!!!</h1>
+        </header>
         {Object.keys(product).length && Object.keys(reviewMeta).length && starRating && numReviews
           ? (
-            <div>
+            <>
               <Overview
                 product={product}
                 starRating={starRating}
@@ -86,10 +89,11 @@ class ProductDetailPage extends React.Component {
                 fetchData={this.fetchData}
               />
               <QandA product={product} />
-            </div>
+              {/* <ExpandView selectedStyle={selectedStyle} /> */}
+            </>
           )
           : <div> loading</div>}
-      </div>
+      </>
     );
   }
 }
