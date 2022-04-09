@@ -52,7 +52,7 @@ class ImageGallery extends React.Component {
             <i role="presentation" className="thumbnail-icon fa fa-chevron-up" onClick={() => { this.scrollThumbnailUp(); }} />
             <div className="thumbnail-container">
               <div className="thumbnail-items" style={{ height: `${100 * (numPhotos / 3)}%` }}>
-                {this.photos.map((photo, idx) => <div id={`id${idx}`} className="thumbnail-item" style={{ backgroundImage: `url(${photo.thumbnail_url})`, height: `${100 / (numPhotos / 3)}%` }} />)}
+                {photos.map((photo, idx) => <div id={`id${idx}`} className="thumbnail-item" style={{ backgroundImage: `url(${photo.thumbnail_url})`, height: `${100 / (numPhotos / 3)}%` }} />)}
               </div>
             </div>
             {/* <div className="thumbnail-navigation"> */}
@@ -63,7 +63,7 @@ class ImageGallery extends React.Component {
           <div className="gallery-navigation">
 
 
-        {/*  <div className="gallery-items" style={{ width: `${numPhotos}00%` }}>
+            {/*  <div className="gallery-items" style={{ width: `${numPhotos}00%` }}>
             {photos.map((photo, idx) => <div id={idx} className="gallery-item" style={{ backgroundImage: `url(${photo.url})`, width: `${100 / numPhotos}%` }} />)} */}
 
             <i role="presentation" className="gallery-icon-left fa fa-chevron-left" onClick={() => { this.scrollImageLeft(); }} />
@@ -72,7 +72,7 @@ class ImageGallery extends React.Component {
         </div>
         <div className="gallery">
           <div className="gallery-items" style={{ width: `${numPhotos}00%` }}>
-             {photos.map((photo, idx) => <div id={idx} className="gallery-item" style={{ backgroundImage: `url(${photo.url})`, width: `${100 / numPhotos}%` }} />)}
+            {photos.map((photo, idx) => <div id={idx} className="gallery-item" style={{ backgroundImage: `url(${photo.url})`, width: `${100 / numPhotos}%` }} />)}
 
             {/* <div id="f" className="gallery-item" style={{ backgroundColor: 'blue' }}>2</div>
           <div id="g" className="gallery-item" style={{ backgroundColor: 'gray' }}>2</div> */}
