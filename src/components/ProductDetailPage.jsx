@@ -25,7 +25,7 @@ class ProductDetailPage extends React.Component {
   }
 
   componentDidMount() {
-    this.fetchData(66648);
+    this.fetchData(66642);
   }
 
   handleStyleSelect(style) {
