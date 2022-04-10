@@ -91,12 +91,10 @@ class RelatedItemsWidget extends React.Component {
       relatedProducts, productsToDisplay, currentProduct,
       index,
     } = this.state;
-    const { fetchData } = this.props;
+    const { fetchData, starRating, numReviews } = this.props;
 
     const displayRightArrow = !(relatedProducts.length - index === 4);
     const displayLeftArrow = (index > 0);
-
-    console.log(relatedProducts[0]);
 
     return (
 
@@ -118,8 +116,8 @@ class RelatedItemsWidget extends React.Component {
             <div>
               <YourOutfitList
                 currentProduct={currentProduct}
-              // starRating={starRating}
-              // numReviews={numReviews}
+                starRating={starRating}
+                numReviews={numReviews}
               />
             </div>
           </div>
