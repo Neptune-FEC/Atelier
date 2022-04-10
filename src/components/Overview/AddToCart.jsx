@@ -5,62 +5,81 @@ import { postCart, getCart, getStyles } from '../../helpers/HttpClient';
 
 class AddToCart extends React.Component {
   constructor(props) {
-    const { selectedStyle } = props;
-    const { skus } = selectedStyle;
     super(props);
     this.state = {
-      skus,
-      skuId: '',
-      selectedQuantity: '-',
+      isSizeDropdown: false,
+      message: null,
     };
-    this.handleSizeSelect = this.handleSizeSelect.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleQuantitySelect = this.handleQuantitySelect.bind(this);
+    this.toggleDropdown = this.toggleDropdown.bind(this);
   }
 
-  handleSizeSelect(skuId) {
+  handleSubmit() {
+    const {
+      skuId, selectedQuantity, handleQuantitySelect, handleSizeSelect,
+    } = this.props;
+    if (skuId) {
+      console.log('skuId, selectedQuantity ', skuId, selectedQuantity);
+      handleQuantitySelect('-');
+      handleSizeSelect(null);
+    } else {
+      this.setState({ message: 'Please select size' });
+      this.toggleDropdown();
+    }
+    // postCart(skuId, selectedQuantity);
+  }
+
+  toggleDropdown() {
+    const { isSizeDropdown } = this.state;
     this.setState({
-      skuId,
+      isSizeDropdown: !isSizeDropdown,
     });
-  }
-
-  handleQuantitySelect(selectedQuantity) {
-    this.setState({
-      selectedQuantity,
-    });
-  }
-
-  handleSubmit(e) {
-    const { skuId, selectedQuantity } = this.state;
-    postCart(skuId, selectedQuantity);
-    e.preventDefault();
   }
 
   render() {
-    const { skus, skuId, selectedQuantity } = this.state;
-    return (
-      <>
-        <div className="split">
-          <SizeSelector
-            skus={skus}
-            handleSizeSelect={this.handleSizeSelect}
-            handleQuantitySelect={this.handleQuantitySelect}
-          />
-          <QuantitySelector
-            skuId={skuId}
-            skus={skus}
-            handleQuantitySelect={this.handleQuantitySelect}
-            selectedQuantity={selectedQuantity}
-          />
-        </div>
-        <div className="overview-add-to-cart">
-          <div className="add-to-cart-container">
-            <div role="presentation" onClick={() => { }} className="add-to-cart">Add To Cart</div>
-            <i className="fa fa-plus add-icon" />
+    const {
+      skuId, selectedQuantity, selectedStyle,
+      selectedSize, handleSizeSelect, handleQuantitySelect,
+    } = this.props;
+    const { isSizeDropdown, message } = this.state;
+    const { skus } = selectedStyle;
+    const allSkuIds = Object.keys(skus);
+    let inventory = 0;
+    for (let i = 0; i < allSkuIds.length; i += 1) {
+      const id = allSkuIds[i];
+      const sku = skus[id];
+      inventory += sku.quantity;
+    }
+    return (inventory
+      && (
+        <>
+          {(isSizeDropdown && message) && <div> Please select size</div>}
+          <div className="split">
+            <SizeSelector
+              selectedStyle={selectedStyle}
+              selectedSize={selectedSize}
+              skus={skus}
+              handleSizeSelect={handleSizeSelect}
+              handleQuantitySelect={handleQuantitySelect}
+              isSizeDropdown={isSizeDropdown}
+              toggleDropdown={this.toggleDropdown}
+            />
+            <QuantitySelector
+              skuId={skuId}
+              skus={skus}
+              handleQuantitySelect={handleQuantitySelect}
+              selectedQuantity={selectedQuantity}
+            />
           </div>
-          <div className="heart-icon"><i className="fa fa-heart-o heart-icon" /></div>
-        </div>
-      </>
+          <div className="overview-add-to-cart" role="presentation" onClick={() => { this.handleSubmit(skuId, selectedQuantity); }}>
+            <div className="add-to-cart-container">
+              <div className="add-to-cart">Add To Cart</div>
+              <i className="fa fa-plus add-icon" />
+            </div>
+            <div className="heart-icon"><i className="fa fa-heart-o heart-icon" /></div>
+          </div>
+        </>
+      )
     );
   }
 }

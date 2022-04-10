@@ -8,8 +8,10 @@ class StyleSelector extends React.Component {
   }
 
   handleClick(style) {
-    const { handleStyleSelect } = this.props;
+    const { handleStyleSelect, handleSizeSelect, handleQuantitySelect } = this.props;
     handleStyleSelect(style);
+    handleSizeSelect(null, null);
+    handleQuantitySelect(null);
   }
 
   render() {
@@ -34,7 +36,7 @@ class StyleSelector extends React.Component {
                 className="style-thumbnail"
                 onClick={() => this.handleClick(style)}
                 onKeyPress={this.handleKeyPress}
-                style={{ backgroundImage: `url(${style.photos[0].thumbnail_url}` }}
+                style={{ backgroundImage: `url(${style.photos[0].thumbnail_url}`, borderWidth: selectedStyle === style ? '2px' : '0px' }}
               />
               {selectedStyle === style ? <i className="check-icon-visible fa fa-check-circle" /> : <div />}
             </div>
