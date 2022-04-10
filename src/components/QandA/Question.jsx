@@ -12,15 +12,22 @@ class Question extends React.Component {
     this.state = {
       listOfAnswers: [],
       numAnsShowing: 2,
-      // showAnsModal: false,
+      showingMoreAnswers: false,
     };
 
     this.updateAnsStateHelper = this.updateAnsStateHelper.bind(this);
-    // this.toggleAnsModal = this.toggleAnsModal.bind(this);
+    this.handleShowMoreAns = this.handleShowMoreAns.bind(this);
   }
 
   componentDidMount() {
     this.updateAnsStateHelper();
+  }
+
+  handleShowMoreAns() {
+    const { showingMoreAnswers } = this.state;
+    this.setState({
+      showingMoreAnswers: !showingMoreAnswers,
+    });
   }
 
   updateAnsStateHelper() { // is also a callback for AnsFooter component
@@ -31,22 +38,14 @@ class Question extends React.Component {
         this.setState({
           listOfAnswers: sortedAnsList,
         });
-        // console.log('sortedAnsList, Q: ', sortedAnsList);
       })
       .catch((err) => {
         console.warn('Error in retrieving answers.', err);
       });
   }
 
-  // TODO: add More Answers button & update numAnsShowing state.
-  // use modal window
-  // toggleAnsModal() {
-  //   const { showAnsModal } = this.state;
-  //   this.setState({ showAnsModal: !showAnsModal });
-  // }
-
   render() {
-    const { listOfAnswers, numAnsShowing } = this.state;
+    const { listOfAnswers, numAnsShowing, showingMoreAnswers } = this.state;
     const { question, updateQsStateHelper, product } = this.props;
     // console.log('this.props, Q: ', this.props);
 
@@ -58,8 +57,9 @@ class Question extends React.Component {
         <QuestionHeader
           question={question}
           updateQsStateHelper={updateQsStateHelper}
+          updateAnsStateHelper={this.updateAnsStateHelper}
           product={product}
-          // toggleAnsModal={toggleAnsModal}
+        // toggleAnsModal={toggleAnsModal}
         />
         <span>
           by
@@ -67,11 +67,38 @@ class Question extends React.Component {
           {question.asker_name}
         </span>
         <br />
+        <h4>A:</h4>
         <AnsList
           ansList={listOfAnswers}
           numAns={numAnsShowing}
           updateAnsStateHelper={this.updateAnsStateHelper}
+          showingMoreAnswers={showingMoreAnswers}
         />
+        {listOfAnswers.length > 2 && !showingMoreAnswers ? (
+          <div>
+            <b
+              className="moreAns"
+              role="button"
+              tabIndex={0}
+              onClick={this.handleShowMoreAns}
+              onKeyUp={this.handleShowMoreAns}
+            >
+              See More Answers
+            </b>
+          </div>
+        ) : (
+          <div>
+            <b
+              className="moreAns"
+              role="button"
+              tabIndex={0}
+              onClick={this.handleShowMoreAns}
+              onKeyUp={this.handleShowMoreAns}
+            >
+              Collapse Answers
+            </b>
+          </div>
+        )}
       </div>
     );
   }

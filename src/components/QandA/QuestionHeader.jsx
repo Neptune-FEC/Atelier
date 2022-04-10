@@ -1,6 +1,5 @@
 import React from 'react';
 import AddAns from './AddAns';
-import AnsModal from './AnsModal';
 
 const { voteQuestion } = require('../../helpers/HttpClient');
 
@@ -38,10 +37,15 @@ class QuestionHeader extends React.Component {
   }
 
   render() {
-    const { helpfulness, isQHelpful, toggleAnsModal } = this.state;
-    // console.log('this.props: ', this.props);
-    // eslint-disable-next-line camelcase
-    const { question: { question_body }, product } = this.props;
+    const { helpfulness, isQHelpful } = this.state;
+    // console.log('this.props, qHeader: ', this.props);
+    const {
+      // eslint-disable-next-line camelcase
+      question: { question_id, question_body, answers },
+      updateAnsStateHelper,
+      product,
+    } = this.props;
+    // console.log('this.props.question, qHeader: ', this.props.question);
 
     return (
       <div>
@@ -70,9 +74,12 @@ class QuestionHeader extends React.Component {
           &nbsp;&nbsp;&nbsp;
           <span>
             <AddAns
-              // toggleAnsModal={toggleAnsModal}
               // eslint-disable-next-line camelcase
-              question_body={question_body}
+              questionId={question_id}
+              // eslint-disable-next-line camelcase
+              questionBody={question_body}
+              updateAnsStateHelper={updateAnsStateHelper}
+              answers={answers}
               product={product}
             />
           </span>

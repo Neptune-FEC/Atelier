@@ -1,4 +1,7 @@
 import React from 'react';
+import PhotoModal from './PhotoModal';
+
+const { addAnswer } = require('../../helpers/HttpClient');
 
 class AnsModal extends React.Component {
   constructor(props) {
@@ -7,86 +10,159 @@ class AnsModal extends React.Component {
       answer: '',
       nickName: '',
       email: '',
+      photos: [],
+      isShowingPhotoModal: false,
     };
     this.handleAddAnsSubmit = this.handleAddAnsSubmit.bind(this);
     this.onChangeAnswer = this.onChangeAnswer.bind(this);
     this.onChangeNickName = this.onChangeNickName.bind(this);
     this.onChangeEmail = this.onChangeEmail.bind(this);
+    this.attachPhotos = this.attachPhotos.bind(this);
+    this.closePhotoModal = this.closePhotoModal.bind(this);
+    this.closeAnsModal = this.closeAnsModal.bind(this);
   }
 
   handleAddAnsSubmit(event) {
     event.preventDefault();
-    const stateVals = Object.values(this.state);
-    stateVals.forEach((value) => {
-      if (value === '') {
-        alert('Update proper input format. See BRD.');
-      }
-    });
-    // envoke callback from ProductDetailPage level with API call to submit new answer
+    const { questionId, updateAnsStateHelper } = this.props;
+    const {
+      answer, nickName, email, photos,
+    } = this.state;
+    if (answer === '' || nickName === '' || email === '') {
+      // eslint-disable-next-line no-alert
+      alert(
+        `You must enter the following:
+      This error will occur if:
+      1. Any mandatory fields are blank
+      2. The email address provided is not in correct email format
+      3. The images selected are invalid of unable to be uploaded.`,
+      );
+    } else {
+      addAnswer(questionId, answer, nickName, email, photos)
+        .then(() => updateAnsStateHelper(questionId))
+        .then(() => this.closeAnsModal())
+        .catch((err) => {
+          // eslint-disable-next-line no-console
+          console.warn('Error in submitting answer.', err);
+        });
+    }
   }
 
   onChangeAnswer(event) {
-    this.setState({ answer: event.taget.value });
+    this.setState({ answer: event.target.value });
   }
 
   onChangeNickName(event) {
-    this.setState({ nickName: event.taget.value });
+    this.setState({ nickName: event.target.value });
   }
 
   onChangeEmail(event) {
-    this.setState({ email: event.taget.value });
+    this.setState({ email: event.target.value });
+  }
+
+  attachPhotos(images) { // callback from PhotoModal
+    this.setState({ photos: images });
+  }
+
+  closePhotoModal() {
+    const { isShowingPhotoModal } = this.state;
+    this.setState({ isShowingPhotoModal: !isShowingPhotoModal });
+  }
+
+  closeAnsModal() {
+    const { toggleAnsModal } = this.props;
+    toggleAnsModal();
   }
 
   render() {
-    // eslint-disable-next-line camelcase
-    const { question_body, product } = this.props;
+    const {
+      answer, nickName, email, isShowingPhotoModal,
+    } = this.state;
+    const { questionBody, product, questionId } = this.props;
+    console.log('questionId, AnsModal: ', questionId);
 
     return (
-      <form onSubmit={this.handleAddAnsSubmit}>
-        <h4>Submit your Answer</h4>
-        <h5>
-          {product.name}
-          :
+      <div className="backgroundAnsModal">
+        <form
+          className="modalAddAns"
+          id="addAnswer"
+          onSubmit={this.handleAddAnsSubmit}
+        >
+          <h4>Submit your Answer</h4>
+          <br />
+          <h5>
+            {product.name}
+            :
+            {' '}
+            {/* eslint-disable-next-line camelcase */}
+            {questionBody}
+          </h5>
+          <br />
+          <label htmlFor="a">
+            Your Answer (mandatory)&nbsp;
+            <br />
+            <textarea
+              required
+              type="text"
+              maxLength="1000"
+              value={answer}
+              onChange={this.onChangeAnswer}
+              cols="40"
+              rows="5"
+            />
+          </label>
+          <br />
+          <br />
+          <label htmlFor="a">
+            What is your nickname (mandatory)&nbsp;
+            <input
+              required
+              type="text"
+              maxLength="60"
+              placeholder="Example: jack543!"
+              value={nickName}
+              onChange={this.onChangeNickName}
+            />
+            <div>For authentication reasons, do not use your full name or email address</div>
+          </label>
+          <br />
+          <label htmlFor="a">
+            Your email (mandatory)&nbsp;
+            <input
+              required
+              type="email"
+              size="30"
+              maxLength="60"
+              placeholder="Example: jack@email.com"
+              value={email}
+              onChange={this.onChangeEmail}
+            />
+            <div>For authentication reasons, you will not be emailed</div>
+          </label>
+          <br />
+          {isShowingPhotoModal ? (
+            <PhotoModal
+              closePhotoModal={this.closePhotoModal}
+              attachPhotos={this.attachPhotos}
+            />
+          )
+            : (
+              <input
+                type="button"
+                value="Upload your photos"
+                onClick={this.closePhotoModal}
+              />
+            )}
+          <br />
+          <input type="submit" value="Submit Answer" />
           {' '}
-          {/* eslint-disable-next-line camelcase */}
-          {question_body}
-        </h5>
-        <label htmlFor="a">
-          Your Answer (mandatory)&nbsp;
           <input
-            type="text"
-            maxLength="1000"
-            onChange={this.onChangeAnswer}
+            type="button"
+            value="Back"
+            onClick={this.closeAnsModal}
           />
-        </label>
-        <br />
-        <br />
-        <label htmlFor="a">
-          What is your nickname (mandatory)&nbsp;
-          <input
-            type="text"
-            maxLength="60"
-            placeholder="Example: jack543!"
-            onChange={this.onChangeNickName}
-          />
-          <div>For authentication reasons, do not use your full name or email address</div>
-        </label>
-        <br />
-        <label htmlFor="a">
-          Your email (mandatory)&nbsp;
-          <input
-            type="text"
-            maxLength="60"
-            placeholder="Example: jack@email.com"
-            onChange={this.onChangeEmail}
-          />
-          <div>For authentication reasons, you will not be emailed</div>
-        </label>
-        <br />
-        <br />
-        {/* integrate UploadPhoto component here */}
-        <input type="submit" value="Submit Answer" />
-      </form>
+        </form>
+      </div>
     );
   }
 }

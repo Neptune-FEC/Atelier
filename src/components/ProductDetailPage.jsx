@@ -88,6 +88,7 @@ class ProductDetailPage extends React.Component {
                 selectedStyle={selectedStyle}
                 fetchData={this.fetchData}
               />
+              <br />
               <QandA product={product} />
               {/* <ExpandView selectedStyle={selectedStyle} /> */}
             </>

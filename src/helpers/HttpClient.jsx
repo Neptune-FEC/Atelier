@@ -65,30 +65,39 @@ const getQuestions = (productId) => instance.get('/qa/questions', {
   params: {
     product_id: productId,
     page: 1,
-    count: 10,
+    count: 100,
   },
 });
 
 // GET request, Answers List
-const getAnswers = (questionId) => instance.get(
-  `/qa/questions/${questionId}/answers`,
-);
+const getAnswers = (questionId) => instance.get(`/qa/questions/${questionId}/answers`, {
+  params: {
+    question_id: questionId,
+    page: 1,
+    count: 100,
+  },
+});
 
 // POST request, Add a Question
-const addQuestion = (body, name, email, productId) => instance.post('/qa/questions', {
+// eslint-disable-next-line camelcase
+const addQuestion = (body, name, email, product_id) => instance.post('/qa/questions', {
   body,
   name,
   email,
-  productId,
+  // eslint-disable-next-line camelcase
+  product_id,
 });
 
 // POST request, Add an Answer
-const addAnswer = (questionId, body, name, email, photos) => instance.post(`/qa/questions/${questionId}/answers`, {
-  body,
-  name,
-  email,
-  photos,
-});
+const addAnswer = (questionId, body, name, email, photos) => instance.post(
+  `/qa/questions/${questionId}/answers`,
+  {
+    body,
+    name,
+    email,
+    photos,
+  },
+);
 
 // PUT request, Vote Question as Helpful
 const voteQuestion = (questionId) => instance.put(

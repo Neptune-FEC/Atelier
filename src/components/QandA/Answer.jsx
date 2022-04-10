@@ -14,7 +14,6 @@ class Answer extends React.Component {
 
     return (
       <div className="answer">
-        <h4>A:</h4>
         <div>{answer.body}</div>
         <br />
         <AnsFooter

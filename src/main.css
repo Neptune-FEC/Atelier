@@ -461,6 +461,40 @@ section{
 /* -------------------------------- */
 /* QUESTION & ANSWER WIDGET STYLING */
 /* -------------------------------- */
+.qList {
+  width: 80%;
+  border: 2px solid black;
+  max-height: 70vh;
+  overflow: auto;
+}
+
+.moreQsButton, .addQsButton {
+  display: inline;
+  width: 20%;
+  border: 2px solid black;
+  padding: 14px 28px;
+  margin: 15px;
+  font-size: 16px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.ansList {
+  /* background-color: #a1edff; */
+  border: 2px solid black;
+  overflow: auto;
+  /* height: 60vh; */
+  width: 80%;
+}
+
+.ansListExpanded {
+  /* background-color: #a1edff; */
+  border: 2px solid black;
+  overflow: auto;
+  height: 60vh;
+  width: 80%;
+}
+
 .thumbnail {
   width: 100px;
   height: 100px;
@@ -472,11 +506,37 @@ section{
   border: 2px solid black;
   border-radius: 5px;
   margin-top: 5px;
-  padding: 0px 10px;
+  padding: 10px 10px;
 }
 
 .answer {
   border-top: 1px solid black;
+}
+
+.modalAddAns {
+  border: 2px solid black;
+  background-color: white;
+  position: absolute;
+  cursor: pointer;
+  z-index: 1;
+  top: 5%;
+  left: 30%;
+  padding: 10px 10px;
+  width: 50%;
+  /* height: 50%; */
+}
+
+.modalAddPhoto, .modalAddQ {
+  border: 2px solid black;
+  background-color: white;
+  position: absolute;
+  cursor: pointer;
+  z-index: 1;
+  padding: 10px 10px;
+  top: 15%;
+  left: 5%;
+  width: 90%;
+  /* height: 50%; */
 }
 
 
@@ -600,7 +660,10 @@ section{
   border-color: rgba(110, 110, 108, 0.4);
 }
 
-.comparisonModal {
+.comparisonModal, .backgroundAddQModal, .backgroundAnsModal, .backgroundPhotoModal {
+  /* display: grid; */
+  /* position: absolute; */
+  /* grid-template-columns: max-content; */
   z-index: 2;
   background-color: rgba(0, 0, 0, 0.4);
   position: fixed;
