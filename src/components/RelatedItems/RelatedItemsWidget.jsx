@@ -1,5 +1,6 @@
 import React from 'react';
 import RelatedProductsList from './RelatedProductsList';
+import YourOutfitList from './YourOutfitList';
 
 const {
   getProduct, getRelatedIds,
@@ -95,6 +96,11 @@ class RelatedItemsWidget extends React.Component {
             cycleRight={this.cycleRight}
             cycleLeft={this.cycleLeft}
             fetchData={fetchData}
+          />
+        </div>
+        <div>
+          <YourOutfitList
+            currentProduct={currentProduct}
           />
         </div>
       </div>

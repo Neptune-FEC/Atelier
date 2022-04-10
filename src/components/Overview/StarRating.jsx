@@ -37,20 +37,21 @@ function StarRating(props) {
   // }
   return (
     numReviews
-    && (
-      <div className="overview-rating-reviews">
-        <div className="overview-rating">
-          {stars}
+      ? (
+        <div className="overview-rating-reviews">
+          <div className="overview-rating">
+            {stars}
+          </div>
+          <a className="overview-reviews" href="#reviews">
+            Read all
+            {' '}
+            {numReviews}
+            {' '}
+            reviews
+          </a>
         </div>
-        <a className="overview-reviews" href="#reviews">
-          Read all
-          {' '}
-          {numReviews}
-          {' '}
-          reviews
-        </a>
-      </div>
-    )
+      )
+      : <div />
   );
 }
 
