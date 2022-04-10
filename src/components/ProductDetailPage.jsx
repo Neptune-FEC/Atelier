@@ -15,15 +15,22 @@ class ProductDetailPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      product: {},
-      reviewMeta: {},
-      styles: {},
-      selectedStyle: {},
-      starRating: 0,
-      numReviews: 0,
+      product: null,
+      reviewMeta: null,
+      styles: null,
+      selectedStyle: null,
+      starRating: null,
+      numReviews: null,
+      skuId: null,
+      selectedQuantity: null,
+      selectedSize: null,
+      isExpand: null,
     };
     this.fetchData = this.fetchData.bind(this);
     this.handleStyleSelect = this.handleStyleSelect.bind(this);
+    this.handleSizeSelect = this.handleSizeSelect.bind(this);
+    this.handleQuantitySelect = this.handleQuantitySelect.bind(this);
+    this.handleExpand = this.handleExpand.bind(this);
   }
 
   componentDidMount() {
@@ -33,6 +40,27 @@ class ProductDetailPage extends React.Component {
   handleStyleSelect(style) {
     this.setState({
       selectedStyle: style,
+    });
+  }
+
+  handleSizeSelect(selectedSize, skuId) {
+    this.setState({
+      selectedSize,
+      skuId,
+    });
+  }
+
+  handleQuantitySelect(selectedQuantity) {
+    this.setState({
+      selectedQuantity,
+    });
+  }
+
+  handleExpand() {
+    console.log('expand expand');
+    const { isExpand } = this.state;
+    this.setState({
+      isExpand: !isExpand,
     });
   }
 
@@ -56,18 +84,25 @@ class ProductDetailPage extends React.Component {
         numReviews: totalCount,
       });
     });
+    this.setState({
+      skuId: null,
+      selectedQuantity: null,
+      selectedSize: null,
+      isExpand: false,
+    });
   }
 
   render() {
     const {
-      product, starRating, reviewMeta, numReviews, styles, selectedStyle,
+      product, starRating, reviewMeta, numReviews,
+      styles, selectedStyle, selectedSize, skuId, selectedQuantity, isExpand,
     } = this.state;
     return (
       <>
         <header>
           <h1>Hello Neptune!!!</h1>
         </header>
-        {Object.keys(product).length && Object.keys(reviewMeta).length && starRating && numReviews
+        {(product)
           ? (
             <>
               <Overview
@@ -77,7 +112,14 @@ class ProductDetailPage extends React.Component {
                 reviewMeta={reviewMeta}
                 styles={styles}
                 selectedStyle={selectedStyle}
+                selectedSize={selectedSize}
+                skuId={skuId}
+                selectedQuantity={selectedQuantity}
+                handleSizeSelect={this.handleSizeSelect}
+                handleQuantitySelect={this.handleQuantitySelect}
                 handleStyleSelect={this.handleStyleSelect}
+                isExpand={isExpand}
+                handleExpand={this.handleExpand}
               />
               <RelatedItemsWidget
                 product={product}
@@ -88,8 +130,10 @@ class ProductDetailPage extends React.Component {
                 selectedStyle={selectedStyle}
                 fetchData={this.fetchData}
               />
+              <br />
               <QandA product={product} />
-              {/* <ExpandView selectedStyle={selectedStyle} /> */}
+              {isExpand
+                && <ExpandView selectedStyle={selectedStyle} handleExpand={this.handleExpand} />}
             </>
           )
           : <div> loading</div>}

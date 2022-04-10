@@ -11,7 +11,6 @@ class QandA extends React.Component {
       // listOfQuestions: qListData.results,
       // numQsShowing: qListData.results.length,
       listOfQuestions: [],
-      numQsShowing: 2,
     };
     this.updateQsStateHelper = this.updateQsStateHelper.bind(this);
   }
@@ -35,15 +34,8 @@ class QandA extends React.Component {
       });
   }
 
-  // numofQsToRender = (props) => {
-  //   this.setState({
-  //     listOfQuestions: qListData.results.slice(0, 2)
-  //   })
-  // }
-
   render() {
-    const { listOfQuestions, numQsShowing } = this.state;
-    // console.log('listOfQuestions: ', listOfQuestions);
+    const { listOfQuestions } = this.state;
     const { product } = this.props;
     // console.log('product, QnA: ', product);
 
@@ -53,12 +45,13 @@ class QandA extends React.Component {
         <br />
         {/* <SearchQuestion />
         <br /> */}
-        <QList
-          qList={listOfQuestions}
-          numQs={numQsShowing}
-          updateQsStateHelper={this.updateQsStateHelper}
-          product={product}
-        />
+        <div className="qsList">
+          <QList
+            qList={listOfQuestions}
+            updateQsStateHelper={this.updateQsStateHelper}
+            product={product}
+          />
+        </div>
       </div>
     );
   }

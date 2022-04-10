@@ -37,7 +37,7 @@ class RelatedProductsList extends React.Component {
                   fetchData={fetchData}
                 />
               ))
-              : <div>loading</div>
+              : <div className="no-related-products">No Related Products</div>
           }
           <li
             className="comparisonScrollArrowRight"

@@ -5,38 +5,44 @@ class AddAns extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      toggleAnsModal: false,
+      isShowingAnsModal: false,
     };
-    this.showAnsModal = this.showAnsModal.bind(this);
+    this.toggleAnsModal = this.toggleAnsModal.bind(this);
   }
 
-  showAnsModal() {
-    const { toggleAnsModal } = this.state;
-    this.setState({ toggleAnsModal: !toggleAnsModal });
-    // toggleAnsModal();
+  toggleAnsModal() {
+    const { isShowingAnsModal } = this.state;
+    this.setState({ isShowingAnsModal: !isShowingAnsModal });
   }
 
   render() {
-    const { toggleAnsModal } = this.state;
+    const { isShowingAnsModal } = this.state;
     // eslint-disable-next-line camelcase
-    const { question_body, product } = this.props;
+    const {
+      questionId, questionBody, answers, product, updateAnsStateHelper,
+    } = this.props;
+    const ansList = Object.values(answers);
+    // console.log('ansList, addAns: ', ansList);
 
     return (
       <span>
-        {toggleAnsModal
+        {isShowingAnsModal
           ? (
             <AnsModal
-              // eslint-disable-next-line camelcase
-              question_body={question_body}
               product={product}
+              ansList={ansList}
+              questionId={questionId}
+              questionBody={questionBody}
+              updateAnsStateHelper={updateAnsStateHelper}
+              toggleAnsModal={this.toggleAnsModal}
             />
           )
           : (
             <u
               role="button"
               tabIndex={0}
-              onClick={this.showAnsModal}
-              onKeyUp={this.showAnsModal}
+              onClick={this.toggleAnsModal}
+              onKeyUp={this.toggleAnsModal}
             >
               Add Answer
             </u>

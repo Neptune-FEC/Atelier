@@ -81,6 +81,7 @@ section{
 .overview-upper-part {
   display: flex;
   flex-direction: row;
+  gap: 1rem;
   width: 100%;
   height: 80vh;
 }
@@ -91,6 +92,8 @@ section{
   justify-content: center;
   flex: 2;
   position: relative;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
 }
 
 .gallery-overlay {
@@ -101,7 +104,15 @@ section{
   align-items: center;
   width: 100%;
   height: 100%;
+  pointer-events: none;
   /* box-sizing: border-box; */
+}
+
+.expand-gallery-overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.9);
 }
 
 .gallery {
@@ -109,6 +120,7 @@ section{
   height: 100%;
   scroll-behavior: smooth;
   overflow: hidden;
+  cursor: zoom-in;
 }
 
 .gallery-items {
@@ -150,8 +162,39 @@ section{
   /* z-index: 100; */
 }
 
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes growth {
+  from {
+    transform: scale(0.7);
+  }
+
+  to {
+    transform: scale(1);
+  }
+}
+
+.close-icon {
+  margin: 1rem;
+  border: #ededf2 solid 2px;
+  color: white;
+  font-size: 3rem;
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 300;
+}
+
 .expand-view-container {
-  /* background-color: aliceblue; */
+  /* opacity: 0.95; */
   display: flex;
   align-items: center;
   position: fixed;
@@ -162,6 +205,8 @@ section{
   left: 0;
   width: 100vw;
   height: 100vh;
+  animation: fadeIn linear 0.1s;
+  z-index: 250;
 }
 
 .expand-view-gallery {
@@ -169,10 +214,19 @@ section{
   height: 100%;
   scroll-behavior: smooth;
   overflow: hidden;
+  animation: growth linear 0.2s;
+  z-index: 100;
 }
 
 .expand-view-gallery-item {
   background-position: 50%;
+}
+
+.zoom-image {
+  background-size: 200%;
+  cursor: zoom-out;
+  /* transform: scale(2.5); */
+  /* transform-origin: 20% 10% */
 }
 
 .thumbnail-panel {
@@ -207,10 +261,18 @@ section{
   box-sizing: border-box; */
 }
 
+.navigation-icon {
+  padding: 0.5em;
+  z-index: 200;
+  pointer-events: auto;
+  cursor: pointer;
+}
+
 .thumbnail-items {
   width: 100%;
   display: flex;
   flex-direction: column;
+  pointer-events: auto;
 }
 
 .thumbnail-item {
@@ -218,6 +280,9 @@ section{
   background-repeat: no-repeat;
   background-position: 50%;
   margin: 10%;
+  cursor: pointer;
+  border-bottom: 3px solid #E66A35;
+  /* z-index: 1000; */
 }
 
 .right-container {
@@ -257,8 +322,8 @@ section{
 }
 
 .share-on-social-media {
-  padding-top: 1.5rem;
-
+  padding-top: 1rem;
+  cursor: pointer;
 }
 
 .overview-category {
@@ -274,8 +339,8 @@ section{
 
 .overview-price {
   display: flex;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
   box-sizing: border-box;
   font-size: var(--medium-text-font-size);
   color: var(--primary-light-dark-color);
@@ -299,6 +364,7 @@ section{
   display: flex;
   width: 70%;
   flex-wrap: wrap;
+  cursor: pointer;
 }
 
 .style-thumbnail-container {
@@ -320,6 +386,7 @@ section{
   background-position: center;
   /* background-attachment: fixed; */
   overflow: hidden;
+  border: 0px solid var(--primary-light-dark-color);
 }
 
 .check-icon-visible {
@@ -328,8 +395,9 @@ section{
   position: absolute;
   top: -20%;
   left: 50%;
-  font-size: 150%;
+  font-size: 120%;
   color: var(--primary-light-dark-color);
+  opacity: 1;
   /* color: green; */
 }
 
@@ -342,6 +410,7 @@ section{
 .overview-quantity {
   width: 35%;
   position: relative;
+  cursor: pointer;
 }
 
 .selector {
@@ -350,7 +419,7 @@ section{
   color: var(--primary-light-dark-color);
   width: 100%;
   padding: 0.6rem;
-
+  cursor: pointer;
 }
 
 .select-icon {
@@ -359,7 +428,7 @@ section{
   margin: 0 1rem;
   position: absolute;
   right: 0;
-
+  cursor: pointer;
 }
 
 .options {
@@ -442,6 +511,7 @@ section{
 .description-features {
   width: 70%;
   margin-inline: auto;
+  margin-top: 1rem;
   display: flex;
   flex-direction: row;
 }
@@ -449,7 +519,7 @@ section{
 .overview-description {
   height: auto;
   flex: 2;
-  /* margin-right: 8rem; */
+  margin-right: 8rem;
   box-sizing: border-box;
 }
 
@@ -466,6 +536,41 @@ section{
 /* -------------------------------- */
 /* QUESTION & ANSWER WIDGET STYLING */
 /* -------------------------------- */
+.qList {
+  width: 80%;
+  border: 2px solid black;
+  max-height: 70vh;
+  overflow: auto;
+}
+
+.moreQsButton,
+.addQsButton {
+  display: inline;
+  width: 20%;
+  border: 2px solid black;
+  padding: 14px 28px;
+  margin: 15px;
+  font-size: 16px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.ansList {
+  /* background-color: #a1edff; */
+  border: 2px solid black;
+  overflow: auto;
+  /* height: 60vh; */
+  width: 80%;
+}
+
+.ansListExpanded {
+  /* background-color: #a1edff; */
+  border: 2px solid black;
+  overflow: auto;
+  height: 60vh;
+  width: 80%;
+}
+
 .thumbnail {
   width: 100px;
   height: 100px;
@@ -477,11 +582,38 @@ section{
   border: 2px solid black;
   border-radius: 5px;
   margin-top: 5px;
-  padding: 0px 10px;
+  padding: 10px 10px;
 }
 
 .answer {
   border-top: 1px solid black;
+}
+
+.modalAddAns {
+  border: 2px solid black;
+  background-color: white;
+  position: absolute;
+  cursor: pointer;
+  z-index: 1;
+  top: 5%;
+  left: 30%;
+  padding: 10px 10px;
+  width: 50%;
+  /* height: 50%; */
+}
+
+.modalAddPhoto,
+.modalAddQ {
+  border: 2px solid black;
+  background-color: white;
+  position: absolute;
+  cursor: pointer;
+  z-index: 1;
+  padding: 10px 10px;
+  top: 15%;
+  left: 5%;
+  width: 90%;
+  /* height: 50%; */
 }
 
 
@@ -607,7 +739,13 @@ section{
   border-color: rgba(110, 110, 108, 0.4);
 }
 
-.comparisonModal {
+.comparisonModal,
+.backgroundAddQModal,
+.backgroundAnsModal,
+.backgroundPhotoModal {
+  /* display: grid; */
+  /* position: absolute; */
+  /* grid-template-columns: max-content; */
   z-index: 2;
   background-color: rgba(0, 0, 0, 0.4);
   position: fixed;
@@ -723,4 +861,11 @@ section{
   background-color: rgba(209, 210, 204, 0.4);
   border-style: groove;
   border-color: rgba(110, 110, 108, 0.4);
+}
+
+.no-related-products {
+  position: relative;
+  /* padding: 100px; */
+  top: 60%;
+  left: 8.5%;
 }
