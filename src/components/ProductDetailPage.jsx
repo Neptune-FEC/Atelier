@@ -9,7 +9,7 @@ const {
   getProduct, getReviewMeta, getStyles,
 } = require('../helpers/HttpClient');
 
-const testId = 66642;
+const testId = 66642; // QandA widget relying on this number to dynamically update
 
 class ProductDetailPage extends React.Component {
   constructor(props) {
@@ -34,7 +34,7 @@ class ProductDetailPage extends React.Component {
   }
 
   componentDidMount() {
-    this.fetchData(testId);
+    this.fetchData(testId); // after initial rendering, what action updates id# to user choice?
   }
 
   handleStyleSelect(style) {
@@ -57,7 +57,7 @@ class ProductDetailPage extends React.Component {
   }
 
   handleExpand() {
-    console.log('expand expand');
+    // console.log('expand expand');
     const { isExpand } = this.state;
     this.setState({
       isExpand: !isExpand,
@@ -105,7 +105,7 @@ class ProductDetailPage extends React.Component {
         {(product)
           ? (
             <>
-              <Overview
+              {/* <Overview
                 product={product}
                 starRating={starRating}
                 numReviews={numReviews}
@@ -129,7 +129,7 @@ class ProductDetailPage extends React.Component {
                 styles={styles}
                 selectedStyle={selectedStyle}
                 fetchData={this.fetchData}
-              />
+              /> */}
               <br />
               <QandA product={product} />
               {isExpand

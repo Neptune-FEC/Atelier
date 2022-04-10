@@ -12,7 +12,9 @@ class QandA extends React.Component {
       // listOfQuestions: qListData.results,
       // numQsShowing: qListData.results.length,
       listOfQuestions: [],
+      qSearch: '',
     };
+    this.searchQuestionCallback = this.searchQuestionCallback.bind(this);
     this.updateQsStateHelper = this.updateQsStateHelper.bind(this);
   }
 
@@ -20,9 +22,13 @@ class QandA extends React.Component {
     this.updateQsStateHelper();
   }
 
+  searchQuestionCallback(searchQuery) {
+    this.setState({ qSearch: searchQuery });
+  }
+
   updateQsStateHelper() {
     const { product } = this.props;
-    getQuestions(product.id)
+    getQuestions(product.id) // API call
       .then((response) => {
         const sortedQsList = response.data.results;
         sortedQsList.sort((a, b) => b.question_helpfulness - a.question_helpfulness);
@@ -36,7 +42,7 @@ class QandA extends React.Component {
   }
 
   render() {
-    const { listOfQuestions } = this.state;
+    const { listOfQuestions, qSearch } = this.state;
     const { product } = this.props;
     // console.log('product, QnA: ', product);
 
@@ -44,11 +50,15 @@ class QandA extends React.Component {
       <div>
         <h3>QUESTIONS & ANSWERS</h3>
         <br />
-        <SearchQ />
+        <SearchQ
+          searchQuestionCallback={this.searchQuestionCallback}
+          qList={listOfQuestions}
+        />
         <br />
         <div className="qsList">
           <QList
             qList={listOfQuestions}
+            qSearch={qSearch}
             updateQsStateHelper={this.updateQsStateHelper}
             product={product}
           />

@@ -74,31 +74,34 @@ class Question extends React.Component {
           updateAnsStateHelper={this.updateAnsStateHelper}
           showingMoreAnswers={showingMoreAnswers}
         />
-        {listOfAnswers.length > 2 && !showingMoreAnswers ? (
-          <div>
-            <b
-              className="moreAns"
-              role="button"
-              tabIndex={0}
-              onClick={this.handleShowMoreAns}
-              onKeyUp={this.handleShowMoreAns}
-            >
-              See More Answers
-            </b>
-          </div>
-        ) : (
-          <div>
-            <b
-              className="moreAns"
-              role="button"
-              tabIndex={0}
-              onClick={this.handleShowMoreAns}
-              onKeyUp={this.handleShowMoreAns}
-            >
-              Collapse Answers
-            </b>
-          </div>
-        )}
+        {
+          listOfAnswers.length > 2 && !showingMoreAnswers
+            ? (
+              <div>
+                <b
+                  className="moreAns"
+                  role="button"
+                  tabIndex={0}
+                  onClick={this.handleShowMoreAns}
+                  onKeyUp={this.handleShowMoreAns}
+                >
+                  See More Answers
+                </b>
+              </div>
+            ) : (
+              <div>
+                <b
+                  className="moreAns"
+                  role="button"
+                  tabIndex={0}
+                  onClick={this.handleShowMoreAns}
+                  onKeyUp={this.handleShowMoreAns}
+                >
+                  Collapse Answers
+                </b>
+              </div>
+            )
+        }
       </div>
     );
   }
