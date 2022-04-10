@@ -1,7 +1,6 @@
 import React from 'react';
 import SizeSelector from './SizeSelector';
 import QuantitySelector from './QuantitySelector';
-import { postCart, getCart, getStyles } from '../../helpers/HttpClient';
 
 class AddToCart extends React.Component {
   constructor(props) {
@@ -16,10 +15,9 @@ class AddToCart extends React.Component {
 
   handleSubmit() {
     const {
-      skuId, selectedQuantity, handleQuantitySelect, handleSizeSelect,
+      skuId, handleQuantitySelect, handleSizeSelect,
     } = this.props;
     if (skuId) {
-      console.log('skuId, selectedQuantity ', skuId, selectedQuantity);
       handleQuantitySelect('-');
       handleSizeSelect(null);
     } else {

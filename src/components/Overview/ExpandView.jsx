@@ -4,30 +4,21 @@ class ExpandView extends React.Component {
   constructor(props) {
     super(props);
     this.indexImage = 0;
-    // this.indexThumbnail = 2;
     this.state = {
       isZoom: false,
       mouseX: undefined,
       mouseY: undefined,
     };
-    // this.selectedStyle = props.selectedStyle;
-    // this.photos = this.selectedStyle.photos;
-    // this.numPhotos = this.photos.length;
-    // this.handleOnClick = this.handleOnClick.bind(this);
 
     this.scrollImageLeft = this.scrollImageLeft.bind(this);
     this.scrollImageRight = this.scrollImageRight.bind(this);
     this.zoomImage = this.zoomImage.bind(this);
     this.moveMouseImg = this.moveMouseImg.bind(this);
-    // this.scrollThumbnailUp = this.scrollThumbnailUp.bind(this);
-    // this.scrollThumbnailDown = this.scrollThumbnailDown.bind(this);
   }
 
   moveMouseImg(e) {
     const x = (e.clientX / e.target.offsetWidth) * 100;
     const y = (e.clientY / e.target.offsetHeight) * 100;
-
-    console.log('e.pageX, e.pageY', x, y);
 
     this.setState({
       mouseX: x,
@@ -37,43 +28,26 @@ class ExpandView extends React.Component {
 
   scrollImageLeft() {
     this.indexImage -= 1;
-    console.log('index', this.indexImage);
     document.getElementById(`expand${this.indexImage}`).scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
   }
 
   scrollImageRight() {
     this.indexImage += 1;
-    console.log('index', this.indexImage);
     document.getElementById(`expand${this.indexImage}`).scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
   }
 
   zoomImage() {
-    console.log('zoom zoom zoom');
     const { isZoom } = this.state;
     this.setState({
       isZoom: !isZoom,
     });
   }
 
-  // scrollThumbnailDown() {
-  //   this.indexThumbnail += 1;
-  //   document.getElementById(`id${this.indexThumbnail}`).scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
-  // }
-
-  // scrollThumbnailUp() {
-  //   this.indexThumbnail -= 1;
-  //   document.getElementById(`id${this.indexThumbnail}`).scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
-  // }
-
   render() {
     const { selectedStyle, handleExpand } = this.props;
     const { photos } = selectedStyle;
     const numPhotos = photos.length;
     const { isZoom, mouseX, mouseY } = this.state;
-    // const transform = {
-    //   transformOrigin: `${mouseX}% ${mouseY}%`,
-    // };
-    // const classes = Object.assign(transform);
 
     return (
       <div className="expand-view-container">

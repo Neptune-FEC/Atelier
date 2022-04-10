@@ -7,10 +7,6 @@ class ImageGallery extends React.Component {
     this.indexThumbnail = 2;
     this.state = {
     };
-    // this.selectedStyle = props.selectedStyle;
-    // this.photos = this.selectedStyle.photos;
-    // this.numPhotos = this.photos.length;
-    // this.handleOnClick = this.handleOnClick.bind(this);
 
     this.scrollImageLeft = this.scrollImageLeft.bind(this);
     this.scrollImageRight = this.scrollImageRight.bind(this);
