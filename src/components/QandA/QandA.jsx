@@ -1,4 +1,5 @@
 import React from 'react';
+import SearchQ from './SearchQ';
 import QList from './QList';
 // import qListData from '../../data/serverData';
 
@@ -43,8 +44,8 @@ class QandA extends React.Component {
       <div>
         <h3>QUESTIONS & ANSWERS</h3>
         <br />
-        {/* <SearchQuestion />
-        <br /> */}
+        <SearchQ />
+        <br />
         <div className="qsList">
           <QList
             qList={listOfQuestions}
