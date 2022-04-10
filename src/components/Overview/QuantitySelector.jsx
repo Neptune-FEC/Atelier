@@ -33,7 +33,7 @@ class QuantitySelector extends React.Component {
     if (skuId) {
       pointerEvents = 'auto';
       const { quantity } = skus[skuId];
-      const limit = Math.max(quantity, 15);
+      const limit = Math.min(quantity, 15);
       for (let i = 1; i <= limit; i += 1) {
         quantities.push(i);
       }
@@ -41,7 +41,7 @@ class QuantitySelector extends React.Component {
     return (
       <div className="overview-quantity">
         <div role="presentation" className="selector quantity-selector" onClick={() => this.toggleDropdown()} style={{ pointerEvents: `${pointerEvents}` }}>
-          {selectedQuantity}
+          {selectedQuantity || '-'}
           <i className="select-icon fa fa-angle-down" />
           {isSizeDropdown && (
             <ul className="options">

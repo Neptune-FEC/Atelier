@@ -11,16 +11,22 @@ import ShareOnSocialMedia from './ShareOnSocialMedia';
 
 function Overview(props) {
   const {
-    product, starRating, numReviews, styles, selectedStyle, handleStyleSelect,
+    product, starRating, numReviews, styles,
+    selectedStyle, handleStyleSelect, selectedSize,
+    skuId, selectedQuantity, handleSizeSelect, handleQuantitySelect, isExpand, handleExpand,
   } = props;
 
-  return Object.keys(styles).length && Object.keys(selectedStyle).length ? (
+  return styles && selectedStyle ? (
     <>
       <section>
         <div className="container">
           <div className="overview-upper-part">
             <div className="left-container">
-              <ImageGallery selectedStyle={selectedStyle} />
+              <ImageGallery
+                selectedStyle={selectedStyle}
+                isExpand={isExpand}
+                handleExpand={handleExpand}
+              />
             </div>
             <div className="right-container">
               <StarRating starRating={starRating} numReviews={numReviews} />
@@ -30,9 +36,18 @@ function Overview(props) {
                 styles={styles}
                 selectedStyle={selectedStyle}
                 handleStyleSelect={handleStyleSelect}
+                handleSizeSelect={handleSizeSelect}
+                handleQuantitySelect={handleQuantitySelect}
               />
-              <AddToCart selectedStyle={selectedStyle} />
-              <ShareOnSocialMedia />
+              <AddToCart
+                selectedStyle={selectedStyle}
+                selectedSize={selectedSize}
+                skuId={skuId}
+                selectedQuantity={selectedQuantity}
+                handleSizeSelect={handleSizeSelect}
+                handleQuantitySelect={handleQuantitySelect}
+              />
+              <ShareOnSocialMedia product={product} />
             </div>
           </div>
         </div>
