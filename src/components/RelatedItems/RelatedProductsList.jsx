@@ -50,7 +50,7 @@ class RelatedProductsList extends React.Component {
           </li>
 
         </ul>
-      </div >
+      </div>
     );
   }
 }
