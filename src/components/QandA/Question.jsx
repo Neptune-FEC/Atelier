@@ -49,6 +49,13 @@ class Question extends React.Component {
     const { question, updateQsStateHelper, product } = this.props;
     // console.log('this.props, Q: ', this.props);
 
+    let buttonText = '';
+    if (listOfAnswers.length > 2 && !showingMoreAnswers) {
+      buttonText = 'See More Answers';
+    } else if (showingMoreAnswers) {
+      buttonText = 'Collapse Answers';
+    }
+
     return (
       <div className="question">
         <h4>Q:</h4>
@@ -59,7 +66,6 @@ class Question extends React.Component {
           updateQsStateHelper={updateQsStateHelper}
           updateAnsStateHelper={this.updateAnsStateHelper}
           product={product}
-        // toggleAnsModal={toggleAnsModal}
         />
         <span>
           by
@@ -74,34 +80,25 @@ class Question extends React.Component {
           updateAnsStateHelper={this.updateAnsStateHelper}
           showingMoreAnswers={showingMoreAnswers}
         />
-        {
-          listOfAnswers.length > 2 && !showingMoreAnswers
-            ? (
-              <div>
-                <b
-                  className="moreAns"
-                  role="button"
-                  tabIndex={0}
-                  onClick={this.handleShowMoreAns}
-                  onKeyUp={this.handleShowMoreAns}
-                >
-                  See More Answers
-                </b>
-              </div>
-            ) : (
-              <div>
-                <b
-                  className="moreAns"
-                  role="button"
-                  tabIndex={0}
-                  onClick={this.handleShowMoreAns}
-                  onKeyUp={this.handleShowMoreAns}
-                >
-                  Collapse Answers
-                </b>
-              </div>
-            )
-        }
+        <div>
+          {
+            listOfAnswers.length < 2
+              ? null
+              : (
+                <div>
+                  <b
+                    className="moreAns"
+                    role="button"
+                    tabIndex={0}
+                    onClick={this.handleShowMoreAns}
+                    onKeyUp={this.handleShowMoreAns}
+                  >
+                    {buttonText}
+                  </b>
+                </div>
+              )
+          }
+        </div>
       </div>
     );
   }

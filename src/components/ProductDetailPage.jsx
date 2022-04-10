@@ -105,7 +105,7 @@ class ProductDetailPage extends React.Component {
         {(product)
           ? (
             <>
-              {/* <Overview
+              <Overview
                 product={product}
                 starRating={starRating}
                 numReviews={numReviews}
@@ -129,7 +129,7 @@ class ProductDetailPage extends React.Component {
                 styles={styles}
                 selectedStyle={selectedStyle}
                 fetchData={this.fetchData}
-              /> */}
+              />
               <br />
               <QandA product={product} />
               {isExpand
