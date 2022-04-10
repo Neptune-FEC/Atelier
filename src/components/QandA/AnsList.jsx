@@ -27,7 +27,7 @@ class AnsList extends React.Component {
             ))}
           </div>
         ) : (
-          <div>
+          <div className="ansList">
             {ansList.slice(0, numAns).map(((ans) => (
               <Answer
                 answer={ans}

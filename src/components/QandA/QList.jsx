@@ -1,5 +1,6 @@
 import React from 'react';
 import Question from './Question';
+import AddQModal from './AddQModal';
 
 class QList extends React.Component {
   constructor(props) {
@@ -11,7 +12,7 @@ class QList extends React.Component {
     };
 
     this.expandQsAccordion = this.expandQsAccordion.bind(this);
-    this.addQ = this.addQ.bind(this);
+    this.toggleAddQModal = this.toggleAddQModal.bind(this);
   }
 
   expandQsAccordion() {
@@ -20,7 +21,7 @@ class QList extends React.Component {
     this.setState({ isQsViewExpanded: !isQsViewExpanded, numQsShowing: moreQs });
   }
 
-  addQ() {
+  toggleAddQModal() {
     const { showAddQModal } = this.state;
     this.setState({ showAddQModal: !showAddQModal });
   }
@@ -30,12 +31,20 @@ class QList extends React.Component {
       qList, updateQsStateHelper, product,
     } = this.props;
     const { numQsShowing, showAddQModal } = this.state;
+    // console.log('product, QList: ', product);
 
     return (
       <div>
         <div className="qList">
-          {/* {showAddQModal
-            ? <AddQ /> : null} */}
+          {showAddQModal
+            ? (
+              <AddQModal
+                toggleAddQModal={this.toggleAddQModal}
+                updateQsStateHelper={updateQsStateHelper}
+                product={product}
+              />
+            )
+            : null}
           {qList.slice(0, numQsShowing).map(((q) => (
             <Question
               question={q}
@@ -46,11 +55,14 @@ class QList extends React.Component {
           )
           ))}
         </div>
-        <div className="qButtons">
+        <div>
           {qList.length > numQsShowing || qList.length <= 2
             ? <button type="button" className="moreQsButton" onClick={this.expandQsAccordion}>More Answered Questions</button> : null}
-
-          <button type="button" className="addQsButton" onClick={this.addQ}>Add a Question</button>
+          <div>
+            {showAddQModal
+              ? <button type="button" className="addQsButton">Add a Question</button>
+              : <button type="button" className="addQsButton" onClick={this.toggleAddQModal}>Add a Question</button>}
+          </div>
         </div>
       </div>
     );

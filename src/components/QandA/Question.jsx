@@ -23,8 +23,6 @@ class Question extends React.Component {
     this.updateAnsStateHelper();
   }
 
-  // TODO: add More Answers button & update numAnsShowing state.
-  // use modal window
   handleShowMoreAns() {
     const { showingMoreAnswers } = this.state;
     this.setState({
@@ -59,6 +57,7 @@ class Question extends React.Component {
         <QuestionHeader
           question={question}
           updateQsStateHelper={updateQsStateHelper}
+          updateAnsStateHelper={this.updateAnsStateHelper}
           product={product}
         // toggleAnsModal={toggleAnsModal}
         />

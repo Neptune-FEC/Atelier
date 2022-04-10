@@ -24,7 +24,7 @@ class AnsModal extends React.Component {
 
   handleAddAnsSubmit(event) {
     event.preventDefault();
-    const { questionId } = this.props;
+    const { questionId, updateAnsStateHelper } = this.props;
     const {
       answer, nickName, email, photos,
     } = this.state;
@@ -39,6 +39,7 @@ class AnsModal extends React.Component {
       );
     } else {
       addAnswer(questionId, answer, nickName, email, photos)
+        .then(() => updateAnsStateHelper(questionId))
         .then(() => this.closeAnsModal())
         .catch((err) => {
           // eslint-disable-next-line no-console
@@ -77,8 +78,8 @@ class AnsModal extends React.Component {
     const {
       answer, nickName, email, isShowingPhotoModal,
     } = this.state;
-    const { questionBody, product } = this.props;
-    // console.log('ansList, AnsModal: ', ansList);
+    const { questionBody, product, questionId } = this.props;
+    console.log('questionId, AnsModal: ', questionId);
 
     return (
       <div className="backgroundAnsModal">
@@ -99,12 +100,15 @@ class AnsModal extends React.Component {
           <br />
           <label htmlFor="a">
             Your Answer (mandatory)&nbsp;
-            <input
+            <br />
+            <textarea
               required
               type="text"
               maxLength="1000"
               value={answer}
               onChange={this.onChangeAnswer}
+              cols="40"
+              rows="5"
             />
           </label>
           <br />
