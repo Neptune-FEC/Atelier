@@ -2,8 +2,9 @@ import React from 'react';
 import RelatedProductsList from './RelatedProductsList';
 import YourOutfitList from './YourOutfitList';
 
+const { averageRating } = require('../../helpers/ProductHelper');
 const {
-  getProduct, getRelatedIds,
+  getProduct, getRelatedIds, getReviewMeta,
 } = require('../../helpers/HttpClient');
 
 class RelatedItemsWidget extends React.Component {
@@ -12,7 +13,7 @@ class RelatedItemsWidget extends React.Component {
     const { product } = this.props;
     this.state = {
       currentProduct: product,
-      relatedProducts: [],
+      relatedProducts: ['null'],
       productsToDisplay: [],
       index: 0,
     };
@@ -32,11 +33,21 @@ class RelatedItemsWidget extends React.Component {
   setRelatedProducts(relatedProducts) {
     const { product } = this.props;
 
-    this.setState({
-      currentProduct: product,
-      relatedProducts,
-      productsToDisplay: relatedProducts.slice(0, 4),
-    });
+    const promises = relatedProducts.map((item) => getReviewMeta(item.id)
+      .then((result) => result.data.ratings));
+    Promise.all(promises).then((result) => {
+      relatedProducts.forEach((relatedProd, i) => {
+        const { totalCount, avgRating } = averageRating(result[i]);
+        relatedProd.rating = { totalCount, avgRating };
+      });
+    })
+      .then(() => {
+        this.setState({
+          currentProduct: product,
+          relatedProducts,
+          productsToDisplay: relatedProducts.slice(0, 4),
+        });
+      });
   }
 
   updateRelatedList(prevState) {
@@ -77,33 +88,44 @@ class RelatedItemsWidget extends React.Component {
 
   render() {
     const {
-      relatedProducts, productsToDisplay, currentProduct, index,
+      relatedProducts, productsToDisplay, currentProduct,
+      index,
     } = this.state;
     const { fetchData } = this.props;
 
     const displayRightArrow = !(relatedProducts.length - index === 4);
     const displayLeftArrow = (index > 0);
 
+    console.log(relatedProducts[0]);
+
     return (
-      <div>
-        <h2>Related Items & Comparison</h2>
-        <div>
-          <RelatedProductsList
-            currentProduct={currentProduct}
-            relatedProducts={productsToDisplay}
-            displayRightArrow={displayRightArrow}
-            displayLeftArrow={displayLeftArrow}
-            cycleRight={this.cycleRight}
-            cycleLeft={this.cycleLeft}
-            fetchData={fetchData}
-          />
-        </div>
-        <div>
-          <YourOutfitList
-            currentProduct={currentProduct}
-          />
-        </div>
-      </div>
+
+      relatedProducts[0].rating
+        ? (
+          <div>
+            <h2>Related Items & Comparison</h2>
+            <div>
+              <RelatedProductsList
+                currentProduct={currentProduct}
+                relatedProducts={productsToDisplay}
+                displayRightArrow={displayRightArrow}
+                displayLeftArrow={displayLeftArrow}
+                cycleRight={this.cycleRight}
+                cycleLeft={this.cycleLeft}
+                fetchData={fetchData}
+              />
+            </div>
+            <div>
+              <YourOutfitList
+                currentProduct={currentProduct}
+              // starRating={starRating}
+              // numReviews={numReviews}
+              />
+            </div>
+          </div>
+        )
+        : <div>loading...</div>
+
     );
   }
 }
