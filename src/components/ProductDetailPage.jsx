@@ -1,13 +1,15 @@
 import React from 'react';
 import Overview from './Overview/Overview';
+import ExpandView from './Overview/ExpandView';
 import RelatedItemsWidget from './RelatedItems/RelatedItemsWidget';
 import QandA from './QandA/QandA';
 
 const { averageRating } = require('../helpers/ProductHelper');
-
 const {
   getProduct, getReviewMeta, getStyles,
 } = require('../helpers/HttpClient');
+
+const testId = 66642;
 
 class ProductDetailPage extends React.Component {
   constructor(props) {
@@ -25,7 +27,7 @@ class ProductDetailPage extends React.Component {
   }
 
   componentDidMount() {
-    this.fetchData(66642);
+    this.fetchData(testId);
   }
 
   handleStyleSelect(style) {
@@ -61,12 +63,14 @@ class ProductDetailPage extends React.Component {
       product, starRating, reviewMeta, numReviews, styles, selectedStyle,
     } = this.state;
     return (
-      <div className="main">
-        <div className="header">Hello Neptune!!!</div>
+      <>
+        <header>
+          <h1>Hello Neptune!!!</h1>
+        </header>
         {Object.keys(product).length && Object.keys(reviewMeta).length && starRating && numReviews
           ? (
-            <div>
-              {/* <Overview
+            <>
+              <Overview
                 product={product}
                 starRating={starRating}
                 numReviews={numReviews}
@@ -82,12 +86,15 @@ class ProductDetailPage extends React.Component {
                 reviewMeta={reviewMeta}
                 styles={styles}
                 selectedStyle={selectedStyle}
-              /> */}
+                fetchData={this.fetchData}
+              />
+              <br />
               <QandA product={product} />
-            </div>
+              {/* <ExpandView selectedStyle={selectedStyle} /> */}
+            </>
           )
           : <div> loading</div>}
-      </div>
+      </>
     );
   }
 }
