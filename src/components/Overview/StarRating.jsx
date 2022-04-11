@@ -16,25 +16,7 @@ function StarRating(props) {
     halfStar,
     thirdQuaterStar,
   );
-  // const remainderStars = 5 - starRating;
-  // const remainder = remainderStars - Math.floor(remainderStars);
-  // const blackStars = [];
-  // const whiteStars = [];
-  // for (let i = 1; i < starRating; i += 1) {
-  //   blackStars.push(<i className="full-star fa fa-star" />);
-  // }
-  // for (let i = 1; i < remainderStars; i += 1) {
-  //   whiteStars.push(<i className="empty-star fa fa-star" />);
-  // }
-  // if (remainder === 0.5) {
-  //   whiteStars.push(<i className="half-star fa fa-star-half" />);
-  // }
-  // if (remainder === 0.25) {
-  //   whiteStars.push(<i className="half-star fa fa-star-half" />);
-  // }
-  // if (remainder === 0.75) {
-  //   whiteStars.push(<i className="half-star fa fa-star-half" />);
-  // }
+
   return (
     numReviews
       ? (
