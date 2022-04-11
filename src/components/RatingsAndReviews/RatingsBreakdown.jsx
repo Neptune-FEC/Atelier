@@ -1,23 +1,96 @@
 import React from 'react';
+import { displayStarRating } from '../../helpers/ProductHelper';
+
+// function getRecommendedPercentage(recommendObject) {
+//   console.log(recommendObject);
+//   const numFalse = parseInt(recommendObject.false);
+//   const numTrue = parseInt(recommendObject.true);
+//   const total = numFalse + numTrue;
+//   return Math.floor((numTrue / total) * 100);
+//   // return '100';
+// }
+
+function getRecommendedPercentage(recommended) {
+  // const { reviewMeta } = props;
+  // console.log(reviewMeta);
+  // const { recommended } = reviewMeta;
+  // console.log(recommended);
+  // console.log(props.reviewMeta);
+  const numFalse = parseInt(recommended.false);
+  const numTrue = parseInt(recommended.true);
+  const total = numFalse + numTrue;
+  return (<span>{Math.floor((numTrue / total) * 100)}</span>);
+  // return '100';
+}
+
+function displayRatings(ratings) {
+  const minStar = 1;
+  const maxStar = 5;
+  let numRatings = 0;
+  const ratingsHTML = [];
+
+  Object.keys(ratings).forEach((rate) => {
+    numRatings += parseInt(ratings[rate]);
+  });
+
+  for (let star = maxStar; star >= minStar; star -= 1) {
+    const starId = `${star}-stars`;
+    let percentage = 0;
+
+    if (ratings && numRatings > 0) {
+      if (ratings[star]) {
+        percentage = Math.floor((parseInt(ratings[star]) / numRatings) * 100);
+      }
+    }
+
+    ratingsHTML.push(
+      <div>
+        <label htmlFor={starId}>{star} Stars</label>
+        <progress id={starId} max="100" value={percentage} />
+      </div>
+    );
+  }
+
+  return ratingsHTML;
+}
 
 function RatingsBreakdown(props) {
+  const { avgRating, reviewMeta } = props;
+
+  console.log(reviewMeta);
+
+  // star logos html
+  const fullStar = <i className="full-star fa fa-star" />;
+  const emptyStar = <i className="empty-star full-star fa fa-star" />;
+  const quaterStar = <i className="half-star fa fa-star-half" />;
+  const halfStar = <i className="half-star fa fa-star-half" />;
+  const thirdQuaterStar = <i className="half-star fa fa-star-half" />;
+
+  const stars = displayStarRating(
+    avgRating,
+    fullStar,
+    emptyStar,
+    quaterStar,
+    halfStar,
+    thirdQuaterStar,
+  );
+
   return (
     <div id="ratings-breakdown">
       <div className="product-rating">
-        <span className="average-rating-number"><h1>3.5</h1></span>
+        <span className="average-rating-number"><h1>{avgRating}</h1></span>
         <div className="average-rating-stars">
-          <span className="fa-solid fa-star"></span>
-          <span className="fa-solid fa-star"></span>
-          <span className="fa-solid fa-star"></span>
-          <span className="fa-regular fa-star-half-stroke"></span>
-          <span className="fa-regular fa-star"></span>
+          {stars}
         </div>
       </div>
       <div className="recommendation-percentage">
-        100% of reviews recommend this product
+        {/* {getRecommendedPercentage(reviewMeta)} */}
+        {/* {getRecommendedPercentage(reviewMeta.recommended)} */}
+        {reviewMeta ? getRecommendedPercentage(reviewMeta.recommended) : ''}
+        % of reviews recommend this product
       </div>
       <div className="score-breakdown">
-        <div>
+        {/* <div>
           <label htmlFor="5-stars">5 Stars</label>
           <progress id="5-stars" max="100" value="20"></progress>
         </div>
@@ -36,7 +109,8 @@ function RatingsBreakdown(props) {
         <div>
           <label htmlFor="1-stars">1 Stars</label>
           <progress id="1-stars" max="100" value="35"></progress>
-        </div>
+        </div> */}
+        {reviewMeta ? displayRatings(reviewMeta.ratings) : ''}
       </div>
       <div className="categories-breakdown">
         <div>
