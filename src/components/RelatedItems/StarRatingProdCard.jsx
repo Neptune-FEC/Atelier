@@ -1,7 +1,7 @@
 import React from 'react';
 import { displayStarRating } from '../../helpers/ProductHelper';
 
-function StarRating(props) {
+function StarRatingProdCard(props) {
   const { starRating, numReviews } = props;
   const fullStar = <i className="full-star fa fa-star" />;
   const emptyStar = <i className="empty-star full-star fa fa-star" />;
@@ -16,25 +16,17 @@ function StarRating(props) {
     halfStar,
     thirdQuaterStar,
   );
-
   return (
     numReviews
       ? (
-        <div className="overview-rating-reviews">
-          <div className="overview-rating">
+        <div className="product-card-star-rating">
+          <div className="product-card-stars">
             {stars}
           </div>
-          <a className="overview-reviews" href="#reviews">
-            Read all
-            {' '}
-            {numReviews}
-            {' '}
-            reviews
-          </a>
         </div>
       )
       : <div />
   );
 }
 
-export default StarRating;
+export default StarRatingProdCard;

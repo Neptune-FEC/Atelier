@@ -1,4 +1,5 @@
 import React from 'react';
+import StarRatingProdCard from './StarRatingProdCard';
 
 const {
   getStyles,
@@ -84,7 +85,10 @@ class ProductCardYO extends React.Component {
   }
 
   render() {
-    const { product, removeFromOutfit, index } = this.props;
+    const {
+      product, removeFromOutfit, index,
+      starRating, numReviews,
+    } = this.props;
     const { thumbnail } = this.state;
     const thumbnailNoImage = 'https://acttochange.org/wp-content/plugins/ninja-forms/assets/img/no-image-available-icon-6.jpg';
 
@@ -112,9 +116,12 @@ class ProductCardYO extends React.Component {
         <span>
           {this.displayPrice()}
         </span>
-        <p className="productCardStars">
-          Star Rating
-        </p>
+        <div className="productCardStars">
+          <StarRatingProdCard
+            starRating={starRating}
+            numReviews={numReviews}
+          />
+        </div>
       </li>
     );
   }

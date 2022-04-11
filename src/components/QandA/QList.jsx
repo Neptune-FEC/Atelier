@@ -10,7 +10,6 @@ class QList extends React.Component {
       numQsShowing: 2,
       showAddQModal: false,
     };
-
     this.expandQsAccordion = this.expandQsAccordion.bind(this);
     this.toggleAddQModal = this.toggleAddQModal.bind(this);
   }
@@ -28,32 +27,42 @@ class QList extends React.Component {
 
   render() {
     const {
-      qList, updateQsStateHelper, product,
+      qList, updateQsStateHelper, product, qSearch,
     } = this.props;
     const { numQsShowing, showAddQModal } = this.state;
-    // console.log('product, QList: ', product);
+    let listOfQuestions = [];
+    if (qSearch.length > 2) {
+      listOfQuestions = qList.filter((q) => q.question_body.includes(qSearch));
+    } else {
+      listOfQuestions = qList;
+    }
+    // console.log('listOfQuestions, QList: ', listOfQuestions);
 
     return (
       <div>
         <div className="qList">
-          {showAddQModal
-            ? (
-              <AddQModal
-                toggleAddQModal={this.toggleAddQModal}
+          <div>
+            {showAddQModal
+              ? (
+                <AddQModal
+                  toggleAddQModal={this.toggleAddQModal}
+                  updateQsStateHelper={updateQsStateHelper}
+                  product={product}
+                />
+              )
+              : null}
+          </div>
+          <div>
+            {listOfQuestions.slice(0, numQsShowing).map(((q) => (
+              <Question
+                question={q}
                 updateQsStateHelper={updateQsStateHelper}
+                key={q.question_id}
                 product={product}
               />
             )
-            : null}
-          {qList.slice(0, numQsShowing).map(((q) => (
-            <Question
-              question={q}
-              updateQsStateHelper={updateQsStateHelper}
-              key={q.question_id}
-              product={product}
-            />
-          )
-          ))}
+            ))}
+          </div>
         </div>
         <div>
           {qList.length > numQsShowing || qList.length <= 2

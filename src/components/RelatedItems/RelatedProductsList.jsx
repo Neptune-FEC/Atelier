@@ -17,7 +17,6 @@ class RelatedProductsList extends React.Component {
 
     return (
       <div>
-        <h3>Product list</h3>
         <ul className="productCardList">
           <li className="comparisonScrollArrowLeft"
             onClick={() => cycleLeft()}>
@@ -35,6 +34,8 @@ class RelatedProductsList extends React.Component {
                   key={product.id}
                   currentProduct={currentProduct}
                   fetchData={fetchData}
+                  starRating={product.rating?.avgRating}
+                  numReviews={product.rating?.totalCount}
                 />
               ))
               : <div className="no-related-products">No Related Products</div>

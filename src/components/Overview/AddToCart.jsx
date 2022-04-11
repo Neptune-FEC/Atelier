@@ -1,6 +1,7 @@
 import React from 'react';
 import SizeSelector from './SizeSelector';
 import QuantitySelector from './QuantitySelector';
+import { getCart, postCart } from '../../helpers/HttpClient';
 
 class AddToCart extends React.Component {
   constructor(props) {
@@ -11,9 +12,10 @@ class AddToCart extends React.Component {
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.toggleDropdown = this.toggleDropdown.bind(this);
+    this.setMessage = this.setMessage.bind(this);
   }
 
-  handleSubmit() {
+  handleSubmit(id, selectedQuantity, selectedSize) {
     const {
       skuId, handleQuantitySelect, handleSizeSelect,
     } = this.props;
@@ -24,7 +26,12 @@ class AddToCart extends React.Component {
       this.setState({ message: 'Please select size' });
       this.toggleDropdown();
     }
-    // postCart(skuId, selectedQuantity);
+  }
+
+  setMessage() {
+    this.setState({
+      message: null,
+    });
   }
 
   toggleDropdown() {
@@ -61,6 +68,7 @@ class AddToCart extends React.Component {
               handleQuantitySelect={handleQuantitySelect}
               isSizeDropdown={isSizeDropdown}
               toggleDropdown={this.toggleDropdown}
+              setMessage={this.setMessage}
             />
             <QuantitySelector
               skuId={skuId}
@@ -69,12 +77,12 @@ class AddToCart extends React.Component {
               selectedQuantity={selectedQuantity}
             />
           </div>
-          <div className="overview-add-to-cart" role="presentation" onClick={() => { this.handleSubmit(skuId, selectedQuantity); }}>
+          <div className="overview-add-to-cart" role="presentation" onClick={() => { this.handleSubmit(skuId, selectedQuantity, selectedSize); }}>
             <div className="add-to-cart-container">
               <div className="add-to-cart">Add To Cart</div>
               <i className="fa fa-plus add-icon" />
             </div>
-            <div className="heart-icon"><i className="fa fa-heart-o heart-icon" /></div>
+            <div className="heart-icon"><i className="fa fa-heart-o" /></div>
           </div>
         </>
       )
