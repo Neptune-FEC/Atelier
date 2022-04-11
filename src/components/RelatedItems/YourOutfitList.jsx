@@ -14,7 +14,7 @@ class YourOutfitList extends React.Component {
     this.removeFromOutfit = this.removeFromOutfit.bind(this);
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps) {
     const { currentProduct } = this.props;
     if (prevProps.currentProduct.id !== currentProduct.id) {
       this.setState({
@@ -25,6 +25,10 @@ class YourOutfitList extends React.Component {
 
   addToOutfit() {
     const { outfit, currentProduct } = this.state;
+    const { starRating, numReviews } = this.props;
+
+    currentProduct.starRating = starRating;
+    currentProduct.numReviews = numReviews;
 
     outfit.unshift(currentProduct);
 
@@ -36,7 +40,7 @@ class YourOutfitList extends React.Component {
   removeFromOutfit(index) {
     const { outfit } = this.state;
 
-    console.log(outfit.splice(index, 1));
+    outfit.splice(index, 1);
 
     this.setState({
       outfit,
@@ -48,7 +52,6 @@ class YourOutfitList extends React.Component {
 
     return (
       <div>
-        <h3>Your Outfit</h3>
         <ul className="your-outfit-card-list">
           {
             !(outfit.includes(currentProduct))
@@ -70,6 +73,8 @@ class YourOutfitList extends React.Component {
                   key={product.id}
                   index={i}
                   removeFromOutfit={this.removeFromOutfit}
+                  starRating={product.starRating}
+                  numReviews={product.numReviews}
                 />
               ))
               : ''

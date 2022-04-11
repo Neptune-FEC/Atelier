@@ -119,6 +119,15 @@ const reportAnswer = (answerId) => instance.put(
   `/qa/answers/${answerId}/report`,
 );
 
+//----------------
+// ---------------RATINGS AND REVIEWS WIDGET
+//----------------
+
+const getReviews = (params) => instance.get(
+  'reviews',
+  { params },
+);
+
 module.exports = {
   getProducts,
   getReviewMeta,
@@ -135,4 +144,5 @@ module.exports = {
   getRelatedIds,
   postCart,
   getCart,
+  getReviews,
 };
