@@ -16,11 +16,15 @@ function getRecommendedPercentage(recommended) {
   // const { recommended } = reviewMeta;
   // console.log(recommended);
   // console.log(props.reviewMeta);
-  const numFalse = parseInt(recommended.false);
-  const numTrue = parseInt(recommended.true);
-  const total = numFalse + numTrue;
-  return (<span>{Math.floor((numTrue / total) * 100)}</span>);
-  // return '100';
+
+  if (Object.keys(recommended).length > 0) {
+    const numFalse = recommended.false ? parseInt(recommended.false) : 0;
+    const numTrue = recommended.true ? parseInt(recommended.true) : 0;
+    const total = numFalse + numTrue;
+    return Math.floor((numTrue / total) * 100);
+  }
+
+  return 0;
 }
 
 function displayRatings(ratings) {
