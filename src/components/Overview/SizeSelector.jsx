@@ -41,16 +41,6 @@ function SizeSelector(props) {
         )}
       </div>
     </div>
-    // <div className="overview-size">
-    //   <select className="size-selector" onChange={handleChange}>
-    //     <option value="none" selected disabled hidden>Select an Option</option>
-    //     {allSkuIds.map((skuId) => (
-    //       <option key={skuId} value={skuId}>
-    //         {skus[skuId].size}
-    //       </option>
-    //     ))}
-    //   </select>
-    // </div>
   );
 }
 

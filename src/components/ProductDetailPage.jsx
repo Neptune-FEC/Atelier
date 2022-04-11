@@ -136,7 +136,7 @@ class ProductDetailPage extends React.Component {
                 && <ExpandView selectedStyle={selectedStyle} handleExpand={this.handleExpand} />}
             </>
           )
-          : <div> loading</div>}
+          : <div>Loading Neptune!!!</div>}
       </>
     );
   }

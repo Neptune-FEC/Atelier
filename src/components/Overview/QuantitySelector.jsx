@@ -54,19 +54,8 @@ class QuantitySelector extends React.Component {
           )}
         </div>
       </div>
-      // <select onChange={handleChange}>
-      //   {quantities.map((element) => (
-      //     <option key={element} value={element}>
-      //       {element}
-      //     </option>
-      //   ))}
-      // </select>
     );
   }
-  // return(
-  //     // skuId ? <div>{skus[skuId]}</div> : <div>No size selected</div>
-  //     <div />
-  //   );
 }
 
 export default QuantitySelector;
