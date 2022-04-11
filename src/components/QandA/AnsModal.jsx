@@ -79,7 +79,7 @@ class AnsModal extends React.Component {
       answer, nickName, email, isShowingPhotoModal,
     } = this.state;
     const { questionBody, product, questionId } = this.props;
-    console.log('questionId, AnsModal: ', questionId);
+    // console.log('questionId, AnsModal: ', questionId);
 
     return (
       <div className="backgroundAnsModal">

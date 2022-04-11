@@ -94,7 +94,6 @@ class ProductCard extends React.Component {
     const { thumbnail } = this.state;
     const thumbnailNoImage = 'https://acttochange.org/wp-content/plugins/ninja-forms/assets/img/no-image-available-icon-6.jpg';
 
-    // console.log(starRating, numReviews);
     return (
       <li className="productCard">
         <ComparisonModal

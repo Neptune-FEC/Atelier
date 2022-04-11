@@ -3,8 +3,8 @@ import React from 'react';
 class ExpandView extends React.Component {
   constructor(props) {
     super(props);
-    this.indexImage = 0;
     this.state = {
+      limitNumPhotos: 3,
       isZoom: false,
       mouseX: undefined,
       mouseY: undefined,
@@ -14,6 +14,7 @@ class ExpandView extends React.Component {
     this.scrollImageRight = this.scrollImageRight.bind(this);
     this.zoomImage = this.zoomImage.bind(this);
     this.moveMouseImg = this.moveMouseImg.bind(this);
+    this.changeImage = this.changeImage.bind(this);
   }
 
   moveMouseImg(e) {
@@ -27,13 +28,19 @@ class ExpandView extends React.Component {
   }
 
   scrollImageLeft() {
-    this.indexImage -= 1;
-    document.getElementById(`expand${this.indexImage}`).scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+    const { indexImage, handleIndexImageLeft } = this.props;
+    handleIndexImageLeft();
+    document.getElementById(`expand${indexImage - 1}`).scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
   }
 
   scrollImageRight() {
-    this.indexImage += 1;
-    document.getElementById(`expand${this.indexImage}`).scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+    const { indexImage, handleIndexImageRight } = this.props;
+    document.getElementById(`expand${indexImage + 1}`).scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+    handleIndexImageRight();
+  }
+
+  changeImage(index) {
+    document.getElementById(`expand${index}`).scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
   }
 
   zoomImage() {
@@ -44,9 +51,14 @@ class ExpandView extends React.Component {
   }
 
   render() {
-    const { selectedStyle, handleExpand } = this.props;
+    const {
+      selectedStyle, handleExpand, indexImage,
+    } = this.props;
     const { photos } = selectedStyle;
     const numPhotos = photos.length;
+    const {
+      limitNumPhotos,
+    } = this.state;
     const { isZoom, mouseX, mouseY } = this.state;
 
     return (
@@ -54,16 +66,34 @@ class ExpandView extends React.Component {
         <i className="fa fa-close close-icon" role="presentation" onClick={handleExpand} />
         <div className="gallery-overlay expand-gallery-overlay">
           <div className="gallery-navigation">
-            <i role="presentation" className="gallery-icon-left fa fa-chevron-left navigation-icon" onClick={() => { this.scrollImageLeft(); }} />
-            <i role="presentation" className="gallery-icon-left fa fa-chevron-right navigation-icon" onClick={() => { this.scrollImageRight(); }} />
+            <i
+              style={{ visibility: `${(indexImage > 0) ? 'visible' : 'hidden'}` }}
+              role="presentation"
+              className="gallery-icon-left fa fa-chevron-left navigation-icon"
+              onClick={() => { this.scrollImageLeft(numPhotos); }}
+            />
+            <i
+              style={{ visibility: `${indexImage < (numPhotos - 1) ? 'visible' : 'hidden'}` }}
+              role="presentation"
+              className="gallery-icon-left fa fa-chevron-right navigation-icon"
+              onClick={() => { this.scrollImageRight(numPhotos); }}
+            />
           </div>
         </div>
-        <div className="gallery expand-view-gallery">
-          <div className="gallery-items" style={{ width: `${numPhotos}00%` }}>
+        <div
+          id="gallery"
+          className="gallery expand-view-gallery"
+          role="presentation"
+        >
+          <div
+            className="gallery-items"
+            style={{ width: `${numPhotos}00%` }}
+          >
             {photos.map((photo, idx) => (
               isZoom
                 ? (
                   <div
+                    key={`keys-expand${photo.url}`}
                     id={`expand${idx}`}
                     className="gallery-item expand-view-gallery-item zoom-image"
                     style={{
@@ -79,8 +109,8 @@ class ExpandView extends React.Component {
                 )
                 : (
                   <div
-                    id={`expand${idx}`}
                     className="gallery-item expand-view-gallery-item"
+                    id={`expand${idx}`}
                     style={{ backgroundImage: `url(${photo.url})`, width: `${100 / numPhotos}%` }}
                     role="presentation"
                     onClick={() => {
