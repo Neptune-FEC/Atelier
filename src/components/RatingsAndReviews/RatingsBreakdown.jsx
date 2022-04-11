@@ -1,15 +1,6 @@
 import React from 'react';
 import { displayStarRating } from '../../helpers/ProductHelper';
 
-// function getRecommendedPercentage(recommendObject) {
-//   console.log(recommendObject);
-//   const numFalse = parseInt(recommendObject.false);
-//   const numTrue = parseInt(recommendObject.true);
-//   const total = numFalse + numTrue;
-//   return Math.floor((numTrue / total) * 100);
-//   // return '100';
-// }
-
 function getRecommendedPercentage(recommended) {
   // const { reviewMeta } = props;
   // console.log(reviewMeta);
