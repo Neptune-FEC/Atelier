@@ -138,7 +138,7 @@ class ExpandView extends React.Component {
             ))}
           </div>
         </div>
-        <div className="dot-container">
+        <div className="dot-container" style={{ visibility: `${isZoom ? 'hidden' : 'visible'}` }}>
           {photos.map((photo, idx) => <i className="fa fa-circle dot-icon navigation-icon" role="presentation" onClick={() => { this.changeImage(idx); }} />)}
         </div>
 
