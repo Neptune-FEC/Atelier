@@ -13,7 +13,13 @@ function Overview(props) {
   const {
     product, starRating, numReviews, styles,
     selectedStyle, handleStyleSelect, selectedSize,
-    skuId, selectedQuantity, handleSizeSelect, handleQuantitySelect, isExpand, handleExpand,
+    skuId, selectedQuantity,
+    handleSizeSelect, handleQuantitySelect,
+    isExpand, handleExpand, indexImage, indexThumbnail, handleIndexThumbnailTop,
+    handleIndexThumbnailDown,
+    handleIndexImageLeft,
+    handleIndexImageRight,
+    setIndexImage, indexStyleMapping, handleIndexStyleMapping, setIndexThumbnail,
   } = props;
 
   return styles && selectedStyle ? (
@@ -23,9 +29,19 @@ function Overview(props) {
           <div className="overview-upper-part">
             <div className="left-container">
               <ImageGallery
+                setIndexImage={setIndexImage}
                 selectedStyle={selectedStyle}
                 isExpand={isExpand}
                 handleExpand={handleExpand}
+                indexImage={indexImage}
+                indexThumbnail={indexThumbnail}
+                handleIndexThumbnailTop={handleIndexThumbnailTop}
+                handleIndexThumbnailDown={handleIndexThumbnailDown}
+                handleIndexImageLeft={handleIndexImageLeft}
+                handleIndexImageRight={handleIndexImageRight}
+                product={product}
+                indexStyleMapping={indexStyleMapping}
+                handleIndexStyleMapping={handleIndexStyleMapping}
               />
             </div>
             <div className="right-container">
@@ -38,6 +54,9 @@ function Overview(props) {
                 handleStyleSelect={handleStyleSelect}
                 handleSizeSelect={handleSizeSelect}
                 handleQuantitySelect={handleQuantitySelect}
+                indexStyleMapping={indexStyleMapping}
+                setIndexImage={setIndexImage}
+                setIndexThumbnail={setIndexThumbnail}
               />
               <AddToCart
                 selectedStyle={selectedStyle}
