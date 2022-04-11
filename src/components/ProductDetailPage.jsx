@@ -267,7 +267,7 @@ class ProductDetailPage extends React.Component {
     return (
       <>
         <header>
-          <h1>Hello Neptune!!!</h1>
+          <h1>Atelier</h1>
         </header>
         {(product && indexStyleMapping)
           ? (
