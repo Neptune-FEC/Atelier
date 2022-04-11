@@ -88,7 +88,7 @@ class ProductCard extends React.Component {
     const { relatedProduct, currentProduct, fetchData } = this.props;
     const { thumbnail } = this.state;
     const thumbnailNoImage = 'https://acttochange.org/wp-content/plugins/ninja-forms/assets/img/no-image-available-icon-6.jpg';
-    console.log(relatedProduct);
+    // console.log(relatedProduct);
 
     return (
       <li className="productCard">

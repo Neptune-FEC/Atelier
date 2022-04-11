@@ -9,6 +9,7 @@ class QandA extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      currProduct: null,
       // listOfQuestions: qListData.results,
       // numQsShowing: qListData.results.length,
       listOfQuestions: [],
@@ -22,6 +23,13 @@ class QandA extends React.Component {
     this.updateQsStateHelper();
   }
 
+  componentDidUpdate(prevProps) {
+    const { product } = this.props;
+    if (prevProps.product.id !== product.id) {
+      this.updateQsStateHelper();
+    }
+  }
+
   searchQuestionCallback(searchQuery) {
     this.setState({ qSearch: searchQuery });
   }
@@ -33,6 +41,7 @@ class QandA extends React.Component {
         const sortedQsList = response.data.results;
         sortedQsList.sort((a, b) => b.question_helpfulness - a.question_helpfulness);
         this.setState({
+          currProduct: product,
           listOfQuestions: sortedQsList,
         });
       })
@@ -42,8 +51,7 @@ class QandA extends React.Component {
   }
 
   render() {
-    const { listOfQuestions, qSearch } = this.state;
-    const { product } = this.props;
+    const { currProduct, listOfQuestions, qSearch } = this.state;
     // console.log('product, QnA: ', product);
 
     return (
@@ -57,10 +65,10 @@ class QandA extends React.Component {
         <br />
         <div className="qsList">
           <QList
+            product={currProduct}
             qList={listOfQuestions}
             qSearch={qSearch}
             updateQsStateHelper={this.updateQsStateHelper}
-            product={product}
           />
         </div>
       </div>
