@@ -13,7 +13,7 @@ class RelatedItemsWidget extends React.Component {
     const { product } = this.props;
     this.state = {
       currentProduct: product,
-      relatedProducts: ['null'],
+      relatedProducts: ['initialize'],
       productsToDisplay: [],
       index: 0,
     };
@@ -101,7 +101,7 @@ class RelatedItemsWidget extends React.Component {
       relatedProducts[0].rating
         ? (
           <div>
-            <h2>Related Items & Comparison</h2>
+            <h3 className="related-title">Customers also bought these items</h3>
             <div>
               <RelatedProductsList
                 currentProduct={currentProduct}
@@ -113,6 +113,7 @@ class RelatedItemsWidget extends React.Component {
                 fetchData={fetchData}
               />
             </div>
+            <h3 className="related-title">Your Outfit</h3>
             <div>
               <YourOutfitList
                 currentProduct={currentProduct}

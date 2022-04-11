@@ -621,6 +621,12 @@ section{
 /*   RELATED ITEMS WIDGET STYLING   */
 /* -------------------------------- */
 
+.related-title {
+  position: relative;
+  left: 14%;
+  padding-top: 35px;
+}
+
 .productCardList {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
@@ -692,6 +698,15 @@ section{
   left: 2%;
   position: relative;
   font-size: large;
+}
+
+.productCardName:hover {
+  color: rgba(90, 89, 89, 0.4);
+  cursor: pointer;
+}
+
+.productCardName:active {
+  color: rgba(0, 0, 0, 0.436);
 }
 
 .productCardDefaultPrice {

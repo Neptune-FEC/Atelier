@@ -52,7 +52,6 @@ class YourOutfitList extends React.Component {
 
     return (
       <div>
-        <h3>Your Outfit</h3>
         <ul className="your-outfit-card-list">
           {
             !(outfit.includes(currentProduct))
