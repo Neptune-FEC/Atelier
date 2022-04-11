@@ -11,7 +11,7 @@ function ProductOverview(props) {
       </div>
       <div className="overview-features">
         {features.map((feature) => (
-          <li className="feature-item">
+          <li className="feature-item" key={feature.feature}>
             <span>
               {feature.feature}
               :

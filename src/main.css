@@ -198,13 +198,17 @@ section{
 
 .close-icon {
   margin: 1rem;
-  border: #ededf2 solid 2px;
-  color: white;
+  border: var(--primary-light-color) solid 2px;
+  color: var(--primary-light-color);
   font-size: 3rem;
   position: absolute;
   top: 0;
   right: 0;
   z-index: 300;
+}
+.close-icon:hover{
+  color: #E66A35;
+  border-color: #E66A35;
 }
 
 .expand-view-container {
@@ -266,7 +270,6 @@ section{
   height: 100%;
   scroll-behavior: smooth;
   overflow: hidden;
-
 }
 
 .thumbnail-icon {
@@ -282,6 +285,9 @@ section{
   pointer-events: auto;
   cursor: pointer;
 }
+.navigation-icon:hover {
+  color: #E66A35;
+}
 
 .thumbnail-items {
   width: 100%;
@@ -290,16 +296,24 @@ section{
   pointer-events: auto;
 }
 
-.thumbnail-item {
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: 50%;
-  margin: 10%;
+.thumbnail-item{
+  padding: 10%;
   cursor: pointer;
-  border-bottom: 3px solid #E66A35;
   /* z-index: 1000; */
 }
 
+.thumbnail-item-image{
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 50%;
+
+}
+
+.thumbnail-item-image-selected{
+  border: 3px solid #E66A35;
+}
 .right-container {
   flex: 1;
 }
@@ -321,7 +335,7 @@ section{
 }
 
 .full-star {
-  color: var(--primary-light-dark-color);
+  color: #E66A35;
 }
 
 .empty-star {
@@ -329,11 +343,14 @@ section{
 }
 
 .half-star {
-  color: var(--primary-light-dark-color);
+  color: #E66A35;
 }
 
 .share-icon {
   font-size: 3rem;
+}
+.share-icon:hover{
+  color: #E66A35;
 }
 
 .share-on-social-media {
@@ -401,7 +418,11 @@ section{
   background-position: center;
   /* background-attachment: fixed; */
   overflow: hidden;
-  border: 0px solid var(--primary-light-dark-color);
+}
+
+.style-thumbnail-selected{
+  border: 2px solid #E66A35;
+
 }
 
 .check-icon-visible {
@@ -413,6 +434,7 @@ section{
   font-size: 120%;
   color: var(--primary-light-dark-color);
   opacity: 1;
+  color:#E66A35
   /* color: green; */
 }
 
@@ -480,6 +502,7 @@ section{
 }
 
 .add-to-cart-container {
+  /* border: 0.1rem solid var(--primary-light-dark-color); */
   padding: 0.5rem;
   background-color: var(--primary-light-dark-color);
   display: flex;
@@ -488,6 +511,11 @@ section{
   flex-grow: 3;
   gap: 1rem;
   align-items: center;
+  cursor: pointer;
+}
+
+.add-to-cart-container:hover{
+  background-color: #E66A35;
 }
 
 .heart-icon {
@@ -499,10 +527,14 @@ section{
   align-items: center;
   display: flex;
   color: var(--primary-light-color);
+  cursor: pointer;
+}
+
+.heart-icon:hover{
+  background-color: #E66A35;
 }
 
 .add-to-cart {
-  border: 0.1rem solid var(--primary-light-dark-color);
   font-size: var(--medium-text-font-size);
   color: var(--primary-light-color);
   /* width: 75%; */
