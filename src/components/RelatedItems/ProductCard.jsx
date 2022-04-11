@@ -1,5 +1,6 @@
 import React from 'react';
 import ComparisonModal from './ComparisonModal';
+import StarRatingProdCard from './StarRatingProdCard';
 
 const {
   getStyles,
@@ -85,10 +86,13 @@ class ProductCard extends React.Component {
   }
 
   render() {
-    const { relatedProduct, currentProduct, fetchData } = this.props;
+    const
+      {
+        relatedProduct, currentProduct, fetchData,
+        starRating, numReviews,
+      } = this.props;
     const { thumbnail } = this.state;
     const thumbnailNoImage = 'https://acttochange.org/wp-content/plugins/ninja-forms/assets/img/no-image-available-icon-6.jpg';
-    // console.log(relatedProduct);
 
     return (
       <li className="productCard">
@@ -113,9 +117,12 @@ class ProductCard extends React.Component {
         <span>
           {this.displayPrice()}
         </span>
-        <p className="productCardStars">
-          Star Rating
-        </p>
+        <div className="productCardStars">
+          <StarRatingProdCard
+            starRating={starRating}
+            numReviews={numReviews}
+          />
+        </div>
       </li>
     );
   }
