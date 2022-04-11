@@ -56,7 +56,12 @@ class PhotoModal extends React.Component {
           <p>Submit up to 5 photos with your answer.</p>
           <p>Note: If you uploaded more than 5 images, only the first 5 will be submitted.</p>
           <br />
-          <input type="file" onChange={this.updateImagesState} form="AddAnswer" />
+          <input
+            type="file"
+            multiple
+            form="AddAnswer"
+            onChange={this.updateImagesState}
+          />
           <br />
           <div>Thumbnail preview</div>
           <br />

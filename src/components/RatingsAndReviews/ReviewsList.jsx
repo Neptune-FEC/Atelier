@@ -2,21 +2,29 @@ import React from 'react';
 import ReviewTile from './ReviewTile';
 
 function ReviewsList(props) {
+  const { reviews, numReviews, handleChangeReviewSort,
+    reviewSort, getMoreReviews, noMoreReviews } = props;
+  const numWrittenReviews = reviews ? reviews.length : 0;
+
   return (
     <div id="review-list">
       <div className="review-list-header">
-        248 Reviews, <label htmlFor="sort-reviews">sorted by:</label>
-        <select id="sort-reviews">
-          <option value="helpful">Helpful</option>
-          <option value="relevant">Relevant</option>
-          <option value="newest">Newest</option>
-        </select>
+        {numWrittenReviews > 0 ? `${numReviews} Reviews, ` : ''}
+        {numWrittenReviews > 0 ? (
+          <span>
+            <label htmlFor="sort-reviews">sorted by:</label>
+            <select id="sort-reviews" onChange={(event) => { handleChangeReviewSort(event.target.value); }}>
+              <option value="relevant" selected={reviewSort === 'relevant'}>Relevant</option>
+              <option value="helpful" selected={reviewSort === 'helpful'}>Helpful</option>
+              <option value="newest" selected={reviewSort === 'newest'}>Newest</option>
+            </select>
+          </span>
+        ) : ''}
       </div>
-      <ReviewTile verifiedUser userRecommended sellerResponse />
-      <ReviewTile />
+      {reviews.map((review) => <ReviewTile review={review} />)}
       <div className="review-list-footer">
         <div className="review-options">
-          <button className="" type="button">More Reviews</button>
+          {!noMoreReviews ? <button className="" type="button" onClick={() => { getMoreReviews(); }}>More Reviews</button> : ''}
           <button className="" type="button" id="new-review-btn">Add A Review</button>
         </div>
       </div>

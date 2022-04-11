@@ -39,8 +39,25 @@ class ExpandView extends React.Component {
     handleIndexImageRight();
   }
 
+  // changeImage(index) {
+  //   document.getElementById(`expand${index}`).scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+  // }
+
   changeImage(index) {
+    const { setIndexImage, handleIndexStyleMapping, selectedStyle } = this.props;
+    const { style_id } = selectedStyle;
     document.getElementById(`expand${index}`).scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+    setIndexImage(index);
+    handleIndexStyleMapping(index, style_id);
+  }
+
+  changeImageDefault(index) {
+    const { setIndexImage, handleIndexStyleMapping, selectedStyle } = this.props;
+    const { style_id } = selectedStyle;
+    document.getElementById(`thumbnail_${index}`).scrollIntoView({ inline: 'center', block: 'nearest' });
+    document.getElementById(`img_${index}`).scrollIntoView({ inline: 'center', block: 'nearest' });
+    setIndexImage(index);
+    handleIndexStyleMapping(index, style_id);
   }
 
   zoomImage() {
@@ -63,19 +80,19 @@ class ExpandView extends React.Component {
 
     return (
       <div className="expand-view-container">
-        <i className="fa fa-close close-icon" role="presentation" onClick={handleExpand} />
+        <i className="fa fa-close close-icon" role="presentation" onClick={() => { handleExpand(); this.changeImageDefault(indexImage); }} style={{ visibility: `${isZoom ? 'hidden' : 'visible'}` }} />
         <div className="gallery-overlay expand-gallery-overlay">
           <div className="gallery-navigation">
             <i
-              style={{ visibility: `${(indexImage > 0) ? 'visible' : 'hidden'}` }}
+              style={{ visibility: `${((indexImage > 0) && !isZoom) ? 'visible' : 'hidden'}` }}
               role="presentation"
-              className="gallery-icon-left fa fa-chevron-left navigation-icon"
+              className="gallery-icon-left fa fa-chevron-left navigation-icon expand-view-icon"
               onClick={() => { this.scrollImageLeft(numPhotos); }}
             />
             <i
-              style={{ visibility: `${indexImage < (numPhotos - 1) ? 'visible' : 'hidden'}` }}
+              style={{ visibility: `${(indexImage < (numPhotos - 1) && !isZoom) ? 'visible' : 'hidden'}` }}
               role="presentation"
-              className="gallery-icon-left fa fa-chevron-right navigation-icon"
+              className="gallery-icon-left fa fa-chevron-right navigation-icon expand-view-icon"
               onClick={() => { this.scrollImageRight(numPhotos); }}
             />
           </div>
@@ -121,6 +138,10 @@ class ExpandView extends React.Component {
             ))}
           </div>
         </div>
+        <div className="dot-container" style={{ visibility: `${isZoom ? 'hidden' : 'visible'}` }}>
+          {photos.map((photo, idx) => <i className="fa fa-circle dot-icon navigation-icon" role="presentation" onClick={() => { this.changeImage(idx); }} />)}
+        </div>
+
       </div>
     );
   }

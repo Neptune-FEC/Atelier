@@ -20,10 +20,10 @@ class StyleSelector extends React.Component {
   disPlayImage(styleId) {
     const { indexStyleMapping, setIndexImage, setIndexThumbnail } = this.props;
     const imageIndex = indexStyleMapping[styleId];
-    // document.getElementById('thumbnail_0').scrollTop(`${imageIndex * 33}%`);
+    document.getElementById(`thumbnail_${imageIndex}`).scrollIntoView({ inline: 'center', block: 'nearest' });
     document.getElementById(`img_${imageIndex}`).scrollIntoView({ behavior: 'instant', inline: 'center', block: 'nearest' });
     setIndexImage(imageIndex);
-    // setIndexThumbnail(imageIndex);
+    setIndexThumbnail(imageIndex - 1);
   }
 
   render() {
