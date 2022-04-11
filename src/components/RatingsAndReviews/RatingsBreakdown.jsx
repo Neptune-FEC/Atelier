@@ -1,5 +1,5 @@
 import React from 'react';
-import { displayStars } from '../../helpers/ProductHelper';
+import DisplayStars from '../../helpers/DisplayStars';
 
 function getRecommendedPercentage(recommended) {
   // const { reviewMeta } = props;
@@ -71,14 +71,12 @@ function RatingsBreakdown(props) {
 
   console.log(reviewMeta);
 
-  const stars = displayStars(avgRating);
-
   return (
     <div id="ratings-breakdown">
       <div className="product-rating">
         <span className="average-rating-number"><h1>{avgRating}</h1></span>
         <div className="average-rating-stars">
-          {stars}
+          <DisplayStars rating={avgRating} />
         </div>
       </div>
       <div className="recommendation-percentage">

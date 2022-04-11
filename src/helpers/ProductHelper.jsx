@@ -44,24 +44,6 @@ const displayStarRating = (
   return stars;
 };
 
-const displayStars = (rating) => {
-  // star logos html
-  const fullStar = <i className="full-star fa fa-star" />;
-  const emptyStar = <i className="empty-star full-star fa fa-star" />;
-  const quaterStar = <i className="half-star fa fa-star-half" />;
-  const halfStar = <i className="half-star fa fa-star-half" />;
-  const thirdQuaterStar = <i className="half-star fa fa-star-half" />;
-
-  return displayStarRating(
-    rating,
-    fullStar,
-    emptyStar,
-    quaterStar,
-    halfStar,
-    thirdQuaterStar,
-  );
-};
-
 const sortAnsHelper = (listOfAnswers) => {
   const sellerResponses = [];
   const otherResponses = [];
@@ -75,6 +57,5 @@ const sortAnsHelper = (listOfAnswers) => {
 module.exports = {
   averageRating,
   displayStarRating,
-  displayStars,
   sortAnsHelper,
 };
