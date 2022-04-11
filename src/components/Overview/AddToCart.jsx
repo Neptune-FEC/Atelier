@@ -16,15 +16,6 @@ class AddToCart extends React.Component {
   }
 
   handleSubmit(id, selectedQuantity, selectedSize) {
-    // getCart().then((responseBefore) => {
-    // console.log('cart before', responseBefore.data);
-    // postCart(skuId, selectedQuantity, selectedSize).then((response) => {
-    //   console.log(response);
-    //   getCart().then((responseAfter) => {
-    //     console.log('cart after', responseAfter.data);
-    //   });
-    // });
-    // });
     const {
       skuId, handleQuantitySelect, handleSizeSelect,
     } = this.props;
@@ -55,7 +46,6 @@ class AddToCart extends React.Component {
       skuId, selectedQuantity, selectedStyle,
       selectedSize, handleSizeSelect, handleQuantitySelect,
     } = this.props;
-    // console.log(skuId);
     const { isSizeDropdown, message } = this.state;
     const { skus } = selectedStyle;
     const allSkuIds = Object.keys(skus);
@@ -92,7 +82,7 @@ class AddToCart extends React.Component {
               <div className="add-to-cart">Add To Cart</div>
               <i className="fa fa-plus add-icon" />
             </div>
-            <div className="heart-icon"><i className="fa fa-heart-o heart-icon" /></div>
+            <div className="heart-icon"><i className="fa fa-heart-o" /></div>
           </div>
         </>
       )

@@ -45,10 +45,10 @@ class StyleSelector extends React.Component {
             <div key={style.style_id} className="style-thumbnail-container">
               <div
                 role="presentation"
-                className="style-thumbnail"
+                className={`style-thumbnail ${selectedStyle === style ? 'style-thumbnail-selected' : ''}`}
                 onClick={() => this.handleClick(style)}
                 onKeyPress={this.handleKeyPress}
-                style={{ backgroundImage: `url(${style.photos[0].thumbnail_url}`, borderWidth: selectedStyle === style ? '2px' : '0px' }}
+                style={{ backgroundImage: `url(${style.photos[0].thumbnail_url}` }}
               />
               {selectedStyle === style ? <i className="check-icon-visible fa fa-check-circle" /> : <div />}
             </div>

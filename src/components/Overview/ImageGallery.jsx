@@ -36,7 +36,6 @@ class ImageGallery extends React.Component {
 
   scrollThumbnailDown() {
     const { indexThumbnail, handleIndexThumbnailDown } = this.props;
-    console.log(indexThumbnail);
     document.getElementById(`thumbnail_${indexThumbnail + 2}`).scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
     handleIndexThumbnailDown();
   }
@@ -60,7 +59,6 @@ class ImageGallery extends React.Component {
       selectedStyle, handleExpand, indexImage, indexThumbnail, indexStyleMapping,
     } = this.props;
 
-    console.log('indexStyleMapping', indexStyleMapping);
     const { photos } = selectedStyle;
     const numPhotos = photos.length;
     const {
@@ -89,12 +87,13 @@ class ImageGallery extends React.Component {
               >
                 {photos.map((photo, idx) => (
                   <div
+                    key={`${photo.url}`}
                     id={`thumbnail_${idx}`}
                     className="thumbnail-item"
                     style={{ height: `${100 / Math.max(numPhotos, 3)}%` }}
                   >
                     <div
-                      className="thumbnail-item-image"
+                      className={`thumbnail-item-image ${idx === indexImage ? 'thumbnail-item-image-selected' : ''}`}
                       style={{
                         backgroundImage: `url(${photo.thumbnail_url})`,
                       }}
@@ -142,6 +141,7 @@ class ImageGallery extends React.Component {
           >
             {photos.map((photo, idx) => (
               <div
+                key={`gallery-item${photo.url}`}
                 className="gallery-item"
                 id={`img_${idx}`}
                 style={{ backgroundImage: `url(${photo.url})`, width: `${100 / numPhotos}%` }}
