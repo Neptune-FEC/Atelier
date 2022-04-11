@@ -61,7 +61,7 @@ class AnsFooter extends React.Component {
         <span>
           by
           &nbsp;
-          {answer.answerer_name}
+          {answer.answerer_name.toLowerCase() === 'seller' ? <b>{answer.answerer_name}</b> : answer.answerer_name}
           ,
           &nbsp;
           {moment(answer.date).format('MMMM D, YYYY')}
