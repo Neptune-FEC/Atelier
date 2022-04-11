@@ -23,7 +23,7 @@ class StyleSelector extends React.Component {
     document.getElementById(`thumbnail_${imageIndex}`).scrollIntoView({ inline: 'center', block: 'nearest' });
     document.getElementById(`img_${imageIndex}`).scrollIntoView({ behavior: 'instant', inline: 'center', block: 'nearest' });
     setIndexImage(imageIndex);
-    setIndexThumbnail(1);
+    setIndexThumbnail(imageIndex - 1);
   }
 
   render() {
