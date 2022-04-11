@@ -52,9 +52,10 @@ const getRelatedIds = (productId) => instance.get(`/products/${productId}/relate
 
 const getCart = () => instance.get('cart');
 
-const postCart = (skuId, quantity) => instance.post('cart', {
+const postCart = (skuId, quantity, size) => instance.post('cart', {
   sku_id: skuId,
   count: quantity,
+  size,
 });
 
 //----------------

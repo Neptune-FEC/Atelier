@@ -5,6 +5,8 @@ class StyleSelector extends React.Component {
     super(props);
     this.state = {
     };
+    this.disPlayImage = this.disPlayImage.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   handleClick(style) {
@@ -12,6 +14,16 @@ class StyleSelector extends React.Component {
     handleStyleSelect(style);
     handleSizeSelect(null, null);
     handleQuantitySelect(null);
+    this.disPlayImage(style.style_id);
+  }
+
+  disPlayImage(styleId) {
+    const { indexStyleMapping, setIndexImage, setIndexThumbnail } = this.props;
+    const imageIndex = indexStyleMapping[styleId];
+    // document.getElementById('thumbnail_0').scrollTop(`${imageIndex * 33}%`);
+    document.getElementById(`img_${imageIndex}`).scrollIntoView({ behavior: 'instant', inline: 'center', block: 'nearest' });
+    setIndexImage(imageIndex);
+    // setIndexThumbnail(imageIndex);
   }
 
   render() {
