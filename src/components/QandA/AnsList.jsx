@@ -15,29 +15,32 @@ class AnsList extends React.Component {
 
     return (
       <div>
-        {showingMoreAnswers ? (
-          <div className="ansListExpanded">
-            {ansList.map(((ans) => (
-              <Answer
-                answer={ans}
-                key={ans.answer_id}
-                updateAnsStateHelper={updateAnsStateHelper}
-              />
+        {
+          showingMoreAnswers
+            ? (
+              <div className="ansListExpanded">
+                {ansList.map(((ans) => (
+                  <Answer
+                    answer={ans}
+                    key={ans.answer_id}
+                    updateAnsStateHelper={updateAnsStateHelper}
+                  />
+                )
+                ))}
+              </div>
+            ) : (
+              <div className="ansList">
+                {ansList.slice(0, numAns).map(((ans) => (
+                  <Answer
+                    answer={ans}
+                    key={ans.answer_id}
+                    updateAnsStateHelper={updateAnsStateHelper}
+                  />
+                )
+                ))}
+              </div>
             )
-            ))}
-          </div>
-        ) : (
-          <div className="ansList">
-            {ansList.slice(0, numAns).map(((ans) => (
-              <Answer
-                answer={ans}
-                key={ans.answer_id}
-                updateAnsStateHelper={updateAnsStateHelper}
-              />
-            )
-            ))}
-          </div>
-        )}
+        }
       </div>
     );
   }

@@ -9,7 +9,7 @@ const {
   getProduct, getReviewMeta, getStyles,
 } = require('../helpers/HttpClient');
 
-const testId = 66642;
+const testId = 66642; // QandA widget relying on this number to dynamically update
 
 class ProductDetailPage extends React.Component {
   constructor(props) {
@@ -44,7 +44,7 @@ class ProductDetailPage extends React.Component {
   }
 
   componentDidMount() {
-    this.fetchData(testId);
+    this.fetchData(testId); // after initial rendering, what action updates id# to user choice?
   }
 
   handleIndexStyleMapping(indexImage, styleId) {
