@@ -1,5 +1,5 @@
 import React from 'react';
-import { displayStarRating } from '../../helpers/ProductHelper';
+import { displayStars } from '../../helpers/ProductHelper';
 
 function getRecommendedPercentage(recommended) {
   // const { reviewMeta } = props;
@@ -71,21 +71,7 @@ function RatingsBreakdown(props) {
 
   console.log(reviewMeta);
 
-  // star logos html
-  const fullStar = <i className="full-star fa fa-star" />;
-  const emptyStar = <i className="empty-star full-star fa fa-star" />;
-  const quaterStar = <i className="half-star fa fa-star-half" />;
-  const halfStar = <i className="half-star fa fa-star-half" />;
-  const thirdQuaterStar = <i className="half-star fa fa-star-half" />;
-
-  const stars = displayStarRating(
-    avgRating,
-    fullStar,
-    emptyStar,
-    quaterStar,
-    halfStar,
-    thirdQuaterStar,
-  );
+  const stars = displayStars(avgRating);
 
   return (
     <div id="ratings-breakdown">
