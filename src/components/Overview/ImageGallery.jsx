@@ -55,13 +55,9 @@ class ImageGallery extends React.Component {
               className="thumbnail-icon fa fa-chevron-up navigation-icon"
               onClick={() => { this.scrollThumbnailUp(); }}
             />
-<<<<<<< Updated upstream
-            <div className="thumbnail-container">
-=======
             {/* // ) */}
             {/* //   : (<div className="thumbnail-icon navigation-icon" />)} */}
             <div id="thumbnail-container">
->>>>>>> Stashed changes
               <div
                 className="thumbnail-items"
                 style={{ height: `${100 * (numPhotos / 3)}%` }}
@@ -97,11 +93,7 @@ class ImageGallery extends React.Component {
           </div>
         </div>
         <div
-<<<<<<< Updated upstream
-          className="gallery"
-=======
           id="gallery"
->>>>>>> Stashed changes
           role="presentation"
           onClick={() => { handleExpand(); }}
         >
