@@ -232,6 +232,8 @@ class ProductDetailPage extends React.Component {
                     handleIndexImageLeft={this.handleIndexImageLeft}
                     handleIndexImageRight={this.handleIndexImageRight}
                     product={product}
+                    setIndexImage={this.setIndexImage}
+                    handleIndexStyleMapping={this.handleIndexStyleMapping}
                   />
                 )}
             </>
