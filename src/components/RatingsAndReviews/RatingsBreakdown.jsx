@@ -58,6 +58,23 @@ function displayRatings(ratings) {
   return ratingsHTML;
 }
 
+function displayCharacteristics(characteristics) {
+  const characteristicsHTML = [];
+
+  Object.keys(characteristics).forEach((key) => {
+    const characteristicId = `${key.toLowerCase()}-breakdown`;
+
+    characteristicsHTML.push(
+      <div>
+        <div><label htmlFor={characteristicId}>{key}</label></div>
+        <input type="range" id={characteristicId} name={key.toLowerCase()} min="0" max="5" value={characteristics[key].value} step=".1" disabled />
+      </div>
+    );
+  });
+
+  return characteristicsHTML;
+}
+
 function RatingsBreakdown(props) {
   const { avgRating, reviewMeta } = props;
 
@@ -117,7 +134,7 @@ function RatingsBreakdown(props) {
         {reviewMeta ? displayRatings(reviewMeta.ratings) : ''}
       </div>
       <div className="categories-breakdown">
-        <div>
+        {/* <div>
           <div><label htmlFor="size-breakdown">Size</label></div>
           <input type="range" id="size-breakdown" name="size" min="0" max="100" value="90" step="5" disabled />
         </div>
@@ -140,7 +157,8 @@ function RatingsBreakdown(props) {
         <div>
           <div><label htmlFor="fit-breakdown">Fit</label></div>
           <input type="range" id="fit-breakdown" name="fit" min="0" max="100" value="65" step="5" disabled />
-        </div>
+        </div> */}
+        {reviewMeta ? displayCharacteristics(reviewMeta.characteristics) : ''}
       </div>
     </div>
   );
