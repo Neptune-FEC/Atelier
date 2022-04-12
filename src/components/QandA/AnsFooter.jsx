@@ -57,11 +57,11 @@ class AnsFooter extends React.Component {
     // console.log('answer: ', answer);
 
     return (
-      <div>
+      <div className="ansFooter">
         <span>
           by
           &nbsp;
-          {answer.answerer_name.toLowerCase() === 'seller' ? <b>{answer.answerer_name}</b> : answer.answerer_name}
+          {answer.answerer_name === 'Seller' ? <b>{answer.answerer_name}</b> : answer.answerer_name}
           ,
           &nbsp;
           {moment(answer.date).format('MMMM D, YYYY')}

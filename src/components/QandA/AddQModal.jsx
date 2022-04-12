@@ -63,7 +63,7 @@ class AddQModal extends React.Component {
     const {
       question, nickName, email,
     } = this.state;
-    const { questionBody, product } = this.props;
+    const { product } = this.props;
     // console.log('ansList, AddQModal: ', ansList);
 
     return (

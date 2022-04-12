@@ -211,7 +211,7 @@ section{
   border-color: #E66A35;
 }
 
-.expand-view-icon{}
+/* .expand-view-icon{} */
 
 .dot-container{
   position: absolute;
@@ -603,24 +603,65 @@ section{
 /* -------------------------------- */
 /* QUESTION & ANSWER WIDGET STYLING */
 /* -------------------------------- */
-.qList {
-  width: 80%;
+.qna {
+margin: auto;
+}
+
+.searchBar {
+  overflow: hidden;
+  /* background-color: #eff0ff90; */
+  /* float:none; */
+  padding: 15px;
   border: 2px solid black;
+  border-radius: 5px;
+  margin: 10px 0;
+  font-size: 17px;
+  /* display: block; */
+  width:100%;
+}
+
+.qList {
+  width: 100%;
+  /* border: 2px solid black; */
+  /* border-radius: 5px; */
   max-height: 70vh;
   overflow: auto;
+  /* padding:15px; */
+}
+
+.qListFooter {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  align-items: center;
+  justify-content: space-between;
+  height: 100px;
 }
 
 .moreQsButton,
 .addQsButton {
+  background-color: white;
+  font-family: roboto;
   display: inline;
-  width: 20%;
+  width: 49%;
+  height: 75px;
   border: 2px solid black;
-  padding: 14px 28px;
-  margin: 15px;
+  /* padding: 14px 0px; */
+  /* margin-right: 15px; */
   font-size: 16px;
   cursor: pointer;
   text-align: center;
 }
+
+.q {
+  width: 100%;
+  border: 2px solid black;
+  max-height: 70vh;
+  overflow: auto;
+  padding:15px;
+}
+
+
 
 .ansList {
   /* background-color: #a1edff; */

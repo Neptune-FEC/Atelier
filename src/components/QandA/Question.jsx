@@ -72,7 +72,6 @@ class Question extends React.Component {
           &nbsp;
           {question.asker_name}
         </span>
-        <br />
         <h4>A:</h4>
         <AnsList
           ansList={listOfAnswers}

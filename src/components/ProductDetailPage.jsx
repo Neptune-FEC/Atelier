@@ -7,7 +7,7 @@ import RatingsAndReviews from './RatingsAndReviews';
 
 const { averageRating } = require('../helpers/ProductHelper');
 const {
-  getProduct, getReviewMeta, getStyles, getReviews
+  getProduct, getReviewMeta, getStyles, getReviews,
 } = require('../helpers/HttpClient');
 
 const testId = 66642; // QandA widget relying on this number to dynamically update
@@ -124,18 +124,6 @@ class ProductDetailPage extends React.Component {
     });
   }
 
-  setIndexImage(indexImage) {
-    this.setState({
-      indexImage,
-    });
-  }
-
-  setIndexThumbnail(indexThumbnail) {
-    this.setState({
-      indexThumbnail,
-    });
-  }
-
   handleChangeReviewSort(sort) {
     const { product } = this.state;
 
@@ -157,6 +145,18 @@ class ProductDetailPage extends React.Component {
         reviewSort: sort,
         noMoreReviews: response.data.results.length === 0,
       });
+    });
+  }
+
+  setIndexImage(indexImage) {
+    this.setState({
+      indexImage,
+    });
+  }
+
+  setIndexThumbnail(indexThumbnail) {
+    this.setState({
+      indexThumbnail,
     });
   }
 
@@ -298,7 +298,7 @@ class ProductDetailPage extends React.Component {
                 handleIndexStyleMapping={this.handleIndexStyleMapping}
                 setIndexThumbnail={this.setIndexThumbnail}
               />
-              <RelatedItemsWidget
+              {/* <RelatedItemsWidget
                 product={product}
                 starRating={starRating}
                 numReviews={numReviews}
@@ -306,7 +306,7 @@ class ProductDetailPage extends React.Component {
                 styles={styles}
                 selectedStyle={selectedStyle}
                 fetchData={this.fetchData}
-              />
+              /> */}
               <QandA product={product} />
               {isExpand
                 && (

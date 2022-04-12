@@ -40,38 +40,32 @@ class QList extends React.Component {
 
     return (
       <div>
+        {showAddQModal
+          ? (
+            <AddQModal
+              toggleAddQModal={this.toggleAddQModal}
+              updateQsStateHelper={updateQsStateHelper}
+              product={product}
+            />
+          )
+          : null}
         <div className="qList">
-          <div>
-            {showAddQModal
-              ? (
-                <AddQModal
-                  toggleAddQModal={this.toggleAddQModal}
-                  updateQsStateHelper={updateQsStateHelper}
-                  product={product}
-                />
-              )
-              : null}
-          </div>
-          <div>
-            {listOfQuestions.slice(0, numQsShowing).map(((q) => (
-              <Question
-                question={q}
-                updateQsStateHelper={updateQsStateHelper}
-                key={q.question_id}
-                product={product}
-              />
-            )
-            ))}
-          </div>
+          {listOfQuestions.slice(0, numQsShowing).map(((q) => (
+            <Question
+              question={q}
+              updateQsStateHelper={updateQsStateHelper}
+              key={q.question_id}
+              product={product}
+            />
+          )
+          ))}
         </div>
-        <div>
+        <div className="qListFooter">
           {qList.length > numQsShowing || qList.length <= 2
             ? <button type="button" className="moreQsButton" onClick={this.expandQsAccordion}>More Answered Questions</button> : null}
-          <div>
-            {showAddQModal
-              ? <button type="button" className="addQsButton">Add a Question</button>
-              : <button type="button" className="addQsButton" onClick={this.toggleAddQModal}>Add a Question</button>}
-          </div>
+          {showAddQModal
+            ? <button type="button" className="addQsButton">Add a Question</button>
+            : <button type="button" className="addQsButton" onClick={this.toggleAddQModal}>Add a Question</button>}
         </div>
       </div>
     );
