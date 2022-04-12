@@ -89,7 +89,7 @@ class ProductCard extends React.Component {
     const
       {
         relatedProduct, currentProduct, fetchData,
-        starRating, numReviews,
+        starRating, numReviews, setInitialState,
       } = this.props;
     const { thumbnail } = this.state;
     const thumbnailNoImage = 'https://acttochange.org/wp-content/plugins/ninja-forms/assets/img/no-image-available-icon-6.jpg';
@@ -110,7 +110,9 @@ class ProductCard extends React.Component {
         </p>
         <p
           className="productCardName"
-          onClick={() => fetchData(relatedProduct.id)}
+          onClick={() => {
+            fetchData(relatedProduct.id)
+          }}
         >
           <b>{relatedProduct.name}</b>
         </p>

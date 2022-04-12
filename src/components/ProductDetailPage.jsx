@@ -7,7 +7,7 @@ import RatingsAndReviews from './RatingsAndReviews';
 
 const { averageRating } = require('../helpers/ProductHelper');
 const {
-  getProduct, getReviewMeta, getStyles, getReviews
+  getProduct, getReviewMeta, getStyles, getReviews, getRelatedIds
 } = require('../helpers/HttpClient');
 
 const testId = 66642; // QandA widget relying on this number to dynamically update
@@ -33,6 +33,7 @@ class ProductDetailPage extends React.Component {
       indexImage: null,
       indexThumbnail: null,
       indexStyleMapping: null,
+      relatedProducts: [],
     };
     this.fetchData = this.fetchData.bind(this);
     this.handleStyleSelect = this.handleStyleSelect.bind(this);
@@ -194,7 +195,8 @@ class ProductDetailPage extends React.Component {
       this.setState({
         product: product.data,
       });
-    });
+    })
+      .then(() => this.updateRelatedList());
     getStyles(productId).then((response) => {
       this.setState({
         styles: response.data,
@@ -258,18 +260,45 @@ class ProductDetailPage extends React.Component {
     }
   }
 
+  updateRelatedList() {
+    const { product } = this.state;
+
+    getRelatedIds(product.id)
+      .then((idList) => {
+        const promises = idList.data.map((id) => getProduct(id).then((result) => result.data));
+        Promise.all(promises).then((result) => this.setRelatedProducts(result));
+      });
+  }
+
+  setRelatedProducts(relatedProducts) {
+    const promises = relatedProducts.map((item) => getReviewMeta(item.id)
+      .then((result) => result.data.ratings));
+    Promise.all(promises).then((result) => {
+      relatedProducts.forEach((relatedProd, i) => {
+        const { totalCount, avgRating } = averageRating(result[i]);
+        relatedProd.rating = { totalCount, avgRating };
+      });
+    })
+      .then(() => {
+        this.setState({
+          relatedProducts,
+        });
+      });
+  }
+
   render() {
     const {
-      product, starRating, reviewMeta, numReviews,
+      product, starRating, reviewMeta, numReviews, relatedProducts,
       styles, selectedStyle, selectedSize, skuId, selectedQuantity, isExpand,
       reviews, reviewSort, noMoreReviews, indexImage, indexThumbnail, indexStyleMapping,
     } = this.state;
+
     return (
       <>
         <header>
           <h1>Atelier</h1>
         </header>
-        {(product && indexStyleMapping)
+        {(relatedProducts[0] && indexStyleMapping)
           ? (
             <>
               <Overview
@@ -304,8 +333,8 @@ class ProductDetailPage extends React.Component {
                 numReviews={numReviews}
                 reviewMeta={reviewMeta}
                 styles={styles}
-                selectedStyle={selectedStyle}
                 fetchData={this.fetchData}
+                relatedProducts={relatedProducts}
               />
               <QandA product={product} />
               {isExpand
