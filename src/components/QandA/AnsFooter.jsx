@@ -57,11 +57,11 @@ class AnsFooter extends React.Component {
     // console.log('answer: ', answer);
 
     return (
-      <div>
+      <div className="ansFooter">
         <span>
           by
           &nbsp;
-          {answer.answerer_name.toLowerCase() === 'seller' ? <b>{answer.answerer_name}</b> : answer.answerer_name}
+          {answer.answerer_name === 'Seller' ? <b>{answer.answerer_name}</b> : answer.answerer_name}
           ,
           &nbsp;
           {moment(answer.date).format('MMMM D, YYYY')}
@@ -75,6 +75,7 @@ class AnsFooter extends React.Component {
             ? <u>Yes</u>
             : (
               <u
+                className="clickable"
                 role="button"
                 tabIndex={0}
                 onClick={this.handleHelpfulAnswer}
@@ -96,6 +97,7 @@ class AnsFooter extends React.Component {
             ? <u>Reported</u>
             : (
               <u
+                className="clickable"
                 role="button"
                 tabIndex={0}
                 onClick={this.toggleReportedAnswer}
@@ -104,7 +106,6 @@ class AnsFooter extends React.Component {
                 Report
               </u>
             )}
-
         </span>
       </div>
     );

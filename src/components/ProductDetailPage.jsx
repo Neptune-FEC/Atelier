@@ -168,18 +168,6 @@ class ProductDetailPage extends React.Component {
     postCart(id, selectedQuantity);
   }
 
-  setIndexImage(indexImage) {
-    this.setState({
-      indexImage,
-    });
-  }
-
-  setIndexThumbnail(indexThumbnail) {
-    this.setState({
-      indexThumbnail,
-    });
-  }
-
   setMessage() {
     this.setState({
       message: null,
@@ -203,6 +191,18 @@ class ProductDetailPage extends React.Component {
         reviewSort: sort,
         noMoreReviews: response.data.results.length === 0,
       });
+    });
+  }
+
+  setIndexImage(indexImage) {
+    this.setState({
+      indexImage,
+    });
+  }
+
+  setIndexThumbnail(indexThumbnail) {
+    this.setState({
+      indexThumbnail,
     });
   }
 
