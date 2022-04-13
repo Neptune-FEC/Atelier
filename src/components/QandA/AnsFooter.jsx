@@ -75,6 +75,7 @@ class AnsFooter extends React.Component {
             ? <u>Yes</u>
             : (
               <u
+                className="clickable"
                 role="button"
                 tabIndex={0}
                 onClick={this.handleHelpfulAnswer}
@@ -96,6 +97,7 @@ class AnsFooter extends React.Component {
             ? <u>Reported</u>
             : (
               <u
+                className="clickable"
                 role="button"
                 tabIndex={0}
                 onClick={this.toggleReportedAnswer}
@@ -104,7 +106,6 @@ class AnsFooter extends React.Component {
                 Report
               </u>
             )}
-
         </span>
       </div>
     );

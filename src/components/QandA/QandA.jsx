@@ -55,7 +55,7 @@ class QandA extends React.Component {
     // console.log('product, QnA: ', product);
 
     return (
-      <div className="container">
+      <div className="qna">
         <h3>QUESTIONS & ANSWERS</h3>
         <SearchQ
           searchQuestionCallback={this.searchQuestionCallback}

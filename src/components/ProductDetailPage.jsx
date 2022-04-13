@@ -272,7 +272,7 @@ class ProductDetailPage extends React.Component {
         {(product && indexStyleMapping)
           ? (
             <>
-              <Overview
+              {/* <Overview
                 product={product}
                 starRating={starRating}
                 numReviews={numReviews}
@@ -297,7 +297,7 @@ class ProductDetailPage extends React.Component {
                 indexStyleMapping={indexStyleMapping}
                 handleIndexStyleMapping={this.handleIndexStyleMapping}
                 setIndexThumbnail={this.setIndexThumbnail}
-              />
+              /> */}
               {/* <RelatedItemsWidget
                 product={product}
                 starRating={starRating}

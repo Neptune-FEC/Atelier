@@ -39,7 +39,7 @@ class QList extends React.Component {
     // console.log('listOfQuestions, QList: ', listOfQuestions);
 
     return (
-      <div>
+      <div className="qListMain">
         {showAddQModal
           ? (
             <AddQModal
@@ -62,10 +62,10 @@ class QList extends React.Component {
         </div>
         <div className="qListFooter">
           {qList.length > numQsShowing || qList.length <= 2
-            ? <button type="button" className="moreQsButton" onClick={this.expandQsAccordion}>More Answered Questions</button> : null}
+            ? <button type="button" className="moreQsButton clickable" onClick={this.expandQsAccordion}>More Answered Questions</button> : null}
           {showAddQModal
-            ? <button type="button" className="addQsButton">Add a Question</button>
-            : <button type="button" className="addQsButton" onClick={this.toggleAddQModal}>Add a Question</button>}
+            ? <button type="button" className="addQsButton clickable">Add a Question</button>
+            : <button type="button" className="addQsButton clickable" onClick={this.toggleAddQModal}>Add a Question</button>}
         </div>
       </div>
     );
