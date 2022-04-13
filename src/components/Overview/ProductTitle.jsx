@@ -1,9 +1,9 @@
 import React from 'react';
 
 function ProductTitle(props) {
-  const { product } = props;
+  const { product, handleClick } = props;
   return (
-    <div className="overview-title">
+    <div role="presentation" onClick={(e) => { handleClick(e, 'ProductTitle'); }}>
       <div className="overview-category">{product.category}</div>
       <div className="overview-name">{product.name}</div>
     </div>

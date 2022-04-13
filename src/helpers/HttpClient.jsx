@@ -57,6 +57,12 @@ const postCart = (skuId, quantity) => instance.post('cart', {
   count: quantity,
 });
 
+const postInteraction = (element, widget, time) => instance.post('interactions', {
+  element,
+  widget,
+  time,
+});
+
 //----------------
 // ---------------QUESTIONS AND ANSWERS WIDGET
 //----------------
@@ -144,5 +150,6 @@ module.exports = {
   getRelatedIds,
   postCart,
   getCart,
+  postInteraction,
   getReviews,
 };
