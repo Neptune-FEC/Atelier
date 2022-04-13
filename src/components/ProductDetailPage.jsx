@@ -18,7 +18,7 @@ import RatingsAndReviews from './RatingsAndReviews';
 
 const { averageRating } = require('../helpers/ProductHelper');
 const {
-  getProduct, getReviewMeta, getStyles, getReviews,
+  getProduct, getReviewMeta, getStyles, getReviews, postCart,
 } = require('../helpers/HttpClient');
 
 const testId = 66642; // QandA widget relying on this number to dynamically updatex
@@ -52,14 +52,11 @@ class ProductDetailPage extends React.Component {
     this.handleSizeSelect = this.handleSizeSelect.bind(this);
     this.handleQuantitySelect = this.handleQuantitySelect.bind(this);
     this.handleExpand = this.handleExpand.bind(this);
-    // this.handleChangeReviewSort = this.handleChangeReviewSort.bind(this);
+    this.handleChangeReviewSort = this.handleChangeReviewSort.bind(this);
     this.getMoreReviews = this.getMoreReviews.bind(this);
   }
 
   componentDidMount() {
-    // const { product } = this.state;
-    // const productId = product ? product.id : testId;
-    // this.fetchData(productId);
     this.fetchData(testId); // after initial rendering, what action updates id# to user choice?
 
     this.handleIndexImageRight = this.handleIndexImageRight.bind(this);
@@ -80,10 +77,20 @@ class ProductDetailPage extends React.Component {
   }
 
   handleClick(e, component) {
-    postInteraction(e.target.id, component, e.timeStamp.toString()).then((response) => {
+    let elementSelector = e.target.tagName;
+    if (e.target.id) {
+      elementSelector += `#${e.target.id}`;
+    }
+    const classes = e.target.className.trim().split(/\s+/).join('.');
+    if (classes) {
+      elementSelector += `.${classes}`;
+    } else {
+      elementSelector += classes;
+    }
+
+    postInteraction(elementSelector, component, new Date().toISOString()).then((response) => {
       console.log(response);
     });
-    // console.log(e.target.id, component, e.timeStamp.toString());
   }
 
   handleIndexStyleMapping(indexImage, indexThumbnail, styleId) {
@@ -163,7 +170,7 @@ class ProductDetailPage extends React.Component {
       this.setState({ message: 'Please select size' });
       this.toggleDropdown();
     }
-    console.log(id, selectedQuantity, selectedSize);
+    postCart(id, selectedQuantity);
   }
 
   setIndexImage(indexImage) {
@@ -194,11 +201,7 @@ class ProductDetailPage extends React.Component {
       sort,
     };
 
-    // console.log('getReviews params:');
-    // console.log(reviewsParams);
     getReviews(reviewsParams).then((response) => {
-      // console.log('getReviews response:');
-      // console.log(response.data);
       this.setState({
         reviews: response.data.results,
         reviewsPage: 1,
@@ -221,14 +224,8 @@ class ProductDetailPage extends React.Component {
       sort: reviewSort,
     };
 
-    // console.log('getReviews params:');
-    // console.log(reviewsParams);
     getReviews(reviewsParams).then((response) => {
-      // console.log('getReviews response:');
-      // console.log(response.data);
-
       reviews = reviews.concat(response.data.results);
-
       this.setState({
         reviews,
         reviewsPage,
@@ -286,11 +283,7 @@ class ProductDetailPage extends React.Component {
       sort: reviewSort,
     };
 
-    // console.log('getReviews params:');
-    // console.log(reviewsParams);
     getReviews(reviewsParams).then((response) => {
-      // console.log('getReviews response:');
-      // console.log(response.data);
       this.setState({
         reviews: response.data.results,
         reviewsPage: 1,
@@ -405,7 +398,7 @@ class ProductDetailPage extends React.Component {
                 <ShareOnSocialMedia product={product} handleClick={this.handleClick} />
                 <ProductOverview product={product} handleClick={this.handleClick} />
               </Overview>
-              {/* <RelatedItemsWidget
+              <RelatedItemsWidget
                 product={product}
                 starRating={starRating}
                 numReviews={numReviews}
@@ -413,11 +406,9 @@ class ProductDetailPage extends React.Component {
                 styles={styles}
                 selectedStyle={selectedStyle}
                 fetchData={this.fetchData}
-                onClick={(e) => console.log(e.target, 'related_items')}
-              /> */}
+              />
               <QandA
                 product={product}
-                onClick={(e) => console.log(e.target, 'qa')}
               />
               {isExpand
                 && (

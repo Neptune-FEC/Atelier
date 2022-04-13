@@ -8,19 +8,12 @@ function StyleSelector(props) {
   } = props;
   function disPlayImage(styleId) {
     const [imageIndex, thumbnailIndex] = indexStyleMapping[styleId];
-    console.log('a imageIndex', imageIndex);
-    console.log('a thumbnailIndex', thumbnailIndex);
     setIndexImage(imageIndex);
     setIndexThumbnail(thumbnailIndex);
-    // console.log(indexThumbnail);
     if (imageIndex <= 4) {
       document.getElementById(`thumbnail_${thumbnailIndex - 1}`).scrollIntoView({ inline: 'center', block: 'nearest' });
     }
     document.getElementById(`img_${imageIndex}`).scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
-    // document.getElementById(`thumbnail_${imageIndex + 1}`).scrollIntoView({ inline: 'center', block: 'nearest' });
-    // document.getElementById(`img_${imageIndex}`).scrollIntoView({ behavior: 'instant', inline: 'center', block: 'nearest' });
-    // setIndexImage(imageIndex);
-    // setIndexThumbnail(indexThumbnail);
   }
   function handleStyleClick(style) {
     handleStyleSelect(style);
