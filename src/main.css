@@ -824,7 +824,8 @@ section{
 .comparisonModal,
 .backgroundAddQModal,
 .backgroundAnsModal,
-.backgroundPhotoModal {
+.backgroundPhotoModal,
+.backgroundModal{
   /* display: grid; */
   /* position: absolute; */
   /* grid-template-columns: max-content; */
@@ -1051,6 +1052,11 @@ section{
 
 .review-options button{
   margin:5px;
+}
+
+.expand-body {
+  text-decoration: underline;
+  cursor:pointer;
 }
 
 .uline {

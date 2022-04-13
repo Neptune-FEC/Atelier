@@ -8,6 +8,7 @@ class RatingsAndReviews extends React.Component {
     this.state = {
       filter: '',
       sort: '',
+      showNewReview: false,
     };
   }
 
