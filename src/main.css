@@ -663,11 +663,11 @@ section{
   text-align: center;
 }
 
-.question {
+.q {
   display: flex;
   border: 1px solid black;
-  margin-top: 5px;
-  padding: 10px 10px;
+  margin-top: 20px;
+  padding: 20px 10px;
   flex-direction: column;
 }
 
@@ -706,8 +706,10 @@ section{
   align-items: baseline;
   align-content: center;
 }
+
 .ansList {
   width: 100%;
+  margin-left: 50px
 }
 
 .ansListDefault {
@@ -721,9 +723,9 @@ section{
 
 .ansListExpanded {
   /* background-color: #a1edff; */
-  border: 1px solid black;
+  /* border: 1px solid black; */
+  max-height: 50vh;
   overflow: auto;
-  height: 60vh;
   width: 80%;
 }
 
@@ -746,7 +748,7 @@ margin: 10px 0;
 
 .moreAns {
   font-size: medium;
-  margin: 10px 50px;
+  margin: 10px 100px;
 }
 
 .modalAddAns {

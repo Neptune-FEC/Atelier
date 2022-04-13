@@ -57,9 +57,11 @@ class Question extends React.Component {
     }
 
     return (
-      <div className="question">
+      <div className="q">
         <div className="qTopRow">
-          <p className="qSectionStart"><b>Q:</b></p>
+          <p className="qSectionStart">
+            <b>Q:</b>
+          </p>
           <div className="qBody">
             {/* eslint-disable-next-line camelcase */}
             <div>{question.question_body}</div>
