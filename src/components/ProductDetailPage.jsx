@@ -392,7 +392,7 @@ class ProductDetailPage extends React.Component {
                 <ShareOnSocialMedia product={product} handleClick={this.handleClick} />
                 <ProductOverview product={product} handleClick={this.handleClick} />
               </Overview>
-              {/* <RelatedItemsWidget
+              <RelatedItemsWidget
                 product={product}
                 starRating={starRating}
                 numReviews={numReviews}
@@ -400,7 +400,7 @@ class ProductDetailPage extends React.Component {
                 styles={styles}
                 selectedStyle={selectedStyle}
                 fetchData={this.fetchData}
-              /> */}
+              />
               <QandA
                 product={product}
               />
