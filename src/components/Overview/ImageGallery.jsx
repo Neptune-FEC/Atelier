@@ -18,7 +18,7 @@ class ImageGallery extends React.Component {
     const {
       indexImage, handleIndexImageLeft,
       selectedStyle, handleIndexStyleMapping,
-      handleIndexThumbnailTop, setIndexThumbnail, indexThumbnail,
+      setIndexThumbnail, indexThumbnail,
     } = this.props;
     const { style_id } = selectedStyle;
     if (indexImage < 4 && indexImage > 0) {
@@ -59,16 +59,13 @@ class ImageGallery extends React.Component {
 
   changeImage(index) {
     const {
-      setIndexImage, handleIndexStyleMapping, selectedStyle, setIndexThumbnail,
+      setIndexImage, handleIndexStyleMapping, selectedStyle, indexThumbnail, setIndexThumbnail,
     } = this.props;
     const { style_id } = selectedStyle;
-    if (index <= 3) {
-      document.getElementById(`thumbnail_${index + 2}`).scrollIntoView({ inline: 'center', block: 'nearest' });
-    }
     document.getElementById(`img_${index}`).scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
     setIndexImage(index);
-    setIndexThumbnail(Math.min(Math.max(1, index + 1), 4));
-    handleIndexStyleMapping(index, Math.min(Math.max(1, index + 1), 4), style_id);
+    setIndexThumbnail(indexThumbnail);
+    handleIndexStyleMapping(index, indexThumbnail, style_id);
   }
 
   render() {
@@ -89,7 +86,6 @@ class ImageGallery extends React.Component {
           onClick={(e) => { handleClick(e, 'ImageGallery'); }}
         >
           <div className="thumbnail-panel">
-            {/* {((numPhotos > limitNumPhotos) && isVisibleTop) ? ( */}
             <i
               style={{ visibility: `${(indexThumbnail > 1) ? 'visible' : 'hidden'}` }}
               role="presentation"
@@ -98,7 +94,7 @@ class ImageGallery extends React.Component {
             />
             <div id="thumbnail-container">
               <div
-                className="thumbnail-items"
+                id="thumbnail-items"
                 style={{ height: `${100 * Math.max((numPhotos / 3), 1)}%` }}
               >
                 {photos.map((photo, idx) => (
