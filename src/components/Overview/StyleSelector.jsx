@@ -4,16 +4,17 @@ function StyleSelector(props) {
   const {
     indexStyleMapping, setIndexImage, setIndexThumbnail,
     styles, selectedStyle, handleClick, handleStyleSelect, handleSizeSelect,
-    handleQuantitySelect, handleIndexStyleMapping,
+    handleQuantitySelect,
   } = props;
+  const { photos } = selectedStyle;
+  const numPhotos = photos.length;
   function disPlayImage(styleId) {
     const [imageIndex, thumbnailIndex] = indexStyleMapping[styleId];
+    const scrollHeight = document.getElementById('thumbnail-items').clientHeight;
+    document.getElementById('thumbnail-container').scrollTop = ((thumbnailIndex - 1) * scrollHeight) / numPhotos;
+    document.getElementById(`img_${imageIndex}`).scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
     setIndexImage(imageIndex);
     setIndexThumbnail(thumbnailIndex);
-    if (imageIndex <= 4) {
-      document.getElementById(`thumbnail_${thumbnailIndex - 1}`).scrollIntoView({ inline: 'center', block: 'nearest' });
-    }
-    document.getElementById(`img_${imageIndex}`).scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
   }
   function handleStyleClick(style) {
     handleStyleSelect(style);

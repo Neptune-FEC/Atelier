@@ -13,12 +13,11 @@ import SizeSelector from './Overview/SizeSelector';
 import QuantitySelector from './Overview/QuantitySelector';
 import ShareOnSocialMedia from './Overview/ShareOnSocialMedia';
 import ProductOverview from './Overview/ProductOverview';
-import { postInteraction } from '../helpers/HttpClient';
 import RatingsAndReviews from './RatingsAndReviews';
 
 const { averageRating } = require('../helpers/ProductHelper');
 const {
-  getProduct, getReviewMeta, getStyles, getReviews, postCart,
+  getProduct, getReviewMeta, getStyles, getReviews, postCart, postInteraction,
 } = require('../helpers/HttpClient');
 
 const testId = 66642; // QandA widget relying on this number to dynamically updatex
@@ -154,7 +153,7 @@ class ProductDetailPage extends React.Component {
     });
   }
 
-  handleSubmit(id, selectedQuantity, selectedSize) {
+  handleSubmit(id, selectedQuantity) {
     const {
       skuId, handleQuantitySelect, handleSizeSelect,
     } = this.props;
@@ -166,24 +165,6 @@ class ProductDetailPage extends React.Component {
       this.toggleDropdown();
     }
     postCart(id, selectedQuantity);
-  }
-
-  setIndexImage(indexImage) {
-    this.setState({
-      indexImage,
-    });
-  }
-
-  setIndexThumbnail(indexThumbnail) {
-    this.setState({
-      indexThumbnail,
-    });
-  }
-
-  setMessage() {
-    this.setState({
-      message: null,
-    });
   }
 
   handleChangeReviewSort(sort) {
@@ -203,6 +184,24 @@ class ProductDetailPage extends React.Component {
         reviewSort: sort,
         noMoreReviews: response.data.results.length === 0,
       });
+    });
+  }
+
+  setIndexImage(indexImage) {
+    this.setState({
+      indexImage,
+    });
+  }
+
+  setIndexThumbnail(indexThumbnail) {
+    this.setState({
+      indexThumbnail,
+    });
+  }
+
+  setMessage() {
+    this.setState({
+      message: null,
     });
   }
 
@@ -393,7 +392,7 @@ class ProductDetailPage extends React.Component {
                 <ShareOnSocialMedia product={product} handleClick={this.handleClick} />
                 <ProductOverview product={product} handleClick={this.handleClick} />
               </Overview>
-              <RelatedItemsWidget
+              {/* <RelatedItemsWidget
                 product={product}
                 starRating={starRating}
                 numReviews={numReviews}
@@ -401,7 +400,7 @@ class ProductDetailPage extends React.Component {
                 styles={styles}
                 selectedStyle={selectedStyle}
                 fetchData={this.fetchData}
-              />
+              /> */}
               <QandA
                 product={product}
               />
@@ -420,6 +419,7 @@ class ProductDetailPage extends React.Component {
                     handleIndexThumbnailTop={this.handleIndexThumbnailTop}
                     handleIndexThumbnailDown={this.handleIndexThumbnailDown}
                     indexThumbnail={indexThumbnail}
+                    setIndexThumbnail={this.setIndexThumbnail}
                   />
                 )}
               <RatingsAndReviews
