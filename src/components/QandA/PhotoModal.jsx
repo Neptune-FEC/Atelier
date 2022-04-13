@@ -51,7 +51,7 @@ class PhotoModal extends React.Component {
     return (
       <div className="backgroundPhotoModal">
         <div className="modalAddPhoto" onSubmit={this.handleSubmitPhotos}>
-          <h5>Add Photo(s)</h5>
+          <h1>Add Photo(s)</h1>
           <br />
           <p>Submit up to 5 photos with your answer.</p>
           <p>Note: If you uploaded more than 5 images, only the first 5 will be submitted.</p>
@@ -67,21 +67,23 @@ class PhotoModal extends React.Component {
           <br />
           {images.length ? images.map((image) => (
             <img
+              className="thumbnail"
               src={image}
               alt="user uploaded a visual"
-              className="thumbnail"
               key={uuidv4()}
             />
           ))
             : null}
           <br />
           <input
+            className="photoModalButton clickable"
             type="button"
             value="Attach your photos"
             onClick={this.handleSubmitPhotos}
           />
           {' '}
           <input
+            className="photoModalButton clickable"
             type="button"
             value="Back"
             onClick={this.closePhotoPopup}

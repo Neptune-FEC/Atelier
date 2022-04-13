@@ -649,7 +649,10 @@ section{
 }
 
 .moreQsButton,
-.addQsButton {
+.addQsButton,
+.ansModalButton,
+.photoModalButton,
+.addQModalButton {
   background-color: white;
   font-family: roboto;
   display: inline;
@@ -661,6 +664,10 @@ section{
   font-size: 16px;
   cursor: pointer;
   text-align: center;
+}
+
+.ansButtons {
+  display: flex;
 }
 
 .q {
@@ -751,6 +758,29 @@ margin: 10px 0;
   margin: 10px 100px;
 }
 
+.modalAddQ {
+  border: 1px solid black;
+  background-color: white;
+  position: absolute;
+  z-index: 1;
+  padding: 10px 10px;
+  top: 15%;
+  left: 25%;
+  width: 50%;
+  /* height: 50%; */
+}
+
+.addQInputs,
+.addAnsInputs {
+  display: flex;
+  flex-direction: column;
+  font-size: small;
+}
+
+label {
+  margin-bottom: 15px;;
+}
+
 .modalAddAns {
   border: 2px solid black;
   background-color: white;
@@ -763,17 +793,15 @@ margin: 10px 0;
   /* height: 50%; */
 }
 
-.modalAddPhoto,
-.modalAddQ {
-  border: 1px solid black;
+.modalAddPhoto {
+  border: 2px solid black;
   background-color: white;
   position: absolute;
   z-index: 1;
-  padding: 10px 10px;
   top: 15%;
-  left: 5%;
-  width: 90%;
-  /* height: 50%; */
+  left: 35%;
+  padding: 10px 10px;
+  width: 30%;
 }
 
 .clickable {
