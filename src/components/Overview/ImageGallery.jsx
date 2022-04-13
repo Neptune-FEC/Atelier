@@ -16,22 +16,33 @@ class ImageGallery extends React.Component {
 
   scrollImageLeft() {
     const {
-      indexImage, handleIndexImageLeft, selectedStyle, handleIndexStyleMapping,
+      indexImage, handleIndexImageLeft,
+      selectedStyle, handleIndexStyleMapping,
+      handleIndexThumbnailTop, setIndexThumbnail, indexThumbnail,
     } = this.props;
     const { style_id } = selectedStyle;
-    handleIndexImageLeft();
+    if (indexImage < 4 && indexImage > 0) {
+      document.getElementById(`thumbnail_${indexImage - 1}`).scrollIntoView({ inline: 'center', block: 'nearest' });
+      setIndexThumbnail(Math.max(1, indexImage));
+    }
     document.getElementById(`img_${indexImage - 1}`).scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
-    handleIndexStyleMapping(indexImage - 1, style_id);
+    handleIndexStyleMapping(indexImage - 1, Math.max(indexThumbnail - 1, 1), style_id);
+    handleIndexImageLeft();
   }
 
   scrollImageRight() {
     const {
-      indexImage, handleIndexImageRight, handleIndexStyleMapping, selectedStyle,
+      indexImage, handleIndexImageRight,
+      handleIndexStyleMapping, selectedStyle, setIndexThumbnail, indexThumbnail,
     } = this.props;
     const { style_id } = selectedStyle;
+    if (indexImage < 3) {
+      document.getElementById(`thumbnail_${indexImage + 3}`).scrollIntoView({ inline: 'center', block: 'nearest' });
+    }
     document.getElementById(`img_${indexImage + 1}`).scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+    handleIndexStyleMapping(indexImage + 1, Math.min(indexThumbnail + 1, 4), style_id);
     handleIndexImageRight();
-    handleIndexStyleMapping(indexImage + 1, style_id);
+    setIndexThumbnail(Math.min(indexImage + 1, 4));
   }
 
   scrollThumbnailDown() {
@@ -47,18 +58,23 @@ class ImageGallery extends React.Component {
   }
 
   changeImage(index) {
-    const { setIndexImage, handleIndexStyleMapping, selectedStyle } = this.props;
+    const {
+      setIndexImage, handleIndexStyleMapping, selectedStyle, setIndexThumbnail,
+    } = this.props;
     const { style_id } = selectedStyle;
+    if (index <= 3) {
+      document.getElementById(`thumbnail_${index + 2}`).scrollIntoView({ inline: 'center', block: 'nearest' });
+    }
     document.getElementById(`img_${index}`).scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
     setIndexImage(index);
-    handleIndexStyleMapping(index, style_id);
+    setIndexThumbnail(Math.min(Math.max(1, index + 1), 4));
+    handleIndexStyleMapping(index, Math.min(Math.max(1, index + 1), 4), style_id);
   }
 
   render() {
     const {
-      selectedStyle, handleExpand, indexImage, indexThumbnail, indexStyleMapping,
+      selectedStyle, handleExpand, indexImage, indexThumbnail, handleClick,
     } = this.props;
-
     const { photos } = selectedStyle;
     const numPhotos = photos.length;
     const {
@@ -69,6 +85,8 @@ class ImageGallery extends React.Component {
       <>
         <div
           className="gallery-overlay"
+          role="presentation"
+          onClick={(e) => { handleClick(e, 'ImageGallery'); }}
         >
           <div className="thumbnail-panel">
             {/* {((numPhotos > limitNumPhotos) && isVisibleTop) ? ( */}
@@ -130,7 +148,7 @@ class ImageGallery extends React.Component {
         <div
           id="gallery"
           role="presentation"
-          onClick={() => { handleExpand(); }}
+          onClick={(e) => { handleExpand(); handleClick(e, 'ImageGallery'); }}
         >
           <div
             className="gallery-items"

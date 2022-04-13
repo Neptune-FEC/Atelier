@@ -28,20 +28,28 @@ class ExpandView extends React.Component {
   }
 
   scrollImageLeft() {
-    const { indexImage, handleIndexImageLeft } = this.props;
+    const {
+      indexImage, handleIndexImageLeft, handleIndexThumbnailTop, indexThumbnail,
+    } = this.props;
+    if (indexImage - 1 < 4) {
+      handleIndexThumbnailTop();
+      document.getElementById(`thumbnail_${indexThumbnail - 2}`).scrollIntoView({ inline: 'center', block: 'nearest' });
+    }
     handleIndexImageLeft();
     document.getElementById(`expand${indexImage - 1}`).scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
   }
 
   scrollImageRight() {
-    const { indexImage, handleIndexImageRight } = this.props;
+    const {
+      indexImage, handleIndexImageRight, handleIndexThumbnailDown, indexThumbnail,
+    } = this.props;
+    if (indexImage + 1 > 2) {
+      handleIndexThumbnailDown();
+      document.getElementById(`thumbnail_${indexThumbnail + 2}`).scrollIntoView({ inline: 'center', block: 'nearest' });
+    }
     document.getElementById(`expand${indexImage + 1}`).scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
     handleIndexImageRight();
   }
-
-  // changeImage(index) {
-  //   document.getElementById(`expand${index}`).scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
-  // }
 
   changeImage(index) {
     const { setIndexImage, handleIndexStyleMapping, selectedStyle } = this.props;
@@ -69,7 +77,7 @@ class ExpandView extends React.Component {
 
   render() {
     const {
-      selectedStyle, handleExpand, indexImage,
+      selectedStyle, handleExpand, indexImage, handleClick,
     } = this.props;
     const { photos } = selectedStyle;
     const numPhotos = photos.length;
@@ -79,7 +87,11 @@ class ExpandView extends React.Component {
     const { isZoom, mouseX, mouseY } = this.state;
 
     return (
-      <div className="expand-view-container">
+      <div
+        className="expand-view-container"
+        role="presentation"
+        onClick={(e) => { handleClick(e, 'ImageGallery'); }}
+      >
         <i className="fa fa-close close-icon" role="presentation" onClick={() => { handleExpand(); this.changeImageDefault(indexImage); }} style={{ visibility: `${isZoom ? 'hidden' : 'visible'}` }} />
         <div className="gallery-overlay expand-gallery-overlay">
           <div className="gallery-navigation">
