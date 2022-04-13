@@ -298,7 +298,7 @@ class ProductDetailPage extends React.Component {
                 handleIndexStyleMapping={this.handleIndexStyleMapping}
                 setIndexThumbnail={this.setIndexThumbnail}
               />
-              {/* <RelatedItemsWidget
+              <RelatedItemsWidget
                 product={product}
                 starRating={starRating}
                 numReviews={numReviews}
@@ -306,7 +306,7 @@ class ProductDetailPage extends React.Component {
                 styles={styles}
                 selectedStyle={selectedStyle}
                 fetchData={this.fetchData}
-              /> */}
+              />
               <QandA product={product} />
               {isExpand
                 && (
