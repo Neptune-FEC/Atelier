@@ -48,27 +48,26 @@ class QuestionHeader extends React.Component {
     // console.log('this.props.question, qHeader: ', this.props.question);
 
     return (
-      <div>
+      <div className="qHeader">
         <span>
-          <span>
-            Helpful?&nbsp;&nbsp;
-            {isQHelpful
-              ? <u>Yes</u>
-              : (
-                <u
-                  role="button"
-                  tabIndex={0}
-                  onClick={this.handleHelpfulQuestion}
-                  onKeyUp={this.handleHelpfulQuestion}
-                >
-                  Yes
-                </u>
-              )}
-            &nbsp;
-            (
-            {helpfulness}
-            )
-          </span>
+          Helpful?&nbsp;&nbsp;
+          {isQHelpful
+            ? <u>Yes</u>
+            : (
+              <u
+                className="clickable"
+                role="button"
+                tabIndex={0}
+                onClick={this.handleHelpfulQuestion}
+                onKeyUp={this.handleHelpfulQuestion}
+              >
+                Yes
+              </u>
+            )}
+          &nbsp;
+          (
+          {helpfulness}
+          )
           &nbsp;&nbsp;&nbsp;
           |
           &nbsp;&nbsp;&nbsp;

@@ -22,16 +22,15 @@ class SearchQ extends React.Component {
 
     return (
       <div>
-        <div>
-          <input
-            type="text"
-            size="60"
-            maxLength="60"
-            placeholder="Have a question? Search for Answers..."
-            value={searchQ}
-            onChange={this.onChangeSearchHandler}
-          />
-        </div>
+        <input
+          className="searchBar"
+          type="text"
+          size="60"
+          maxLength="60"
+          placeholder="Have a question? Search for Answers..."
+          value={searchQ}
+          onChange={this.onChangeSearchHandler}
+        />
       </div>
     );
   }

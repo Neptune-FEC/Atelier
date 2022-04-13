@@ -13,15 +13,13 @@ class Answer extends React.Component {
     // console.log('answer: ', answer);
 
     return (
-      <div className="answer">
+      <div className="ans">
         <div>{answer.body}</div>
-        <br />
         <AnsFooter
           answer={answer}
           updateAnsStateHelper={updateAnsStateHelper}
         />
         <div />
-        <br />
         <PhotoList photoList={answer.photos} />
       </div>
     );
