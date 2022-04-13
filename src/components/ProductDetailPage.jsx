@@ -14,10 +14,11 @@ import QuantitySelector from './Overview/QuantitySelector';
 import ShareOnSocialMedia from './Overview/ShareOnSocialMedia';
 import ProductOverview from './Overview/ProductOverview';
 import { postInteraction } from '../helpers/HttpClient';
+import RatingsAndReviews from './RatingsAndReviews';
 
 const { averageRating } = require('../helpers/ProductHelper');
 const {
-  getProduct, getReviewMeta, getStyles,
+  getProduct, getReviewMeta, getStyles, getReviews,
 } = require('../helpers/HttpClient');
 
 const testId = 66642; // QandA widget relying on this number to dynamically updatex
@@ -32,6 +33,10 @@ class ProductDetailPage extends React.Component {
       selectedStyle: null,
       starRating: null,
       numReviews: null,
+      reviews: [],
+      reviewsPage: 0,
+      reviewSort: 'relevant',
+      noMoreReviews: false,
       skuId: null,
       selectedQuantity: null,
       selectedSize: null,
@@ -47,6 +52,16 @@ class ProductDetailPage extends React.Component {
     this.handleSizeSelect = this.handleSizeSelect.bind(this);
     this.handleQuantitySelect = this.handleQuantitySelect.bind(this);
     this.handleExpand = this.handleExpand.bind(this);
+    // this.handleChangeReviewSort = this.handleChangeReviewSort.bind(this);
+    this.getMoreReviews = this.getMoreReviews.bind(this);
+  }
+
+  componentDidMount() {
+    // const { product } = this.state;
+    // const productId = product ? product.id : testId;
+    // this.fetchData(productId);
+    this.fetchData(testId); // after initial rendering, what action updates id# to user choice?
+
     this.handleIndexImageRight = this.handleIndexImageRight.bind(this);
     this.handleIndexImageLeft = this.handleIndexImageLeft.bind(this);
     this.handleIndexThumbnailDown = this.handleIndexThumbnailDown.bind(this);
@@ -169,6 +184,59 @@ class ProductDetailPage extends React.Component {
     });
   }
 
+  handleChangeReviewSort(sort) {
+    const { product } = this.state;
+
+    const reviewsParams = {
+      product_id: product.id,
+      page: 1,
+      count: 2,
+      sort,
+    };
+
+    // console.log('getReviews params:');
+    // console.log(reviewsParams);
+    getReviews(reviewsParams).then((response) => {
+      // console.log('getReviews response:');
+      // console.log(response.data);
+      this.setState({
+        reviews: response.data.results,
+        reviewsPage: 1,
+        reviewSort: sort,
+        noMoreReviews: response.data.results.length === 0,
+      });
+    });
+  }
+
+  getMoreReviews() {
+    let { reviewsPage, reviews } = this.state;
+    const { product, reviewSort } = this.state;
+
+    reviewsPage += 1;
+
+    const reviewsParams = {
+      product_id: product.id,
+      page: reviewsPage,
+      count: 2,
+      sort: reviewSort,
+    };
+
+    // console.log('getReviews params:');
+    // console.log(reviewsParams);
+    getReviews(reviewsParams).then((response) => {
+      // console.log('getReviews response:');
+      // console.log(response.data);
+
+      reviews = reviews.concat(response.data.results);
+
+      this.setState({
+        reviews,
+        reviewsPage,
+        noMoreReviews: response.data.results.length === 0,
+      });
+    });
+  }
+
   toggleDropdown() {
     const { isSizeDropdown } = this.state;
     this.setState({
@@ -208,6 +276,28 @@ class ProductDetailPage extends React.Component {
         numReviews: totalCount,
       });
     });
+
+    const { reviewSort } = this.state;
+
+    const reviewsParams = {
+      product_id: productId,
+      page: 1,
+      count: 2,
+      sort: reviewSort,
+    };
+
+    // console.log('getReviews params:');
+    // console.log(reviewsParams);
+    getReviews(reviewsParams).then((response) => {
+      // console.log('getReviews response:');
+      // console.log(response.data);
+      this.setState({
+        reviews: response.data.results,
+        reviewsPage: 1,
+        noMoreReviews: response.data.results.length === 0,
+      });
+    });
+
     this.setState({
       skuId: null,
       selectedQuantity: null,
@@ -229,6 +319,8 @@ class ProductDetailPage extends React.Component {
       styles, selectedStyle, selectedSize,
       skuId, selectedQuantity, isExpand,
       indexImage, indexThumbnail, indexStyleMapping, isSizeDropdown, message,
+
+      reviews, reviewSort, noMoreReviews,
     } = this.state;
     const skus = selectedStyle ? selectedStyle.skus : '';
 
@@ -344,6 +436,16 @@ class ProductDetailPage extends React.Component {
                     indexThumbnail={indexThumbnail}
                   />
                 )}
+              <RatingsAndReviews
+                reviewMeta={reviewMeta}
+                avgRating={starRating}
+                numReviews={numReviews}
+                reviews={reviews}
+                reviewSort={reviewSort}
+                noMoreReviews={noMoreReviews}
+                handleChangeReviewSort={this.handleChangeReviewSort}
+                getMoreReviews={this.getMoreReviews}
+              />
             </>
           )
           : <div>Loading Neptune!!!</div>}

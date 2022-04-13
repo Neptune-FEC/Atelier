@@ -23,7 +23,7 @@ function ProductPrice(props) {
             </span>
             <span className="price-current" style={{ color: 'red' }}>
               $
-              {sale_price}
+              {Math.floor(sale_price)}
             </span>
           </>
         )}

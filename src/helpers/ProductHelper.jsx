@@ -47,7 +47,7 @@ const displayStarRating = (
 const sortAnsHelper = (listOfAnswers) => {
   const sellerResponses = [];
   const otherResponses = [];
-  listOfAnswers.forEach((ans) => (ans.answerer_name === 'Seller' ? sellerResponses.push(ans) : otherResponses.push(ans)));
+  listOfAnswers.forEach((ans) => (ans.answerer_name.toLowerCase() === 'seller' ? sellerResponses.push(ans) : otherResponses.push(ans)));
   sellerResponses.sort((a, b) => b.helpfulness - a.helpfulness);
   otherResponses.sort((a, b) => b.helpfulness - a.helpfulness);
   const allResponses = sellerResponses.concat(otherResponses);

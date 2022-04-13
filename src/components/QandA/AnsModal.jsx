@@ -78,8 +78,20 @@ class AnsModal extends React.Component {
     const {
       answer, nickName, email, isShowingPhotoModal,
     } = this.state;
-    const { questionBody, product, questionId } = this.props;
+    const { questionBody, product } = this.props;
     // console.log('questionId, AnsModal: ', questionId);
+
+    // // array of arrays, subarrays are in format of ['key', 'value']
+    // const formData = new FormData();
+    // // obtains first DOM element with id="file"
+    // const imagefile = document.querySelector('#file');
+    // formData.append('image', imagefile.files[0]);
+    // make API call to submit data. note "headers" content
+    // axios.post('upload_file', formData, {
+    //   headers: {
+    //     'Content-Type': 'multipart/form-data',
+    //   },
+    // });
 
     return (
       <div className="backgroundAnsModal">
