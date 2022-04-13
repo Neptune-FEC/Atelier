@@ -54,11 +54,6 @@ class ProductDetailPage extends React.Component {
     this.handleExpand = this.handleExpand.bind(this);
     this.handleChangeReviewSort = this.handleChangeReviewSort.bind(this);
     this.getMoreReviews = this.getMoreReviews.bind(this);
-  }
-
-  componentDidMount() {
-    this.fetchData(testId); // after initial rendering, what action updates id# to user choice?
-
     this.handleIndexImageRight = this.handleIndexImageRight.bind(this);
     this.handleIndexImageLeft = this.handleIndexImageLeft.bind(this);
     this.handleIndexThumbnailDown = this.handleIndexThumbnailDown.bind(this);
