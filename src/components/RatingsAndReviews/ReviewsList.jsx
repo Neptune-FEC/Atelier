@@ -3,8 +3,10 @@ import ReviewTile from './ReviewTile';
 
 function ReviewsList(props) {
   const { reviews, numReviews, handleChangeReviewSort,
-    reviewSort, getMoreReviews, noMoreReviews } = props;
+    reviewSort, getMoreReviews, noMoreReviews, numShownReviews } = props;
   const numWrittenReviews = reviews ? reviews.length : 0;
+
+  // console.log(`shown reviews: ${numShownReviews} , reviews length: ${reviews.length}`);
 
   return (
     <div id="review-list">

@@ -36,6 +36,7 @@ class ProductDetailPage extends React.Component {
       reviewsPage: 0,
       reviewSort: 'relevant',
       noMoreReviews: false,
+      numShownReviews: 0,
       skuId: null,
       selectedQuantity: null,
       selectedSize: null,
@@ -167,21 +168,21 @@ class ProductDetailPage extends React.Component {
   }
 
   handleChangeReviewSort(sort) {
-    const { product } = this.state;
+    const { product, numReviews } = this.state;
 
     const reviewsParams = {
       product_id: product.id,
-      page: 1,
-      count: 2,
+      count: numReviews,
       sort,
     };
 
     getReviews(reviewsParams).then((response) => {
       this.setState({
         reviews: response.data.results,
-        reviewsPage: 1,
         reviewSort: sort,
-        noMoreReviews: response.data.results.length === 0,
+        noMoreReviews: false,
+        numShownReviews: (response.data.results.length > 2) ? 2 : response.data.results.length,
+        // noMoreReviews: response.data.results.length === 0,
       });
     });
   }
@@ -205,26 +206,14 @@ class ProductDetailPage extends React.Component {
   }
 
   getMoreReviews() {
-    let { reviewsPage, reviews } = this.state;
-    const { product, reviewSort } = this.state;
+    const { numShownReviews, reviews } = this.state;
 
-    reviewsPage += 1;
-
-    const reviewsParams = {
-      product_id: product.id,
-      page: reviewsPage,
-      count: 2,
-      sort: reviewSort,
-    };
-
-    getReviews(reviewsParams).then((response) => {
-      reviews = reviews.concat(response.data.results);
+    if (numShownReviews < reviews.length) {
       this.setState({
-        reviews,
-        reviewsPage,
-        noMoreReviews: response.data.results.length === 0,
+        numShownReviews: numShownReviews + 2,
+        noMoreReviews: (numShownReviews + 2) >= reviews.length,
       });
-    });
+    }
   }
 
   toggleDropdown() {
@@ -258,6 +247,9 @@ class ProductDetailPage extends React.Component {
         }
       });
     });
+
+    const defaultSort = 'relevant';
+
     getReviewMeta(productId).then((reviewMeta) => {
       const { totalCount, avgRating } = averageRating(reviewMeta.data.ratings);
       this.setState({
@@ -265,24 +257,34 @@ class ProductDetailPage extends React.Component {
         starRating: avgRating,
         numReviews: totalCount,
       });
-    });
 
-    const { reviewSort } = this.state;
+      const reviewsParams = {
+        product_id: productId,
+        count: totalCount,
+        sort: defaultSort,
+      };
 
-    const reviewsParams = {
-      product_id: productId,
-      page: 1,
-      count: 2,
-      sort: reviewSort,
-    };
-
-    getReviews(reviewsParams).then((response) => {
+      return getReviews(reviewsParams);
+    }).then((response) => {
       this.setState({
         reviews: response.data.results,
-        reviewsPage: 1,
-        noMoreReviews: response.data.results.length === 0,
+        numShownReviews: 2,
+        reviewSort: defaultSort,
+        noMoreReviews: false,
       });
     });
+
+    // console.log('getReviews params:');
+    // console.log(reviewsParams);
+    // getReviews(reviewsParams).then((response) => {
+    //   // console.log('getReviews response:');
+    //   // console.log(response.data);
+    //   this.setState({
+    //     reviews: response.data.results,
+    //     reviewsPage: 1,
+    //     noMoreReviews: response.data.results.length === 0,
+    //   });
+    // });
 
     this.setState({
       skuId: null,
@@ -302,10 +304,9 @@ class ProductDetailPage extends React.Component {
   render() {
     const {
       product, starRating, reviewMeta, numReviews,
-      styles, selectedStyle, selectedSize,
-      skuId, selectedQuantity, isExpand,
-      indexImage, indexThumbnail, indexStyleMapping, isSizeDropdown, message,
-      reviews, reviewSort, noMoreReviews,
+      styles, selectedStyle, selectedSize, skuId, selectedQuantity, isExpand,
+      reviews, reviewSort, noMoreReviews, numShownReviews,
+      indexImage, indexThumbnail, indexStyleMapping,
     } = this.state;
     const skus = selectedStyle ? selectedStyle.skus : '';
 
@@ -425,6 +426,7 @@ class ProductDetailPage extends React.Component {
                 noMoreReviews={noMoreReviews}
                 handleChangeReviewSort={this.handleChangeReviewSort}
                 getMoreReviews={this.getMoreReviews}
+                numShownReviews={numShownReviews}
               />
             </>
           )

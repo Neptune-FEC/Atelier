@@ -955,7 +955,8 @@ label {
 .comparisonModal,
 .backgroundAddQModal,
 .backgroundAnsModal,
-.backgroundPhotoModal {
+.backgroundPhotoModal,
+.backgroundModal{
   /* display: grid; */
   /* position: absolute; */
   /* grid-template-columns: max-content; */
@@ -1129,6 +1130,16 @@ label {
   text-decoration: underline;
 }
 
+.rating-label {
+  cursor: pointer;
+}
+
+.rating-filter {
+  cursor: pointer;
+  background-color: lightgray;
+  margin-left:5px;
+}
+
 .categories-breakdown {
   border-top: 1px solid;
 }
@@ -1182,6 +1193,11 @@ label {
 
 .review-options button {
   margin: 5px;
+}
+
+.expand-body {
+  text-decoration: underline;
+  cursor:pointer;
 }
 
 .uline {
