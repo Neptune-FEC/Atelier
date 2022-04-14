@@ -6,6 +6,7 @@
   "author": "acea68 <alancea01@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "aws-sdk": "^2.1115.0",
     "axios": "^0.26.1",
     "dotenv": "^16.0.0",
     "dotenv-webpack": "^7.1.0",

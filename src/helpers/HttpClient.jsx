@@ -1,8 +1,42 @@
 const axios = require('axios');
-// eslint-disable-next-line prefer-destructuring
-const URL = process.env.URL;
-// eslint-disable-next-line prefer-destructuring
-const TOKEN = process.env.TOKEN;
+const AWS = require('aws-sdk');
+
+const getAwsSecret = function () {
+  const region = 'us-east-2';
+  const client = new AWS.SecretsManager({ region });
+  const SecretId = 'neptune-secret';
+  return new Promise((resolve, reject) => {
+    // retrieving secrets from secrets manager
+    client.getSecretValue({ SecretId }, (err, data) => {
+      if (err) {
+        reject(err);
+      } else {
+        // parsing the fetched data into JSON
+        const secretsJSON = JSON.parse(data.SecretString);
+
+        // creating a string to store write to .env file
+        // .env file shall look like this :
+        // SECRET_1 = sample_secret_1
+        // SECRET_2 = sample_secret_2
+        const secretsString = '';
+        // Object.keys(secretsJSON).forEach((key) => {
+        //   secretsString += `${key}=${secretsJSON[key]}\n`;
+        // });
+        resolve(secretsJSON);
+      }
+    });
+  });
+};
+
+let { URL } = process.env;
+let { TOKEN } = process.env;
+
+if (!(URL && TOKEN)) {
+  getAwsSecret().then((secretsJSON) => {
+    URL = secretsJSON.URL;
+    TOKEN = secretsJSON.TOKEN;
+  });
+}
 
 // Base http request used by all the http calls
 const instance = axios.create({
