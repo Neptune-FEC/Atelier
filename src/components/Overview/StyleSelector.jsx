@@ -3,7 +3,7 @@ import React from 'react';
 function StyleSelector(props) {
   const {
     indexStyleMapping, setIndexImage, setIndexThumbnail,
-    styles, selectedStyle, handleClick, handleStyleSelect, handleSizeSelect,
+    styles, selectedStyle, handleStyleSelect, handleSizeSelect,
     handleQuantitySelect,
   } = props;
   const { photos } = selectedStyle;
@@ -12,7 +12,7 @@ function StyleSelector(props) {
     const [imageIndex, thumbnailIndex] = indexStyleMapping[styleId];
     const scrollHeight = document.getElementById('thumbnail-items').clientHeight;
     document.getElementById('thumbnail-container').scrollTop = ((thumbnailIndex - 1) * scrollHeight) / numPhotos;
-    document.getElementById(`img_${imageIndex}`).scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+    document.getElementById(`img_${imageIndex}`).scrollIntoView({ inline: 'center', block: 'nearest' });
     setIndexImage(imageIndex);
     setIndexThumbnail(thumbnailIndex);
   }
@@ -25,7 +25,7 @@ function StyleSelector(props) {
 
   const allStyles = styles.results;
   return (
-    <div className="overview-styles" role="presentation" onClick={(e) => { handleClick(e, 'StyleSelector'); }}>
+    <div className="overview-styles">
       <span style={{ color: 'var(--text-color)', fontWeight: 'bold', fontSize: '1.3rem' }}>
         Styles
         {' '}

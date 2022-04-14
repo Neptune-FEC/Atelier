@@ -70,15 +70,18 @@ class ExpandView extends React.Component {
   }
 
   changeImageDefault(imageIndex) {
-    const { selectedStyle, setIndexImage, setIndexThumbnail } = this.props;
+    const {
+      selectedStyle, setIndexImage, setIndexThumbnail, handleIndexStyleMapping,
+    } = this.props;
     const { photos } = selectedStyle;
+    const { style_id } = selectedStyle;
     const numPhotos = photos.length;
-    // const [imageIndex, thumbnailIndex] = indexStyleMapping[styleId];
     const scrollHeight = document.getElementById('thumbnail-items').clientHeight;
     document.getElementById('thumbnail-container').scrollTop = ((imageIndex - 1) * scrollHeight) / numPhotos;
-    document.getElementById(`img_${imageIndex}`).scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+    document.getElementById(`img_${imageIndex}`).scrollIntoView({ inline: 'center', block: 'nearest' });
     setIndexImage(imageIndex);
     setIndexThumbnail(imageIndex);
+    handleIndexStyleMapping(imageIndex, imageIndex, style_id);
   }
 
   zoomImage() {
@@ -103,7 +106,7 @@ class ExpandView extends React.Component {
       <div
         className="expand-view-container"
         role="presentation"
-        onClick={(e) => { handleClick(e, 'ImageGallery'); }}
+        onClick={(e) => { handleClick(e, 'Overview'); }}
       >
         <i className="fa fa-close close-icon" role="presentation" onClick={() => { handleExpand(); this.changeImageDefault(indexImage); }} style={{ visibility: `${isZoom ? 'hidden' : 'visible'}` }} />
         <div className="gallery-overlay expand-gallery-overlay">
@@ -164,9 +167,8 @@ class ExpandView extends React.Component {
           </div>
         </div>
         <div className="dot-container" style={{ visibility: `${isZoom ? 'hidden' : 'visible'}` }}>
-          {photos.map((photo, idx) => <i className="fa fa-circle dot-icon navigation-icon" role="presentation" onClick={() => { this.changeImage(idx); }} />)}
+          {photos.map((photo, idx) => <i className="fa fa-circle dot-icon navigation-icon " role="presentation" onClick={() => { this.changeImage(idx); }} style={{ color: `${idx === indexImage ? '#E66A35' : '#ffff'}` }} />)}
         </div>
-
       </div>
     );
   }

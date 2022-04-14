@@ -81,7 +81,6 @@ class ProductDetailPage extends React.Component {
     } else {
       elementSelector += classes;
     }
-
     postInteraction(elementSelector, component, new Date().toISOString()).then((response) => {
       console.log(response);
     });
@@ -155,11 +154,11 @@ class ProductDetailPage extends React.Component {
 
   handleSubmit(id, selectedQuantity) {
     const {
-      skuId, handleQuantitySelect, handleSizeSelect,
-    } = this.props;
+      skuId,
+    } = this.state;
     if (skuId) {
-      handleQuantitySelect('-');
-      handleSizeSelect(null);
+      this.handleQuantitySelect('-');
+      this.handleSizeSelect(null);
     } else {
       this.setState({ message: 'Please select size' });
       this.toggleDropdown();
@@ -306,7 +305,6 @@ class ProductDetailPage extends React.Component {
       styles, selectedStyle, selectedSize,
       skuId, selectedQuantity, isExpand,
       indexImage, indexThumbnail, indexStyleMapping, isSizeDropdown, message,
-
       reviews, reviewSort, noMoreReviews,
     } = this.state;
     const skus = selectedStyle ? selectedStyle.skus : '';
@@ -325,7 +323,6 @@ class ProductDetailPage extends React.Component {
                 handleClick={this.handleClick}
               >
                 <ImageGallery
-                  handleClick={this.handleClick}
                   setIndexImage={this.setIndexImage}
                   selectedStyle={selectedStyle}
                   isExpand={isExpand}
@@ -344,12 +341,10 @@ class ProductDetailPage extends React.Component {
                 <StarRating
                   starRating={starRating}
                   numReviews={numReviews}
-                  handleClick={this.handleClick}
                 />
-                <ProductTitle product={product} handleClick={this.handleClick} />
-                <ProductPrice selectedStyle={selectedStyle} handleClick={this.handleClick} />
+                <ProductTitle product={product} />
+                <ProductPrice selectedStyle={selectedStyle} />
                 <StyleSelector
-                  handleClick={this.handleClick}
                   styles={styles}
                   selectedStyle={selectedStyle}
                   handleStyleSelect={this.handleStyleSelect}
@@ -363,7 +358,6 @@ class ProductDetailPage extends React.Component {
                   indexImage={indexImage}
                 />
                 <AddToCart
-                  handleClick={this.handleClick}
                   selectedStyle={selectedStyle}
                   isSizeDropdown={isSizeDropdown}
                   message={message}
@@ -378,7 +372,7 @@ class ProductDetailPage extends React.Component {
                     skus={skus}
                     handleSizeSelect={this.handleSizeSelect}
                     handleQuantitySelect={this.handleQuantitySelect}
-                    isSizeDropdown={this.isSizeDropdown}
+                    isSizeDropdown={isSizeDropdown}
                     toggleDropdown={this.toggleDropdown}
                     setMessage={this.setMessage}
                   />
@@ -389,8 +383,8 @@ class ProductDetailPage extends React.Component {
                     selectedQuantity={selectedQuantity}
                   />
                 </AddToCart>
-                <ShareOnSocialMedia product={product} handleClick={this.handleClick} />
-                <ProductOverview product={product} handleClick={this.handleClick} />
+                <ShareOnSocialMedia product={product} />
+                <ProductOverview product={product} />
               </Overview>
               <RelatedItemsWidget
                 product={product}
