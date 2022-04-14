@@ -2,7 +2,7 @@ import React from 'react';
 import { displayStarRating } from '../../helpers/ProductHelper';
 
 function StarRating(props) {
-  const { starRating, numReviews, handleClick } = props;
+  const { starRating, numReviews } = props;
   const fullStar = <i className="full-star fa fa-star" />;
   const emptyStar = <i className="empty-star full-star fa fa-star" />;
   const quaterStar = <i className="half-star fa fa-star-half" />;
@@ -22,8 +22,6 @@ function StarRating(props) {
       ? (
         <div
           className="overview-rating-reviews"
-          role="presentation"
-          onClick={(e) => { handleClick(e, 'StarRating'); }}
         >
           <div className="overview-rating">
             {stars}

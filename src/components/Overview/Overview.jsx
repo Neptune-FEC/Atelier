@@ -5,7 +5,7 @@ function Overview({
 }) {
   return styles && selectedStyle ? (
     <>
-      <section>
+      <section role="presentation" onClick={(e) => { handleClick(e, 'Overview'); }}>
         <div className="container">
           <div className="overview-upper-part">
             <div className="left-container">

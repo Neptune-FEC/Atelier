@@ -4,7 +4,7 @@ import { postCart } from '../../helpers/HttpClient';
 function AddToCart(props) {
   const {
     selectedStyle, children, isSizeDropdown,
-    message, handleSubmit, skuId, selectedQuantity, selectedSize, handleClick,
+    message, handleSubmit, skuId, selectedQuantity,
   } = props;
   const { skus } = selectedStyle;
   const allSkuIds = Object.keys(skus);
@@ -21,11 +21,10 @@ function AddToCart(props) {
         <div
           className="split"
           role="presentation"
-          onClick={(e) => { handleClick(e, 'AddToCart'); }}
         >
           {children}
         </div>
-        <div className="overview-add-to-cart" role="presentation" onClick={(e) => { handleSubmit(skuId, selectedQuantity, selectedSize); handleClick(e, 'ImageGallery'); }}>
+        <div className="overview-add-to-cart" role="presentation" onClick={() => { handleSubmit(skuId, selectedQuantity); }}>
           <div className="add-to-cart-container">
             <div className="add-to-cart">Add To Cart</div>
             <i className="fa fa-plus add-icon" />
