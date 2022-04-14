@@ -41,7 +41,7 @@ class ComparisonModal extends React.Component {
     const relatedCheckmarks = [];
     const currentCheckmarks = [];
 
-    features.forEach((feature, i) => {
+    features.forEach((feature) => {
       if (relatedProductArray.includes(feature)) {
         relatedCheckmarks.push('✔');
       } else {
