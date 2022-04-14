@@ -12,7 +12,8 @@ function getRecommendedPercentage(recommended) {
   return 0;
 }
 
-function displayRatings(ratings) {
+function displayRatings(ratings, props) {
+  const { filters, addFilter, removeFilter } = props;
   const minStar = 1;
   const maxStar = 5;
   let numRatings = 0;
@@ -33,9 +34,10 @@ function displayRatings(ratings) {
     }
 
     ratingsHTML.push(
-      <div>
+      <div className="rating-label">
         <label htmlFor={starId}>{`${star} Stars`}</label>
-        <progress id={starId} max="100" value={percentage} onClick={() => {console.log(`${star} star clicked`);}} />
+        <progress id={starId} max="100" value={percentage}  role="button" tabIndex="-1" onKeyPress={() => {}} onClick={
+          filters[star] ? () => { removeFilter(star); } : () => { addFilter(star); }} />
         {/* {ratings[star]} */}
       </div>,
     );
@@ -61,6 +63,25 @@ function displayCharacteristics(characteristics) {
   return characteristicsHTML;
 }
 
+function displayFilters(props) {
+  const { filters, removeFilter, removeAllFilters } = props;
+  const filtersHTML = [];
+
+  Object.keys(filters).forEach((rating) => {
+    filtersHTML.push(
+      <span className="rating-filter" onClick={() => { removeFilter(rating); }} onKeyPress={() => {}} role="button" tabIndex="-1">{`${rating} stars`}</span>,
+    );
+  });
+
+  if (Object.keys(filters).length > 0) {
+    filtersHTML.push(
+      <span className="rating-filter" onClick={() => { removeAllFilters(); }} onKeyPress={() => {}} role="button" tabIndex="-1">remove all filters</span>,
+    );
+  }
+
+  return filtersHTML;
+}
+
 function RatingsBreakdown(props) {
   const { avgRating, reviewMeta } = props;
 
@@ -69,6 +90,7 @@ function RatingsBreakdown(props) {
   return (
     <div id="ratings-breakdown">
       <div className="filters">
+        {displayFilters(props)}
       </div>
       <div className="product-rating">
         <span className="average-rating-number"><h1>{avgRating}</h1></span>
@@ -81,7 +103,7 @@ function RatingsBreakdown(props) {
         % of reviews recommend this product
       </div>
       <div className="score-breakdown">
-        {reviewMeta ? displayRatings(reviewMeta.ratings) : ''}
+        {reviewMeta ? displayRatings(reviewMeta.ratings, props) : ''}
       </div>
       <div className="categories-breakdown">
         {reviewMeta ? displayCharacteristics(reviewMeta.characteristics) : ''}

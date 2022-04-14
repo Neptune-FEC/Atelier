@@ -999,6 +999,16 @@ section{
   text-decoration: underline;
 }
 
+.rating-label {
+  cursor: pointer;
+}
+
+.rating-filter {
+  cursor: pointer;
+  background-color: lightgray;
+  margin-left:5px;
+}
+
 .categories-breakdown {
   border-top:1px solid;
 }

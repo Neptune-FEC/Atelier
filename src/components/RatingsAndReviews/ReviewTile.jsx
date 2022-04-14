@@ -31,7 +31,8 @@ class ReviewTile extends React.Component {
       <div id={`${review_id}-review-tile`} className="review-tile">
         <div className="review-tile-header">
           <div className="review-tile-stars">
-            <DisplayStars rating={rating} />
+            {/* <DisplayStars rating={rating} /> */}
+            {`${rating} STARS`}
           </div>
           <div className="review-tile-user-and-date">
             {/* {verifiedUser ? <i className="fa-solid fa-circle-check"></i> : ''} */}
