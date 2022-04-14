@@ -853,12 +853,12 @@ label {
 }
 
 .comparisonScrollArrowRight:hover {
-  font-style: italic;
+  color: #E66A35;
   cursor: e-resize;
 }
 
 .comparisonScrollArrowLeft:hover {
-  font-style: italic;
+  color: #E66A35;
   cursor: w-resize;
 }
 
@@ -899,7 +899,7 @@ label {
 }
 
 .productCardName:hover {
-  color: rgba(90, 89, 89, 0.4);
+  color: #E66A35;
   cursor: pointer;
 }
 
@@ -944,6 +944,7 @@ label {
 
 .actionButtonCompModal:hover {
   background-color: rgba(110, 110, 108, 0.4);
+  color: #E66A35;
 }
 
 .actionButtonCompModal:active {
@@ -1053,7 +1054,8 @@ label {
 }
 
 .your-outfit-add-button:hover {
-  background-color: rgba(244, 242, 242, 0.951);
+  /* background-color: rgba(244, 242, 242, 0.951); */
+  background-color: #E66A35;
 }
 
 .your-outfit-product-card-remove {
@@ -1070,6 +1072,7 @@ label {
 
 .your-outfit-product-card-remove:hover {
   background-color: rgba(110, 110, 108, 0.4);
+  color: #E66A35;
 }
 
 .your-outfit-product-card-remove:active {
