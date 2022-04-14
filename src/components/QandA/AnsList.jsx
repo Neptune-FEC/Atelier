@@ -14,7 +14,7 @@ class AnsList extends React.Component {
     // console.log('ansList from props in AnsList component: ', ansList);
 
     return (
-      <div>
+      <div className="ansList">
         {
           showingMoreAnswers
             ? (
@@ -29,7 +29,7 @@ class AnsList extends React.Component {
                 ))}
               </div>
             ) : (
-              <div className="ansList">
+              <div className="ansListDefault">
                 {ansList.slice(0, numAns).map(((ans) => (
                   <Answer
                     answer={ans}

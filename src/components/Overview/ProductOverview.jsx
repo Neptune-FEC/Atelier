@@ -1,10 +1,10 @@
 import React from 'react';
 
 function ProductOverview(props) {
-  const { product } = props;
+  const { product, handleClick } = props;
   const { features } = product;
   return (
-    <div className="description-features">
+    <div className="description-features" role="presentation" onClick={(e) => { handleClick(e, 'ProductOverview'); }}>
       <div className="overview-description">
         <h3>{product.slogan}</h3>
         <p>{product.description}</p>

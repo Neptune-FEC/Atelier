@@ -3,14 +3,24 @@ import Overview from './Overview/Overview';
 import ExpandView from './Overview/ExpandView';
 import RelatedItemsWidget from './RelatedItems/RelatedItemsWidget';
 import QandA from './QandA/QandA';
+import ImageGallery from './Overview/ImageGallery';
+import StarRating from './Overview/StarRating';
+import ProductTitle from './Overview/ProductTitle';
+import ProductPrice from './Overview/ProductPrice';
+import StyleSelector from './Overview/StyleSelector';
+import AddToCart from './Overview/AddToCart';
+import SizeSelector from './Overview/SizeSelector';
+import QuantitySelector from './Overview/QuantitySelector';
+import ShareOnSocialMedia from './Overview/ShareOnSocialMedia';
+import ProductOverview from './Overview/ProductOverview';
 import RatingsAndReviews from './RatingsAndReviews';
 
 const { averageRating } = require('../helpers/ProductHelper');
 const {
-  getProduct, getReviewMeta, getStyles, getReviews
+  getProduct, getReviewMeta, getStyles, getReviews, postCart, postInteraction,
 } = require('../helpers/HttpClient');
 
-const testId = 66642; // QandA widget relying on this number to dynamically update
+const testId = 66642; // QandA widget relying on this number to dynamically updatex
 
 class ProductDetailPage extends React.Component {
   constructor(props) {
@@ -34,6 +44,8 @@ class ProductDetailPage extends React.Component {
       indexImage: null,
       indexThumbnail: null,
       indexStyleMapping: null,
+      isSizeDropdown: false,
+      message: null,
     };
     this.fetchData = this.fetchData.bind(this);
     this.handleStyleSelect = this.handleStyleSelect.bind(this);
@@ -42,14 +54,6 @@ class ProductDetailPage extends React.Component {
     this.handleExpand = this.handleExpand.bind(this);
     this.handleChangeReviewSort = this.handleChangeReviewSort.bind(this);
     this.getMoreReviews = this.getMoreReviews.bind(this);
-  }
-
-  componentDidMount() {
-    // const { product } = this.state;
-    // const productId = product ? product.id : testId;
-    // this.fetchData(productId);
-    this.fetchData(testId); // after initial rendering, what action updates id# to user choice?
-
     this.handleIndexImageRight = this.handleIndexImageRight.bind(this);
     this.handleIndexImageLeft = this.handleIndexImageLeft.bind(this);
     this.handleIndexThumbnailDown = this.handleIndexThumbnailDown.bind(this);
@@ -57,11 +61,36 @@ class ProductDetailPage extends React.Component {
     this.setIndexImage = this.setIndexImage.bind(this);
     this.handleIndexStyleMapping = this.handleIndexStyleMapping.bind(this);
     this.setIndexThumbnail = this.setIndexThumbnail.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.toggleDropdown = this.toggleDropdown.bind(this);
+    this.setMessage = this.setMessage.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
-  handleIndexStyleMapping(indexImage, styleId) {
+  componentDidMount() {
+    this.fetchData(testId); // after initial rendering, what action updates id# to user choice?
+  }
+
+  handleClick(e, component) {
+    let elementSelector = e.target.tagName;
+    if (e.target.id) {
+      elementSelector += `#${e.target.id}`;
+    }
+    const classes = e.target.className.trim().split(/\s+/).join('.');
+    if (classes) {
+      elementSelector += `.${classes}`;
+    } else {
+      elementSelector += classes;
+    }
+
+    postInteraction(elementSelector, component, new Date().toISOString()).then((response) => {
+      console.log(response);
+    });
+  }
+
+  handleIndexStyleMapping(indexImage, indexThumbnail, styleId) {
     const { indexStyleMapping } = this.state;
-    indexStyleMapping[styleId] = indexImage;
+    indexStyleMapping[styleId] = [indexImage, indexThumbnail];
     this.setState({
       indexStyleMapping,
     });
@@ -125,6 +154,40 @@ class ProductDetailPage extends React.Component {
     });
   }
 
+  handleSubmit(id, selectedQuantity) {
+    const {
+      skuId, handleQuantitySelect, handleSizeSelect,
+    } = this.props;
+    if (skuId) {
+      handleQuantitySelect('-');
+      handleSizeSelect(null);
+    } else {
+      this.setState({ message: 'Please select size' });
+      this.toggleDropdown();
+    }
+    postCart(id, selectedQuantity);
+  }
+
+  handleChangeReviewSort(sort) {
+    const { product, numReviews } = this.state;
+
+    const reviewsParams = {
+      product_id: product.id,
+      count: numReviews,
+      sort,
+    };
+
+    getReviews(reviewsParams).then((response) => {
+      this.setState({
+        reviews: response.data.results,
+        reviewSort: sort,
+        noMoreReviews: false,
+        numShownReviews: (response.data.results.length > 2) ? 2 : response.data.results.length,
+        // noMoreReviews: response.data.results.length === 0,
+      });
+    });
+  }
+
   setIndexImage(indexImage) {
     this.setState({
       indexImage,
@@ -137,27 +200,9 @@ class ProductDetailPage extends React.Component {
     });
   }
 
-  handleChangeReviewSort(sort) {
-    const { product, numReviews } = this.state;
-
-    const reviewsParams = {
-      product_id: product.id,
-      count: numReviews,
-      sort,
-    };
-
-    // console.log('getReviews params:');
-    // console.log(reviewsParams);
-    getReviews(reviewsParams).then((response) => {
-      // console.log('getReviews response:');
-      // console.log(response.data);
-      this.setState({
-        reviews: response.data.results,
-        reviewSort: sort,
-        noMoreReviews: false,
-        numShownReviews: (response.data.results.length > 2) ? 2 : response.data.results.length,
-        // noMoreReviews: response.data.results.length === 0,
-      });
+  setMessage() {
+    this.setState({
+      message: null,
     });
   }
 
@@ -170,6 +215,13 @@ class ProductDetailPage extends React.Component {
         noMoreReviews: (numShownReviews + 2) >= reviews.length,
       });
     }
+  }
+
+  toggleDropdown() {
+    const { isSizeDropdown } = this.state;
+    this.setState({
+      isSizeDropdown: !isSizeDropdown,
+    });
   }
 
   fetchData(productId) {
@@ -189,7 +241,7 @@ class ProductDetailPage extends React.Component {
         for (let i = 0; i < results.length; i += 1) {
           const style = results[i];
           const { style_id } = style;
-          mapping[style_id] = 0;
+          mapping[style_id] = [0, 1];
           this.setState({
             indexStyleMapping: mapping,
           });
@@ -255,8 +307,10 @@ class ProductDetailPage extends React.Component {
       product, starRating, reviewMeta, numReviews,
       styles, selectedStyle, selectedSize, skuId, selectedQuantity, isExpand,
       reviews, reviewSort, noMoreReviews, numShownReviews,
-      indexImage, indexThumbnail, indexStyleMapping,
+      indexImage, indexThumbnail, indexStyleMapping, isSizeDropdown, message,
     } = this.state;
+    const skus = selectedStyle ? selectedStyle.skus : '';
+
     return (
       <>
         <header>
@@ -266,31 +320,78 @@ class ProductDetailPage extends React.Component {
           ? (
             <>
               <Overview
-                product={product}
-                starRating={starRating}
-                numReviews={numReviews}
-                reviewMeta={reviewMeta}
                 styles={styles}
                 selectedStyle={selectedStyle}
-                selectedSize={selectedSize}
-                skuId={skuId}
-                selectedQuantity={selectedQuantity}
-                handleSizeSelect={this.handleSizeSelect}
-                handleQuantitySelect={this.handleQuantitySelect}
-                handleStyleSelect={this.handleStyleSelect}
-                isExpand={isExpand}
-                handleExpand={this.handleExpand}
-                handleIndexThumbnailTop={this.handleIndexThumbnailTop}
-                handleIndexThumbnailDown={this.handleIndexThumbnailDown}
-                handleIndexImageLeft={this.handleIndexImageLeft}
-                handleIndexImageRight={this.handleIndexImageRight}
-                indexImage={indexImage}
-                indexThumbnail={indexThumbnail}
-                setIndexImage={this.setIndexImage}
-                indexStyleMapping={indexStyleMapping}
-                handleIndexStyleMapping={this.handleIndexStyleMapping}
-                setIndexThumbnail={this.setIndexThumbnail}
-              />
+                handleClick={this.handleClick}
+              >
+                <ImageGallery
+                  handleClick={this.handleClick}
+                  setIndexImage={this.setIndexImage}
+                  selectedStyle={selectedStyle}
+                  isExpand={isExpand}
+                  handleExpand={this.handleExpand}
+                  indexImage={indexImage}
+                  indexThumbnail={indexThumbnail}
+                  handleIndexThumbnailTop={this.handleIndexThumbnailTop}
+                  handleIndexThumbnailDown={this.handleIndexThumbnailDown}
+                  handleIndexImageLeft={this.handleIndexImageLeft}
+                  handleIndexImageRight={this.handleIndexImageRight}
+                  product={product}
+                  indexStyleMapping={indexStyleMapping}
+                  handleIndexStyleMapping={this.handleIndexStyleMapping}
+                  setIndexThumbnail={this.setIndexThumbnail}
+                />
+                <StarRating
+                  starRating={starRating}
+                  numReviews={numReviews}
+                  handleClick={this.handleClick}
+                />
+                <ProductTitle product={product} handleClick={this.handleClick} />
+                <ProductPrice selectedStyle={selectedStyle} handleClick={this.handleClick} />
+                <StyleSelector
+                  handleClick={this.handleClick}
+                  styles={styles}
+                  selectedStyle={selectedStyle}
+                  handleStyleSelect={this.handleStyleSelect}
+                  handleSizeSelect={this.handleSizeSelect}
+                  handleQuantitySelect={this.handleQuantitySelect}
+                  indexStyleMapping={indexStyleMapping}
+                  setIndexImage={this.setIndexImage}
+                  setIndexThumbnail={this.setIndexThumbnail}
+                  handleIndexStyleMapping={this.handleIndexStyleMapping}
+                  indexThumbnail={indexThumbnail}
+                  indexImage={indexImage}
+                />
+                <AddToCart
+                  handleClick={this.handleClick}
+                  selectedStyle={selectedStyle}
+                  isSizeDropdown={isSizeDropdown}
+                  message={message}
+                  handleSubmit={this.handleSubmit}
+                  skuId={skuId}
+                  selectedQuantity={selectedQuantity}
+                  selectedSize={selectedSize}
+                >
+                  <SizeSelector
+                    selectedStyle={selectedStyle}
+                    selectedSize={selectedSize}
+                    skus={skus}
+                    handleSizeSelect={this.handleSizeSelect}
+                    handleQuantitySelect={this.handleQuantitySelect}
+                    isSizeDropdown={this.isSizeDropdown}
+                    toggleDropdown={this.toggleDropdown}
+                    setMessage={this.setMessage}
+                  />
+                  <QuantitySelector
+                    skuId={skuId}
+                    skus={skus}
+                    handleQuantitySelect={this.handleQuantitySelect}
+                    selectedQuantity={selectedQuantity}
+                  />
+                </AddToCart>
+                <ShareOnSocialMedia product={product} handleClick={this.handleClick} />
+                <ProductOverview product={product} handleClick={this.handleClick} />
+              </Overview>
               <RelatedItemsWidget
                 product={product}
                 starRating={starRating}
@@ -300,10 +401,13 @@ class ProductDetailPage extends React.Component {
                 selectedStyle={selectedStyle}
                 fetchData={this.fetchData}
               />
-              <QandA product={product} />
+              <QandA
+                product={product}
+              />
               {isExpand
                 && (
                   <ExpandView
+                    handleClick={this.handleClick}
                     indexImage={indexImage}
                     selectedStyle={selectedStyle}
                     handleExpand={this.handleExpand}
@@ -312,6 +416,10 @@ class ProductDetailPage extends React.Component {
                     product={product}
                     setIndexImage={this.setIndexImage}
                     handleIndexStyleMapping={this.handleIndexStyleMapping}
+                    handleIndexThumbnailTop={this.handleIndexThumbnailTop}
+                    handleIndexThumbnailDown={this.handleIndexThumbnailDown}
+                    indexThumbnail={indexThumbnail}
+                    setIndexThumbnail={this.setIndexThumbnail}
                   />
                 )}
               <RatingsAndReviews
