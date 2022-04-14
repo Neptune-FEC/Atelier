@@ -432,6 +432,7 @@ class ProductDetailPage extends React.Component {
                 <ProductOverview product={product} />
               </Overview>
               <RelatedItemsWidget
+                handleClick={this.handleClick}
                 product={product}
                 starRating={starRating}
                 numReviews={numReviews}

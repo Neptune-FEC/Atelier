@@ -829,6 +829,8 @@ label {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   list-style-type: none;
+  position: relative;
+  left: 10%;
 }
 
 .comparisonScrollArrowRight {
@@ -846,8 +848,8 @@ label {
   width: 0%;
   height: 0%;
   top: 35%;
-  right: -65%;
-  position: relative;
+  left: -3%;
+  position: absolute;
   padding-right: 30px;
   margin-right: 140px;
 }
@@ -863,17 +865,19 @@ label {
 }
 
 .productCard {
-  padding-left: .05px;
-  padding-top: .05px;
-  padding-right: .05px;
+  /* padding-left: .05px; */
+  /* padding-top: .05px; */
+  /* padding-right: .05px; */
   margin: 20px;
-  border-color: black;
   border-width: 1px;
-  border-style: groove;
+  border-style: ridge;
+  border-color: #525252;
+  /* border-radius: 1.5%; */
   position: relative;
   max-width: 220px;
   height: 320px;
-  background-color: #ededf2;
+  background-color: var(--primary-light-color);
+  box-shadow: 8px 5px 5px #525252;
 }
 
 .productCardThumbnail {
@@ -882,6 +886,8 @@ label {
   position: relative;
   height: 210px;
   width: 218px;
+  /* border-top-left-radius: 2%;
+  border-top-right-radius: 2%; */
 }
 
 .productCardCategory {
@@ -1039,7 +1045,7 @@ label {
   margin: 10px;
   position: relative;
   padding-bottom: 50px;
-  left: 12%;
+  left: 9.3%;
 }
 
 .your-outfit-add-button {
