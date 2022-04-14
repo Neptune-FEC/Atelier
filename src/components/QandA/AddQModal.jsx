@@ -63,7 +63,7 @@ class AddQModal extends React.Component {
     const {
       question, nickName, email,
     } = this.state;
-    const { questionBody, product } = this.props;
+    const { product } = this.props;
     // console.log('ansList, AddQModal: ', ansList);
 
     return (
@@ -72,61 +72,56 @@ class AddQModal extends React.Component {
           className="modalAddQ"
           onSubmit={this.handleAddQSubmit}
         >
-          <h4>Ask Your Question</h4>
-          <br />
-          <h5>
+          <h1>Ask Your Question</h1>
+          <h2>
             About the
             {' '}
             {product.name}
             {' '}
-          </h5>
-          <br />
-          <label htmlFor="a">
-            Your Question (mandatory)&nbsp;
-            <br />
-            <textarea
-              required
-              type="text"
-              maxLength="1000"
-              value={question}
-              onChange={this.onChangeQuestion}
-              cols="40"
-              rows="5"
-            />
-          </label>
-          <br />
-          <br />
-          <label htmlFor="a">
-            What is your nickname (mandatory)&nbsp;
-            <input
-              required
-              type="text"
-              maxLength="60"
-              placeholder="Example: jackson11!"
-              value={nickName}
-              onChange={this.onChangeNickName}
-            />
-            <div>For privacy reasons, do not use your full name or email address</div>
-          </label>
-          <br />
-          <label htmlFor="a">
-            Your email (mandatory)&nbsp;
-            <input
-              required
-              type="email"
-              size="30"
-              maxLength="60"
-              placeholder="Example: jackson@email.com"
-              value={email}
-              onChange={this.onChangeEmail}
-            />
-            <div>For authentication reasons, you will not be emailed</div>
-          </label>
-          <br />
-          <br />
-          <input type="submit" value="Submit Answer" />
+          </h2>
+          <div className="addQInputs">
+            <label htmlFor="a">
+              Your Question (mandatory)&nbsp;
+              <textarea
+                required
+                type="text"
+                maxLength="1000"
+                value={question}
+                onChange={this.onChangeQuestion}
+                cols="40"
+                rows="5"
+              />
+            </label>
+            <label htmlFor="a">
+              What is your nickname (mandatory)&nbsp;
+              <input
+                required
+                type="text"
+                maxLength="60"
+                placeholder="Example: jackson11!"
+                value={nickName}
+                onChange={this.onChangeNickName}
+              />
+              <div>For privacy reasons, do not use your full name or email address</div>
+            </label>
+            <label htmlFor="a">
+              Your email (mandatory)&nbsp;
+              <input
+                required
+                type="email"
+                size="30"
+                maxLength="60"
+                placeholder="Example: jackson@email.com"
+                value={email}
+                onChange={this.onChangeEmail}
+              />
+              <div>For authentication reasons, you will not be emailed</div>
+            </label>
+          </div>
+          <input className="clickable addQModalButton" type="submit" value="Submit Answer" />
           {' '}
           <input
+            className="clickable addQModalButton"
             type="button"
             value="Back"
             onClick={this.closeAddQModal}

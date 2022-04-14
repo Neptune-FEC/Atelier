@@ -100,79 +100,81 @@ class AnsModal extends React.Component {
           id="addAnswer"
           onSubmit={this.handleAddAnsSubmit}
         >
-          <h4>Submit your Answer</h4>
-          <br />
-          <h5>
+          <h1>Submit your Answer</h1>
+          <h2>
             {product.name}
             :
             {' '}
             {/* eslint-disable-next-line camelcase */}
             {questionBody}
-          </h5>
-          <br />
-          <label htmlFor="a">
-            Your Answer (mandatory)&nbsp;
-            <br />
-            <textarea
-              required
-              type="text"
-              maxLength="1000"
-              value={answer}
-              onChange={this.onChangeAnswer}
-              cols="40"
-              rows="5"
-            />
-          </label>
-          <br />
-          <br />
-          <label htmlFor="a">
-            What is your nickname (mandatory)&nbsp;
-            <input
-              required
-              type="text"
-              maxLength="60"
-              placeholder="Example: jack543!"
-              value={nickName}
-              onChange={this.onChangeNickName}
-            />
-            <div>For authentication reasons, do not use your full name or email address</div>
-          </label>
-          <br />
-          <label htmlFor="a">
-            Your email (mandatory)&nbsp;
-            <input
-              required
-              type="email"
-              size="30"
-              maxLength="60"
-              placeholder="Example: jack@email.com"
-              value={email}
-              onChange={this.onChangeEmail}
-            />
-            <div>For authentication reasons, you will not be emailed</div>
-          </label>
-          <br />
-          {isShowingPhotoModal ? (
-            <PhotoModal
-              closePhotoModal={this.closePhotoModal}
-              attachPhotos={this.attachPhotos}
-            />
-          )
-            : (
-              <input
-                type="button"
-                value="Upload your photos"
-                onClick={this.closePhotoModal}
+          </h2>
+          <div className="addAnsInputs">
+            <label htmlFor="a">
+              Your Answer (mandatory)&nbsp;
+              <textarea
+                required
+                type="text"
+                maxLength="1000"
+                value={answer}
+                onChange={this.onChangeAnswer}
+                cols="40"
+                rows="5"
               />
-            )}
-          <br />
-          <input type="submit" value="Submit Answer" />
-          {' '}
-          <input
-            type="button"
-            value="Back"
-            onClick={this.closeAnsModal}
-          />
+            </label>
+            <label htmlFor="a">
+              What is your nickname (mandatory)&nbsp;
+              <input
+                required
+                type="text"
+                maxLength="60"
+                placeholder="Example: jack543!"
+                value={nickName}
+                onChange={this.onChangeNickName}
+              />
+              <div>For authentication reasons, do not use your full name or email address</div>
+            </label>
+            <label htmlFor="a">
+              Your email (mandatory)&nbsp;
+              <input
+                required
+                type="email"
+                size="30"
+                maxLength="60"
+                placeholder="Example: jack@email.com"
+                value={email}
+                onChange={this.onChangeEmail}
+              />
+              <div>For authentication reasons, you will not be emailed</div>
+            </label>
+          </div>
+          <div className="ansButtons">
+            {isShowingPhotoModal ? (
+              <PhotoModal
+                closePhotoModal={this.closePhotoModal}
+                attachPhotos={this.attachPhotos}
+              />
+            )
+              : (
+                <input
+                  className="ansModalButton clickable"
+                  type="button"
+                  value="Upload your photos"
+                  onClick={this.closePhotoModal}
+                />
+              )}
+            <input
+              className="ansModalButton clickable"
+              type="submit"
+              value="Submit Answer"
+            />
+            {' '}
+            <input
+              className="ansModalButton clickable"
+              type="button"
+              value="Back"
+              onClick={this.closeAnsModal}
+            />
+          </div>
         </form>
       </div>
     );

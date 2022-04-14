@@ -3,7 +3,9 @@ import React from 'react';
 function ShareOnSocialMedia(props) {
   const { product } = props;
   return (
-    <div className="share-on-social-media split">
+    <div
+      className="share-on-social-media split"
+    >
       <i className="fa fa-facebook-square share-icon" />
       <i
         className="fa fa-twitter-square share-icon"

@@ -28,36 +28,60 @@ class ExpandView extends React.Component {
   }
 
   scrollImageLeft() {
-    const { indexImage, handleIndexImageLeft } = this.props;
-    handleIndexImageLeft();
+    const {
+      indexImage, handleIndexImageLeft,
+      selectedStyle, handleIndexStyleMapping,
+      setIndexThumbnail, indexThumbnail,
+    } = this.props;
+    const { style_id } = selectedStyle;
+    if (indexImage < 4 && indexImage > 0) {
+      document.getElementById(`thumbnail_${indexImage - 1}`).scrollIntoView({ inline: 'center', block: 'nearest' });
+      setIndexThumbnail(Math.max(1, indexImage));
+    }
     document.getElementById(`expand${indexImage - 1}`).scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+    handleIndexStyleMapping(indexImage - 1, Math.max(indexThumbnail - 1, 1), style_id);
+    handleIndexImageLeft();
   }
 
   scrollImageRight() {
-    const { indexImage, handleIndexImageRight } = this.props;
+    const {
+      indexImage, handleIndexImageRight,
+      handleIndexStyleMapping, selectedStyle, setIndexThumbnail, indexThumbnail,
+    } = this.props;
+    const { style_id } = selectedStyle;
+    if (indexImage < 3) {
+      document.getElementById(`thumbnail_${indexImage + 3}`).scrollIntoView({ inline: 'center', block: 'nearest' });
+    }
     document.getElementById(`expand${indexImage + 1}`).scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+    handleIndexStyleMapping(indexImage + 1, Math.min(indexThumbnail + 1, 4), style_id);
     handleIndexImageRight();
+    setIndexThumbnail(Math.min(indexImage + 1, 4));
   }
 
-  // changeImage(index) {
-  //   document.getElementById(`expand${index}`).scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
-  // }
-
   changeImage(index) {
-    const { setIndexImage, handleIndexStyleMapping, selectedStyle } = this.props;
+    const {
+      setIndexImage, handleIndexStyleMapping, selectedStyle, indexThumbnail, setIndexThumbnail,
+    } = this.props;
     const { style_id } = selectedStyle;
     document.getElementById(`expand${index}`).scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
     setIndexImage(index);
-    handleIndexStyleMapping(index, style_id);
+    setIndexThumbnail(indexThumbnail);
+    handleIndexStyleMapping(index, indexThumbnail, style_id);
   }
 
-  changeImageDefault(index) {
-    const { setIndexImage, handleIndexStyleMapping, selectedStyle } = this.props;
+  changeImageDefault(imageIndex) {
+    const {
+      selectedStyle, setIndexImage, setIndexThumbnail, handleIndexStyleMapping,
+    } = this.props;
+    const { photos } = selectedStyle;
     const { style_id } = selectedStyle;
-    document.getElementById(`thumbnail_${index}`).scrollIntoView({ inline: 'center', block: 'nearest' });
-    document.getElementById(`img_${index}`).scrollIntoView({ inline: 'center', block: 'nearest' });
-    setIndexImage(index);
-    handleIndexStyleMapping(index, style_id);
+    const numPhotos = photos.length;
+    const scrollHeight = document.getElementById('thumbnail-items').clientHeight;
+    document.getElementById('thumbnail-container').scrollTop = ((imageIndex - 1) * scrollHeight) / numPhotos;
+    document.getElementById(`img_${imageIndex}`).scrollIntoView({ inline: 'center', block: 'nearest' });
+    setIndexImage(imageIndex);
+    setIndexThumbnail(imageIndex);
+    handleIndexStyleMapping(imageIndex, imageIndex, style_id);
   }
 
   zoomImage() {
@@ -69,7 +93,7 @@ class ExpandView extends React.Component {
 
   render() {
     const {
-      selectedStyle, handleExpand, indexImage,
+      selectedStyle, handleExpand, indexImage, handleClick,
     } = this.props;
     const { photos } = selectedStyle;
     const numPhotos = photos.length;
@@ -79,7 +103,11 @@ class ExpandView extends React.Component {
     const { isZoom, mouseX, mouseY } = this.state;
 
     return (
-      <div className="expand-view-container">
+      <div
+        className="expand-view-container"
+        role="presentation"
+        onClick={(e) => { handleClick(e, 'Overview'); }}
+      >
         <i className="fa fa-close close-icon" role="presentation" onClick={() => { handleExpand(); this.changeImageDefault(indexImage); }} style={{ visibility: `${isZoom ? 'hidden' : 'visible'}` }} />
         <div className="gallery-overlay expand-gallery-overlay">
           <div className="gallery-navigation">
@@ -139,9 +167,8 @@ class ExpandView extends React.Component {
           </div>
         </div>
         <div className="dot-container" style={{ visibility: `${isZoom ? 'hidden' : 'visible'}` }}>
-          {photos.map((photo, idx) => <i className="fa fa-circle dot-icon navigation-icon" role="presentation" onClick={() => { this.changeImage(idx); }} />)}
+          {photos.map((photo, idx) => <i className="fa fa-circle dot-icon navigation-icon " role="presentation" onClick={() => { this.changeImage(idx); }} style={{ color: `${idx === indexImage ? '#E66A35' : '#ffff'}` }} />)}
         </div>
-
       </div>
     );
   }
