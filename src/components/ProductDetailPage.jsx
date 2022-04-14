@@ -403,6 +403,7 @@ class ProductDetailPage extends React.Component {
               />
               <QandA
                 product={product}
+                handleClick={this.handleClick}
               />
               {isExpand
                 && (
