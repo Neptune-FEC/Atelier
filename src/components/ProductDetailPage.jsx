@@ -306,7 +306,7 @@ class ProductDetailPage extends React.Component {
       product, starRating, reviewMeta, numReviews,
       styles, selectedStyle, selectedSize, skuId, selectedQuantity, isExpand,
       reviews, reviewSort, noMoreReviews, numShownReviews,
-      indexImage, indexThumbnail, indexStyleMapping,
+      indexImage, indexThumbnail, indexStyleMapping, isSizeDropdown, message,
     } = this.state;
     const skus = selectedStyle ? selectedStyle.skus : '';
 
