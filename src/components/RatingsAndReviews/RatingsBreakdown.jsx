@@ -35,7 +35,8 @@ function displayRatings(ratings) {
     ratingsHTML.push(
       <div>
         <label htmlFor={starId}>{`${star} Stars`}</label>
-        <progress id={starId} max="100" value={percentage} />
+        <progress id={starId} max="100" value={percentage} onClick={() => {console.log(`${star} star clicked`);}} />
+        {/* {ratings[star]} */}
       </div>,
     );
   }
@@ -67,6 +68,8 @@ function RatingsBreakdown(props) {
 
   return (
     <div id="ratings-breakdown">
+      <div className="filters">
+      </div>
       <div className="product-rating">
         <span className="average-rating-number"><h1>{avgRating}</h1></span>
         <div className="average-rating-stars">

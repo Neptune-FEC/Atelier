@@ -15,8 +15,8 @@ class RatingsAndReviews extends React.Component {
   render() {
     const { filter, sort } = this.state;
     const {
-      reviewMeta, avgRating, reviews, numReviews,
-      handleChangeReviewSort, reviewSort, getMoreReviews, noMoreReviews,
+      reviewMeta, avgRating, reviews, numReviews, handleChangeReviewSort,
+      reviewSort, getMoreReviews, noMoreReviews, numShownReviews,
     } = this.props;
 
     // console.log(reviewMeta);
@@ -33,12 +33,13 @@ class RatingsAndReviews extends React.Component {
             avgRating={avgRating}
           />
           <ReviewsList
-            reviews={reviews}
+            reviews={reviews.slice(0, numShownReviews)}
             numReviews={numReviews}
             reviewSort={reviewSort}
             handleChangeReviewSort={handleChangeReviewSort}
             getMoreReviews={getMoreReviews}
             noMoreReviews={noMoreReviews}
+            numShownReviews={numShownReviews}
           />
         </div>
       </div>
