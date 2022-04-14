@@ -57,29 +57,37 @@ class Question extends React.Component {
     }
 
     return (
-      <div className="question">
-        <h4>Q:</h4>
-        {/* eslint-disable-next-line camelcase */}
-        <div>{question.question_body}</div>
-        <QuestionHeader
-          question={question}
-          updateQsStateHelper={updateQsStateHelper}
-          updateAnsStateHelper={this.updateAnsStateHelper}
-          product={product}
-        />
-        <span>
-          by
-          &nbsp;
-          {question.asker_name}
-        </span>
-        <br />
-        <h4>A:</h4>
-        <AnsList
-          ansList={listOfAnswers}
-          numAns={numAnsShowing}
-          updateAnsStateHelper={this.updateAnsStateHelper}
-          showingMoreAnswers={showingMoreAnswers}
-        />
+      <div className="q">
+        <div className="qTopRow">
+          <p className="qSectionStart">
+            <b>Q:</b>
+          </p>
+          <div className="qBody">
+            {/* eslint-disable-next-line camelcase */}
+            <div>{question.question_body}</div>
+            <div className="qAsker">
+              by
+              &nbsp;
+              {question.asker_name}
+            </div>
+          </div>
+          <QuestionHeader
+            question={question}
+            updateQsStateHelper={updateQsStateHelper}
+            updateAnsStateHelper={this.updateAnsStateHelper}
+            product={product}
+          />
+        </div>
+
+        <div className="answers">
+          <p className="ansSectionStart"><b>A:</b></p>
+          <AnsList
+            ansList={listOfAnswers}
+            numAns={numAnsShowing}
+            updateAnsStateHelper={this.updateAnsStateHelper}
+            showingMoreAnswers={showingMoreAnswers}
+          />
+        </div>
         <div>
           {
             listOfAnswers.length < 2

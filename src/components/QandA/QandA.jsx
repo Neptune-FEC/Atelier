@@ -52,25 +52,22 @@ class QandA extends React.Component {
 
   render() {
     const { currProduct, listOfQuestions, qSearch } = this.state;
+    const { handleClick } = this.props;
     // console.log('product, QnA: ', product);
 
     return (
-      <div>
+      <div className="qna" onClick={(event) => handleClick(event, 'Q and A')}>
         <h3>QUESTIONS & ANSWERS</h3>
-        <br />
         <SearchQ
           searchQuestionCallback={this.searchQuestionCallback}
           qList={listOfQuestions}
         />
-        <br />
-        <div className="qsList">
-          <QList
-            product={currProduct}
-            qList={listOfQuestions}
-            qSearch={qSearch}
-            updateQsStateHelper={this.updateQsStateHelper}
-          />
-        </div>
+        <QList
+          product={currProduct}
+          qList={listOfQuestions}
+          qSearch={qSearch}
+          updateQsStateHelper={this.updateQsStateHelper}
+        />
       </div>
     );
   }

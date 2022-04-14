@@ -39,6 +39,7 @@ class AddAns extends React.Component {
           )
           : (
             <u
+              className="clickable"
               role="button"
               tabIndex={0}
               onClick={this.toggleAnsModal}

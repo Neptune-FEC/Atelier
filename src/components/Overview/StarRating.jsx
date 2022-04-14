@@ -20,7 +20,9 @@ function StarRating(props) {
   return (
     numReviews
       ? (
-        <div className="overview-rating-reviews">
+        <div
+          className="overview-rating-reviews"
+        >
           <div className="overview-rating">
             {stars}
           </div>

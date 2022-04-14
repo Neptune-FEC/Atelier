@@ -311,7 +311,7 @@ section{
   color: #E66A35;
 }
 
-.thumbnail-items {
+#thumbnail-items {
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -608,38 +608,137 @@ section{
 /* -------------------------------- */
 /* QUESTION & ANSWER WIDGET STYLING */
 /* -------------------------------- */
-.qList {
-  width: 80%;
+.qna {
+  margin: auto;
+  width: min(90%, 70.5rem);
+}
+
+.searchBar {
+  overflow: hidden;
+  /* background-color: #eff0ff90; */
+  /* float:none; */
+  padding: 15px;
+  border: 1px solid black;
+  /* border-radius: 5px; */
+  margin: 10px 0;
+  font-size: 17px;
+  /* display: block; */
+  width: 100%;
+}
+
+/* .qListMain {
+  width: 100%;
   border: 2px solid black;
+  border-radius: 5px;
   max-height: 70vh;
   overflow: auto;
+  margin-bottom:1px 0px;
+} */
+
+.qList {
+  width: 100%;
+  /* border: 2px solid black; */
+  /* border-radius: 5px; */
+  max-height: 70vh;
+  overflow: auto;
+  margin-top: 15px;
+}
+
+.qListFooter {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  align-items: center;
+  justify-content: space-between;
+  height: 100px;
 }
 
 .moreQsButton,
-.addQsButton {
+.addQsButton,
+.ansModalButton,
+.photoModalButton,
+.addQModalButton {
+  background-color: white;
+  font-family: roboto;
   display: inline;
-  width: 20%;
-  border: 2px solid black;
-  padding: 14px 28px;
-  margin: 15px;
+  width: 49%;
+  height: 75px;
+  border: 1px solid black;
+  /* padding: 14px 0px; */
+  /* margin-right: 15px; */
   font-size: 16px;
   cursor: pointer;
   text-align: center;
 }
 
+.ansButtons {
+  display: flex;
+}
+
+.q {
+  display: flex;
+  border: 1px solid black;
+  margin-top: 20px;
+  padding: 20px 10px;
+  flex-direction: column;
+}
+
+.qTopRow {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  justify-content: space-between;
+  width: 99%;
+}
+
+.qSectionStart,
+.ansSectionStart {
+  width: 50px;
+}
+
+.qBody {
+  font-size: large;
+  width: 100%;
+}
+
+.qHeader {
+  font-size: 12px;
+  width: 300px;
+}
+
+.qAsker {
+  font-size: 12px;
+  margin: 10px 0;
+}
+
+.answers {
+  display: flex;
+  flex-direction: row;
+  /* justify-content: space-between; */
+  /* width: 90%; */
+  align-items: baseline;
+  align-content: center;
+}
+
 .ansList {
-  /* background-color: #a1edff; */
-  border: 2px solid black;
+  width: 100%;
+  margin-left: 50px
+}
+
+.ansListDefault {
   overflow: auto;
+  /* background-color: #a1edff; */
+  /* border: 1px solid black; */
+  /* border-bottom: 0px; */
   /* height: 60vh; */
   width: 80%;
 }
 
 .ansListExpanded {
   /* background-color: #a1edff; */
-  border: 2px solid black;
+  /* border: 1px solid black; */
+  max-height: 50vh;
   overflow: auto;
-  height: 60vh;
   width: 80%;
 }
 
@@ -650,22 +749,49 @@ section{
   padding: 5px 3px;
 }
 
-.question {
-  border: 2px solid black;
-  border-radius: 5px;
-  margin-top: 5px;
-  padding: 10px 10px;
+.ans {
+  border-bottom: 1px solid black;
+  font-size: medium;
 }
 
-.answer {
-  border-top: 1px solid black;
+.ansFooter {
+  font-size: smaller;
+  margin: 10px 0;
+}
+
+.moreAns {
+  font-size: medium;
+  margin: 10px 100px;
+}
+
+.modalAddQ {
+  border: 1px solid black;
+  background-color: white;
+  position: absolute;
+  z-index: 1;
+  padding: 10px 10px;
+  top: 15%;
+  left: 25%;
+  width: 50%;
+  /* height: 50%; */
+}
+
+.addQInputs,
+.addAnsInputs {
+  display: flex;
+  flex-direction: column;
+  font-size: small;
+}
+
+label {
+  margin-bottom: 15px;
+  ;
 }
 
 .modalAddAns {
   border: 2px solid black;
   background-color: white;
   position: absolute;
-  cursor: pointer;
   z-index: 1;
   top: 5%;
   left: 30%;
@@ -674,20 +800,20 @@ section{
   /* height: 50%; */
 }
 
-.modalAddPhoto,
-.modalAddQ {
+.modalAddPhoto {
   border: 2px solid black;
   background-color: white;
   position: absolute;
-  cursor: pointer;
   z-index: 1;
-  padding: 10px 10px;
   top: 15%;
-  left: 5%;
-  width: 90%;
-  /* height: 50%; */
+  left: 35%;
+  padding: 10px 10px;
+  width: 30%;
 }
 
+.clickable {
+  cursor: pointer;
+}
 
 /* -------------------------------- */
 /*   RELATED ITEMS WIDGET STYLING   */
@@ -829,7 +955,8 @@ section{
 .comparisonModal,
 .backgroundAddQModal,
 .backgroundAnsModal,
-.backgroundPhotoModal {
+.backgroundPhotoModal,
+.backgroundModal {
   /* display: grid; */
   /* position: absolute; */
   /* grid-template-columns: max-content; */
@@ -1004,6 +1131,16 @@ section{
   text-decoration: underline;
 }
 
+.rating-label {
+  cursor: pointer;
+}
+
+.rating-filter {
+  cursor: pointer;
+  background-color: lightgray;
+  margin-left: 5px;
+}
+
 .categories-breakdown {
   border-top: 1px solid;
 }
@@ -1057,6 +1194,11 @@ section{
 
 .review-options button {
   margin: 5px;
+}
+
+.expand-body {
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 .uline {
