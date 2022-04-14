@@ -623,7 +623,7 @@ section{
   margin: 10px 0;
   font-size: 17px;
   /* display: block; */
-  width:100%;
+  width: 100%;
 }
 
 /* .qListMain {
@@ -641,7 +641,7 @@ section{
   /* border-radius: 5px; */
   max-height: 70vh;
   overflow: auto;
-  margin-top:15px;
+  margin-top: 15px;
 }
 
 .qListFooter {
@@ -677,36 +677,37 @@ section{
 
 .q {
   display: flex;
-  border: 1px solid black;
+  border: 1px solid black;
   margin-top: 20px;
-  padding: 20px 10px;
+  padding: 20px 10px;
   flex-direction: column;
 }
 
-.qTopRow{
+.qTopRow {
   display: flex;
   flex-direction: row;
   align-items: baseline;
   justify-content: space-between;
-  width:99%;
+  width: 99%;
 }
 
-.qSectionStart, .ansSectionStart {
+.qSectionStart,
+.ansSectionStart {
   width: 50px;
 }
 
 .qBody {
-  font-size:large;
+  font-size: large;
   width: 100%;
 }
 
 .qHeader {
-  font-size:12px;
+  font-size: 12px;
   width: 300px;
 }
 
 .qAsker {
-  font-size:12px;
+  font-size: 12px;
   margin: 10px 0;
 }
 
@@ -754,8 +755,8 @@ section{
 }
 
 .ansFooter {
-font-size: smaller;
-margin: 10px 0;
+  font-size: smaller;
+  margin: 10px 0;
 }
 
 .moreAns {
@@ -783,7 +784,8 @@ margin: 10px 0;
 }
 
 label {
-  margin-bottom: 15px;;
+  margin-bottom: 15px;
+  ;
 }
 
 .modalAddAns {
@@ -812,6 +814,7 @@ label {
 .clickable {
   cursor: pointer;
 }
+
 /* -------------------------------- */
 /*   RELATED ITEMS WIDGET STYLING   */
 /* -------------------------------- */

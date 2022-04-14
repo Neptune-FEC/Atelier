@@ -2,10 +2,10 @@
 import React from 'react';
 
 function ProductPrice(props) {
-  const { selectedStyle, handleClick } = props;
+  const { selectedStyle } = props;
   const { original_price, sale_price } = selectedStyle;
   return (
-    <div className="overview-price" role="presentation" onClick={(e) => { handleClick(e, 'ProductTitle'); }}>
+    <div className="overview-price">
       {!sale_price
         && (
           <span className="price-current">

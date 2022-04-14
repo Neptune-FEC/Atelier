@@ -10,7 +10,7 @@ function ProductInformation(props) {
     product, starRating, numReviews, selectedStyle,
   } = props;
   return (
-    <div>
+    <div className="ProductInformation">
       <StarRating starRating={starRating} numReviews={numReviews} />
       <ProductTitle product={product} />
       <ProductOverview product={product} />

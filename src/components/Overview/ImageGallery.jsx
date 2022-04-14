@@ -70,7 +70,7 @@ class ImageGallery extends React.Component {
 
   render() {
     const {
-      selectedStyle, handleExpand, indexImage, indexThumbnail, handleClick,
+      selectedStyle, handleExpand, indexImage, indexThumbnail,
     } = this.props;
     const { photos } = selectedStyle;
     const numPhotos = photos.length;
@@ -83,7 +83,6 @@ class ImageGallery extends React.Component {
         <div
           className="gallery-overlay"
           role="presentation"
-          onClick={(e) => { handleClick(e, 'ImageGallery'); }}
         >
           <div className="thumbnail-panel">
             <i
@@ -144,7 +143,7 @@ class ImageGallery extends React.Component {
         <div
           id="gallery"
           role="presentation"
-          onClick={(e) => { handleExpand(); handleClick(e, 'ImageGallery'); }}
+          onClick={() => { handleExpand(); }}
         >
           <div
             className="gallery-items"
