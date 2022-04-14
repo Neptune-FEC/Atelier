@@ -20,7 +20,6 @@ class RelatedItemsWidget extends React.Component {
 
     this.cycleRight = this.cycleRight.bind(this);
     this.cycleLeft = this.cycleLeft.bind(this);
-    this.setInitialState = this.setInitialState.bind(this);
   }
 
   componentDidMount() {
@@ -36,23 +35,16 @@ class RelatedItemsWidget extends React.Component {
   componentDidUpdate() {
     const { relatedProducts } = this.props;
     const { relatedProductsForCards } = this.state;
-    if (relatedProductsForCards.length) {
-      if (relatedProducts[0].id !== relatedProductsForCards[0].id) {
-        this.setState({
-          productsToDisplay: relatedProducts.slice(0, 4),
-          relatedProductsForCards: relatedProducts,
-          index: 0,
-        });
-      }
-    }
-  }
 
-  setInitialState() {
-    const { relatedProducts } = this.props;
-    this.setState({
-      productsToDisplay: relatedProducts.slice(0, 4),
-      index: 0,
-    });
+    if (!relatedProductsForCards.length) return;
+
+    if (relatedProducts[0].id !== relatedProductsForCards[0].id) {
+      this.setState({
+        productsToDisplay: relatedProducts.slice(0, 4),
+        relatedProductsForCards: relatedProducts,
+        index: 0,
+      });
+    }
   }
 
   cycleRight() {
@@ -85,7 +77,7 @@ class RelatedItemsWidget extends React.Component {
       fetchData, starRating, numReviews, relatedProducts, product,
     } = this.props;
 
-    const displayRightArrow = !(relatedProducts.length - index === 4);
+    const displayRightArrow = !(relatedProducts.length - index <= 4);
     const displayLeftArrow = (index > 0);
 
     return (

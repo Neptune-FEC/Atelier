@@ -265,6 +265,21 @@ class ProductDetailPage extends React.Component {
 
     getRelatedIds(product.id)
       .then((idList) => {
+        idList.data.forEach((id, index) => {
+          // sometimes the API includes a product as a related item to itself
+          // this removes the same product id from its related items to reduce API calls
+          if (id === product.id) {
+            idList.data.splice(index, 1);
+          }
+
+          // this removes duplicates from the related ID's to reduce API calls
+          const shallowCopy = [...idList.data];
+          shallowCopy.splice(index, 1);
+          const idx = shallowCopy.indexOf(id);
+          if (idx > -1) {
+            idList.data.splice(idx, 1);
+          }
+        });
         const promises = idList.data.map((id) => getProduct(id).then((result) => result.data));
         Promise.all(promises).then((result) => this.setRelatedProducts(result));
       });
@@ -283,7 +298,8 @@ class ProductDetailPage extends React.Component {
         this.setState({
           relatedProducts,
         });
-      });
+      })
+      .catch((error) => console.log('Too many requests', error));
   }
 
   render() {
@@ -296,7 +312,7 @@ class ProductDetailPage extends React.Component {
     return (
       <>
         <header>
-          <h1>Atelier</h1>
+          <h1>Look#</h1>
         </header>
         {(relatedProducts[0] && indexStyleMapping)
           ? (

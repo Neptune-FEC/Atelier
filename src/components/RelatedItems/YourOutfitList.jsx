@@ -49,12 +49,19 @@ class YourOutfitList extends React.Component {
 
   render() {
     const { outfit, currentProduct } = this.state;
+    let inOutfit = false;
+
+    for (let i = 0; i < outfit.length; i++) {
+      if (outfit[i].id === currentProduct.id) {
+        inOutfit = true;
+      }
+    }
 
     return (
       <div>
         <ul className="your-outfit-card-list">
           {
-            !(outfit.includes(currentProduct))
+            (!inOutfit)
               ? <button
                 className="your-outfit-add-button"
                 type="button"
