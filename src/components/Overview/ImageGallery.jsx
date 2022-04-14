@@ -35,8 +35,10 @@ class ImageGallery extends React.Component {
       indexImage, handleIndexImageRight,
       handleIndexStyleMapping, selectedStyle, setIndexThumbnail, indexThumbnail,
     } = this.props;
+    const { photos } = selectedStyle;
+    const numPhotos = photos.length;
     const { style_id } = selectedStyle;
-    if (indexImage < 3) {
+    if (indexImage < 3 && numPhotos > 2) {
       document.getElementById(`thumbnail_${indexImage + 3}`).scrollIntoView({ inline: 'center', block: 'nearest' });
     }
     document.getElementById(`img_${indexImage + 1}`).scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
