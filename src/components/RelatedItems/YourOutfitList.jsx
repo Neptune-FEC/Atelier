@@ -62,13 +62,18 @@ class YourOutfitList extends React.Component {
         <ul className="your-outfit-card-list">
           {
             (!inOutfit)
-              ? <button
-                className="your-outfit-add-button"
+              ?
+              // <button
+              //   className="your-outfit-add-button"
+              //   type="button"
+              //   onClick={() => this.addToOutfit()}
+              // >
+              //   +
+              // </button>
+              <i class="your-outfit-add-button fa-duotone fa-cart-plus"
                 type="button"
                 onClick={() => this.addToOutfit()}
-              >
-                +
-              </button>
+              ></i>
               : ''
 
           }
