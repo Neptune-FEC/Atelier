@@ -56,7 +56,7 @@ class ReviewTile extends React.Component {
             reported: true,
           });
 
-          console.log(`${review.review_id} reported`);
+          // console.log(`${review.review_id} reported`);
         }
       })
       .catch((err) => {
