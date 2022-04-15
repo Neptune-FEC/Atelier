@@ -84,9 +84,10 @@ app.listen(3000, async () => {
   TOKEN = process.env.TOKEN;
 
   if (!(URL && TOKEN)) {
-    getAwsSecret().then((secretsJSON) => {
-      URL = secretsJSON.URL;
-      TOKEN = secretsJSON.TOKEN;
-    });
+    const secretsJSON = await getAwsSecret();
+    URL = secretsJSON.URL;
+    TOKEN = secretsJSON.TOKEN;
   }
+
+  URL = URL.replace(/\/$/, '');
 });
