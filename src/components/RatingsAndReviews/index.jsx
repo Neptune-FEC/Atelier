@@ -1,6 +1,7 @@
 import React from 'react';
 import RatingsBreakdown from './RatingsBreakdown';
 import ReviewsList from './ReviewsList';
+import NewReview from './NewReview';
 
 class RatingsAndReviews extends React.Component {
   constructor(props) {
@@ -13,6 +14,8 @@ class RatingsAndReviews extends React.Component {
     this.addFilter = this.addFilter.bind(this);
     this.removeFilter = this.removeFilter.bind(this);
     this.removeAllFilters = this.removeAllFilters.bind(this);
+    this.toggleNewReview = this.toggleNewReview.bind(this);
+    this.addNewReview = this.addNewReview.bind(this);
   }
 
   addFilter(rating) {
@@ -45,11 +48,47 @@ class RatingsAndReviews extends React.Component {
     }, []);
   }
 
+  toggleNewReview() {
+    const { showNewReview } = this.state;
+    this.setState({
+      showNewReview: !showNewReview,
+    });
+  }
+
+  addNewReview(params) {
+    const { productId, reviewMeta, handleAddNewReview } = this.props;
+
+    const postChars = {};
+
+    Object.keys(reviewMeta.characteristics).forEach((charName) => {
+      const characteristicId = reviewMeta.characteristics[charName].id.toString();
+      postChars[characteristicId] = parseInt(params.characteristics[charName], 10);
+    });
+
+    // console.log(postChars);
+
+    const postParams = {
+      product_id: productId,
+      rating: parseInt(params.rating, 10),
+      characteristics: postChars,
+      summary: params.summary,
+      body: params.body,
+      recommend: params.recommend === 'true',
+      name: params.reviewerName,
+      email: params.email,
+      photos: [],
+    };
+
+    handleAddNewReview(postParams);
+
+    this.toggleNewReview();
+  }
+
   render() {
-    const { filters } = this.state;
+    const { filters, showNewReview } = this.state;
     const {
       reviewMeta, avgRating, reviews, numReviews, handleChangeReviewSort,
-      reviewSort, getMoreReviews, noMoreReviews, numShownReviews,
+      reviewSort, getMoreReviews, noMoreReviews, numShownReviews, productName,
     } = this.props;
 
     // console.log(reviewMeta);
@@ -76,9 +115,11 @@ class RatingsAndReviews extends React.Component {
             getMoreReviews={getMoreReviews}
             noMoreReviews={Object.keys(filters).length > 0 ? true : noMoreReviews}
             numShownReviews={numShownReviews}
+            toggleNewReview={this.toggleNewReview}
             reviews={Object.keys(filters).length > 0
               ? this.filterReviews() : reviews.slice(0, numShownReviews)}
           />
+          {showNewReview ? <NewReview productName={productName} toggleNewReview={this.toggleNewReview} availableChars={reviewMeta.characteristics} addNewReview={this.addNewReview} /> : ''}
         </div>
       </div>
     );
