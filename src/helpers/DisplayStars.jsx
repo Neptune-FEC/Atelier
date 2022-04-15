@@ -1,5 +1,5 @@
 import React from 'react';
-import { displayStarRating } from './ProductHelper';
+import { displayStarRating, displayFullStarRating } from './ProductHelper';
 
 const DisplayStars = (props) => {
   const { rating } = props;
@@ -11,14 +11,26 @@ const DisplayStars = (props) => {
   const halfStar = <i className="half-star fa-solid fa-star-half-stroke" />;
   const thirdQuarterStar = <i className="half-star fa-solid fa-star-half-stroke" />;
 
-  return displayStarRating(
-    rating,
-    fullStar,
-    emptyStar,
-    quarterStar,
-    halfStar,
-    thirdQuarterStar,
-  );
+  let stars = [];
+
+  if (rating % 1 === 0) {
+    stars = displayFullStarRating(
+      rating,
+      fullStar,
+      emptyStar,
+    );
+  } else {
+    stars = displayStarRating(
+      rating,
+      fullStar,
+      emptyStar,
+      quarterStar,
+      halfStar,
+      thirdQuarterStar,
+    );
+  }
+
+  return stars;
 };
 
 export default DisplayStars;
