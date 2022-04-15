@@ -715,7 +715,7 @@ section{
   display: flex;
   flex-direction: row;
   /* justify-content: space-between; */
-  /* width: 90%; */
+  width: 100%;
   align-items: baseline;
   align-content: center;
 }
@@ -731,7 +731,7 @@ section{
   /* border: 1px solid black; */
   /* border-bottom: 0px; */
   /* height: 60vh; */
-  width: 80%;
+  width: 100%;
 }
 
 .ansListExpanded {
@@ -739,7 +739,7 @@ section{
   /* border: 1px solid black; */
   max-height: 50vh;
   overflow: auto;
-  width: 80%;
+  width: 100%;
 }
 
 .thumbnail {
@@ -785,7 +785,6 @@ section{
 
 label {
   margin-bottom: 15px;
-  ;
 }
 
 .modalAddAns {
@@ -798,6 +797,11 @@ label {
   padding: 10px 10px;
   width: 50%;
   /* height: 50%; */
+}
+
+.emptyAnsList {
+  font-size: small;
+  color:#5252528a;
 }
 
 .modalAddPhoto {
