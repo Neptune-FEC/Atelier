@@ -43,7 +43,7 @@ const proxy = (req, res) => {
   }).then((response) => {
     res.json(response.data);
   }).catch((err) => {
-    res.end('Error', err);
+    res.end();
   });
 };
 
