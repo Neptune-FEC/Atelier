@@ -1,13 +1,10 @@
 const axios = require('axios');
-// eslint-disable-next-line prefer-destructuring
-const URL = process.env.URL;
-// eslint-disable-next-line prefer-destructuring
-const TOKEN = process.env.TOKEN;
+
+const URL = window.location.origin;
 
 // Base http request used by all the http calls
 const instance = axios.create({
   baseURL: URL,
-  headers: { Authorization: TOKEN },
 });
 
 //----------------
