@@ -74,7 +74,7 @@ class RelatedItemsWidget extends React.Component {
       productsToDisplay, index,
     } = this.state;
     const {
-      fetchData, starRating, numReviews, relatedProducts, product,
+      fetchData, starRating, numReviews, relatedProducts, product, handleClick,
     } = this.props;
 
     const displayRightArrow = !(relatedProducts.length - index <= 4);
@@ -84,7 +84,7 @@ class RelatedItemsWidget extends React.Component {
 
       relatedProducts[0].rating
         ? (
-          <div>
+          <div onClick={(e) => handleClick(e, 'RelatedItemsWidget')}>
             <h3 className="related-title">Customers also bought these items</h3>
             <div>
               <RelatedProductsList

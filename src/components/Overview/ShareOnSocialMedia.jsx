@@ -6,7 +6,7 @@ function ShareOnSocialMedia(props) {
     <div
       className="share-on-social-media split"
     >
-      <i className="fa fa-facebook-square share-icon" />
+      <i className="fa-brands fa-facebook-square share-icon" />
       <i
         className="fa fa-twitter-square share-icon"
         role="presentation"
@@ -16,7 +16,7 @@ function ShareOnSocialMedia(props) {
       />
 
       <i className="fa fa-pinterest-square share-icon" />
-      <i className="fa fa-instagram share-icon" />
+      <i className="fa-brands fa-instagram-square share-icon" />
     </div>
   );
 }

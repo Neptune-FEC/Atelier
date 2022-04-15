@@ -362,7 +362,7 @@ section{
 }
 
 .empty-star {
-  color: var(--primary-light-color);
+  color: #E66A35;
 }
 
 .half-star {
@@ -833,6 +833,8 @@ label {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   list-style-type: none;
+  position: relative;
+  left: 10%;
 }
 
 .comparisonScrollArrowRight {
@@ -850,8 +852,8 @@ label {
   width: 0%;
   height: 0%;
   top: 35%;
-  right: -65%;
-  position: relative;
+  left: -3%;
+  position: absolute;
   padding-right: 30px;
   margin-right: 140px;
 }
@@ -867,17 +869,19 @@ label {
 }
 
 .productCard {
-  padding-left: .05px;
-  padding-top: .05px;
-  padding-right: .05px;
+  /* padding-left: .05px; */
+  /* padding-top: .05px; */
+  /* padding-right: .05px; */
   margin: 20px;
-  border-color: black;
   border-width: 1px;
-  border-style: groove;
+  border-style: ridge;
+  border-color: #525252;
+  /* border-radius: 1.5%; */
   position: relative;
   max-width: 220px;
   height: 320px;
-  background-color: #ededf2;
+  background-color: var(--primary-light-color);
+  box-shadow: 8px 5px 5px #525252;
 }
 
 .productCardThumbnail {
@@ -886,6 +890,8 @@ label {
   position: relative;
   height: 210px;
   width: 218px;
+  /* border-top-left-radius: 2%;
+  border-top-right-radius: 2%; */
 }
 
 .productCardCategory {
@@ -935,26 +941,30 @@ label {
 }
 
 .actionButtonCompModal {
-  top: 0;
-  right: 0;
+  top: 1%;
+  right: -1%;
   position: absolute;
-  width: 11.5%;
-  height: 7.2%;
+  width: 12%;
+  height: 7%;
   z-index: 1;
-  background-color: rgba(209, 210, 204, 0.4);
-  border-radius: 50%;
+  /* background-color: rgba(209, 210, 204); */
+  color: #E66A35;
+  /* border-radius: 50%; */
   border: none;
 }
 
 .actionButtonCompModal:hover {
-  background-color: rgba(110, 110, 108, 0.4);
-  color: #E66A35;
+  /* background-color: rgba(110, 110, 108, 0.4); */
+  border-radius: 20%;
+  color: #fa8b5b;
 }
 
 .actionButtonCompModal:active {
-  background-color: rgba(209, 210, 204, 0.4);
+  /* background-color: rgba(209, 210, 204, 0.4);
   border-style: groove;
-  border-color: rgba(110, 110, 108, 0.4);
+  border-color: rgba(110, 110, 108, 0.4); */
+  top: 1.3%;
+  right: -1.3%;
 }
 
 .comparisonModal,
@@ -1043,7 +1053,7 @@ label {
   margin: 10px;
   position: relative;
   padding-bottom: 50px;
-  left: 12%;
+  left: 9.3%;
 }
 
 .your-outfit-add-button {
@@ -1059,30 +1069,39 @@ label {
 
 .your-outfit-add-button:hover {
   /* background-color: rgba(244, 242, 242, 0.951); */
-  background-color: #E66A35;
+  color: #E66A35;
+}
+
+.your-outfit-add-button:active {
+  /* background-color: rgba(244, 242, 242, 0.951); */
+  color: #ff4d00;
+  top: 44%;
+  /* left: 13%; */
 }
 
 .your-outfit-product-card-remove {
-  top: 0;
-  right: 0;
+  top: 1%;
+  right: -0.9%;
   position: absolute;
   width: 11.5%;
   height: 7.2%;
   z-index: 1;
-  background-color: rgba(209, 210, 204, 0.4);
-  border-radius: 50%;
-  border: none;
+  /* background-color: rgba(209, 210, 204, 0.4); */
+  border-radius: 20%;
 }
 
 .your-outfit-product-card-remove:hover {
-  background-color: rgba(110, 110, 108, 0.4);
+  /* background-color: rgba(110, 110, 108, 0.4); */
   color: #E66A35;
 }
 
 .your-outfit-product-card-remove:active {
-  background-color: rgba(209, 210, 204, 0.4);
-  border-style: groove;
-  border-color: rgba(110, 110, 108, 0.4);
+  /* background-color: rgba(209, 210, 204, 0.4);
+  border-style: solid;
+  border-color: rgba(110, 110, 108, 0.4); */
+
+  top: 1.2%;
+  right: -1.1%;
 }
 
 .no-related-products {
