@@ -98,7 +98,7 @@ class RatingsAndReviews extends React.Component {
     return (
       <div id="ratings-and-reviews">
         <div id="ratings-and-reviews-header">
-          <h3>Ratings and Reviews</h3>
+          <h3>RATINGS & REVIEWS</h3>
         </div>
         {numReviews > 0
           ? (
