@@ -22,7 +22,7 @@ class RelatedProductsList extends React.Component {
             onClick={() => cycleLeft()}>
             {
               displayLeftArrow
-                ? '⇦'
+                ? <i className="fas fa-chevron-left" />
                 : ''
             }
           </li>
@@ -45,7 +45,7 @@ class RelatedProductsList extends React.Component {
             onClick={() => cycleRight()}>
             {
               displayRightArrow
-                ? '⇨'
+                ? <i className="fas fa-chevron-right" />
                 : ''
             }
           </li>
