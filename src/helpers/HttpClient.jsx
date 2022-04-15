@@ -140,7 +140,8 @@ const addReview = (
   name,
   email,
   photos,
-  characteristics) => instance.post(
+  characteristics,
+) => instance.post(
   'reviews',
   {
     product_id: productId,
@@ -153,6 +154,14 @@ const addReview = (
     photos,
     characteristics,
   },
+);
+
+const markReviewHelpful = (reviewId) => instance.put(
+  `/reviews/${reviewId}/helpful`,
+);
+
+const reportReview = (reviewId) => instance.put(
+  `/reviews/${reviewId}/report`,
 );
 
 module.exports = {
@@ -174,4 +183,6 @@ module.exports = {
   postInteraction,
   getReviews,
   addReview,
+  markReviewHelpful,
+  reportReview,
 };

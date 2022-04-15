@@ -2,20 +2,114 @@ import React from 'react';
 import moment from 'moment';
 import DisplayStars from '../../helpers/DisplayStars';
 
+const { markReviewHelpful, reportReview } = require('../../helpers/HttpClient');
+
 class ReviewTile extends React.Component {
   constructor(props) {
     super(props);
+
+    const { review } = this.props;
+
     this.state = {
       expandBodyClicked: false,
+      helpfulness: review.helpfulness,
+      markedHelpful: false,
+      reported: false,
+      // markedHelpful: localStorage[`${review.review_id}-helpful`],
+      // reported: localStorage[`${review.review_id}-reported`],
     };
 
     this.expandBody = this.expandBody.bind(this);
+    this.handleMarkHelpful = this.handleMarkHelpful.bind(this);
+    this.handleReport = this.handleReport.bind(this);
+  }
+
+  handleMarkHelpful() {
+    const { review } = this.props;
+    const { helpfulness } = this.state;
+
+    markReviewHelpful(review.review_id)
+      .then((response) => {
+        if (response.status === 204) {
+          // localStorage[`${review.review_id}-helpful`] = true;
+
+          this.setState({
+            markedHelpful: true,
+            helpfulness: helpfulness + 1,
+          });
+        }
+      })
+      .catch((err) => {
+        console.warn('Error in marking helpful review :', err);
+      });
+  }
+
+  handleReport() {
+    const { review } = this.props;
+
+    reportReview(review.review_id)
+      .then((response) => {
+        if (response.status === 204) {
+          // localStorage[`${review.review_id}-reported`] = true;
+
+          this.setState({
+            reported: true,
+          });
+
+          // console.log(`${review.review_id} reported`);
+        }
+      })
+      .catch((err) => {
+        console.warn('Error in reporting review :', err);
+      });
   }
 
   expandBody() {
     this.setState({
       expandBodyClicked: true,
     });
+  }
+
+  renderHelpful() {
+    const { markedHelpful, helpfulness } = this.state;
+    const helpfulHTML = [];
+
+    if (markedHelpful) {
+      helpfulHTML.push(
+        <span>
+          {`Yes (${helpfulness})`}
+        </span>,
+      );
+    } else {
+      helpfulHTML.push(
+        <span className="uline" onClick={this.handleMarkHelpful} role="button" onKeyPress={() => {}} tabIndex="-1">
+          {`Yes (${helpfulness})`}
+        </span>,
+      );
+    }
+
+    return helpfulHTML;
+  }
+
+  renderReport() {
+    const { reported } = this.state;
+    const reportHTML = [];
+
+    if (reported) {
+      reportHTML.push(
+        <span>
+          Report
+        </span>,
+      );
+    } else {
+      reportHTML.push(
+        <span className="uline" onClick={this.handleReport} role="button" onKeyPress={() => {}} tabIndex="-1">
+          Report
+        </span>,
+      );
+    }
+
+    return reportHTML;
   }
 
   render() {
@@ -59,13 +153,13 @@ class ReviewTile extends React.Component {
         ) : ''}
         <div className="review-tile-helpful">
           Helpful?
-          <span className="uline">
-            Yes (
-            {helpfulness}
-            )
-          </span>
-          |
-          <span className="uline">Report</span>
+          &nbsp;
+          {this.renderHelpful(helpfulness)}
+          &nbsp; &nbsp;|&nbsp; &nbsp;
+          {this.renderReport()}
+          {/* <span className="uline" onClick={this.handleReport} role="button" onKeyPress={() => {}} tabIndex="-1">
+            Report
+          </span> */}
         </div>
       </div>
     );
