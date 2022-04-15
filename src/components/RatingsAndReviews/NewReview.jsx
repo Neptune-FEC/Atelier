@@ -6,14 +6,11 @@ class NewReview extends React.Component {
 
     const { availableChars } = props;
 
-    let characteristics = {};
+    const characteristics = {};
 
     Object.keys(availableChars).forEach((name) => {
       characteristics[name] = null;
     });
-
-    console.log('NewReview constructor setup:');
-    console.log(characteristics);
 
     this.state = {
       lastCharSelectMeaning: 'none selected',
@@ -92,7 +89,6 @@ class NewReview extends React.Component {
   }
 
   handleRatingChange(event) {
-    console.log(`Rating: ${event.target.value}`);
     this.setState({
       rating: event.target.value,
       ratingMeaning: this.ratingMeanings[event.target.value],
@@ -100,17 +96,14 @@ class NewReview extends React.Component {
   }
 
   handleRecommendChange(event) {
-    console.log(`Recommend: ${event.target.value}`);
     this.setState({
       recommend: event.target.value,
     });
   }
 
   handleCharacteristicChange(characteristic, event) {
-    console.log(`${characteristic}: ${event.target.value}`);
     const { characteristics } = this.state;
     characteristics[characteristic] = event.target.value;
-    console.log(characteristics);
     this.setState({
       characteristics,
       lastCharSelectMeaning: this.characteristicsDictionary[characteristic][event.target.value],
@@ -210,8 +203,6 @@ class NewReview extends React.Component {
 
       addNewReview(params);
     }
-
-    // console.log('handleSubmit: ', params);
   }
 
   render() {
@@ -260,22 +251,6 @@ class NewReview extends React.Component {
                   <tr>
                     <td colspan="6">{lastCharSelectMeaning}</td>
                   </tr>
-                  {/* {Object.keys(this.characteristicsDictionary).map((charName) => {
-                    const tableRowHTML = [];
-                    tableRowHTML.push(
-                      <tr>
-                        <td className="char-label">{charName}</td>
-                        {Object.keys(this.characteristicsDictionary[charName]).map((charRating) => (<td><input type="radio" value={charRating} name={charName} onChange={(event) => { this.handleCharacteristicChange(charName, event); }} /></td>))}
-                      </tr>,
-                      <tr>
-                        <td className="char-label">&nbsp;</td>
-                        {Object.keys(this.characteristicsDictionary[charName]).map((charRating) => (
-                          <td>{this.characteristicsDictionary[charName][charRating]}</td>
-                        ))}
-                      </tr>,
-                    );
-                    return tableRowHTML;
-                  })} */}
                   {Object.keys(characteristics).map((charName) => {
                     const tableRowHTML = [];
                     tableRowHTML.push(
