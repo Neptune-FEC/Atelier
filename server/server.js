@@ -49,7 +49,8 @@ const proxy = (req, res) => {
 
 app.route(/(products|reviews|qa|cart|interactions).*/)
   .get(proxy)
-  .post(proxy);
+  .post(proxy)
+  .put(proxy);
 
 app.listen(3000, async () => {
   await dotenv.config();
