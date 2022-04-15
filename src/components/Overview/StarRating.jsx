@@ -26,7 +26,7 @@ function StarRating(props) {
           <div className="overview-rating">
             {stars}
           </div>
-          <a className="overview-reviews" href="#reviews">
+          <a className="overview-reviews" href="#ratings-and-reviews">
             Read all
             {' '}
             {numReviews}

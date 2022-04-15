@@ -163,11 +163,11 @@ class ProductDetailPage extends React.Component {
     if (skuId) {
       this.handleQuantitySelect('-');
       this.handleSizeSelect(null);
+      postCart(id, selectedQuantity);
     } else {
       this.setState({ message: 'Please select size' });
       this.toggleDropdown();
     }
-    postCart(id, selectedQuantity);
   }
 
   handleChangeReviewSort(sort) {
@@ -412,6 +412,7 @@ class ProductDetailPage extends React.Component {
                 handleClick={this.handleClick}
               >
                 <ImageGallery
+                  product={product}
                   setIndexImage={this.setIndexImage}
                   selectedStyle={selectedStyle}
                   isExpand={isExpand}
@@ -434,6 +435,7 @@ class ProductDetailPage extends React.Component {
                 <ProductTitle product={product} />
                 <ProductPrice selectedStyle={selectedStyle} />
                 <StyleSelector
+                  product={product}
                   styles={styles}
                   selectedStyle={selectedStyle}
                   handleStyleSelect={this.handleStyleSelect}

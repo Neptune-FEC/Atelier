@@ -118,8 +118,11 @@ class AddQModal extends React.Component {
               <div>For authentication reasons, you will not be emailed</div>
             </label>
           </div>
-          <input className="clickable addQModalButton" type="submit" value="Submit Answer" />
-          {' '}
+          <input
+            className="clickable addQModalButton"
+            type="submit"
+            value="Submit Question"
+          />
           <input
             className="clickable addQModalButton"
             type="button"

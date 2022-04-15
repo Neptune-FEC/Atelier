@@ -4,7 +4,7 @@ function StyleSelector(props) {
   const {
     indexStyleMapping, setIndexImage, setIndexThumbnail,
     styles, selectedStyle, handleStyleSelect, handleSizeSelect,
-    handleQuantitySelect,
+    handleQuantitySelect, product,
   } = props;
   const { photos } = selectedStyle;
   const numPhotos = photos.length;
@@ -24,6 +24,12 @@ function StyleSelector(props) {
   }
 
   const allStyles = styles.results;
+  let noImage;
+  if (product.id === 66643) {
+    noImage = 'https://i.kym-cdn.com/entries/icons/original/000/028/926/cove3.jpg';
+  } else {
+    noImage = 'https://acttochange.org/wp-content/plugins/ninja-forms/assets/img/no-image-available-icon-6.jpg';
+  }
   return (
     <div className="overview-styles">
       <span style={{ color: 'var(--text-color)', fontWeight: 'bold', fontSize: '1.3rem' }}>
@@ -42,7 +48,7 @@ function StyleSelector(props) {
               role="presentation"
               className={`style-thumbnail ${selectedStyle === style ? 'style-thumbnail-selected' : ''}`}
               onClick={() => handleStyleClick(style)}
-              style={{ backgroundImage: `url(${style.photos[0].thumbnail_url}` }}
+              style={{ backgroundImage: `url(${style.photos[0].thumbnail_url === null ? noImage : style.photos[0].thumbnail_url}` }}
             />
             {selectedStyle === style ? <i className="check-icon-visible fa fa-check-circle" /> : <div />}
           </div>

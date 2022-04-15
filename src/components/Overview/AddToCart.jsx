@@ -14,8 +14,8 @@ function AddToCart(props) {
     const sku = skus[id];
     inventory += sku.quantity;
   }
-  return (inventory
-    && (
+  return ((allSkuIds[0] !== null && inventory)
+    ? (
       <>
         {(isSizeDropdown && message) && <div> Please select size</div>}
         <div
@@ -33,6 +33,7 @@ function AddToCart(props) {
         </div>
       </>
     )
+    : <div style={{ color: 'red' }}>OUT OF STOCK</div>
   );
 }
 

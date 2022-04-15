@@ -72,13 +72,19 @@ class ImageGallery extends React.Component {
 
   render() {
     const {
-      selectedStyle, handleExpand, indexImage, indexThumbnail,
+      selectedStyle, handleExpand, indexImage, indexThumbnail, product,
     } = this.props;
     const { photos } = selectedStyle;
     const numPhotos = photos.length;
     const {
       limitNumPhotos,
     } = this.state;
+    let noImage;
+    if (product.id === 66643) {
+      noImage = 'https://i.kym-cdn.com/entries/icons/original/000/028/926/cove3.jpg';
+    } else {
+      noImage = 'https://acttochange.org/wp-content/plugins/ninja-forms/assets/img/no-image-available-icon-6.jpg';
+    }
 
     return (
       <>
@@ -108,7 +114,7 @@ class ImageGallery extends React.Component {
                     <div
                       className={`thumbnail-item-image ${idx === indexImage ? 'thumbnail-item-image-selected' : ''}`}
                       style={{
-                        backgroundImage: `url(${photo.thumbnail_url})`,
+                        backgroundImage: `url(${photo.thumbnail_url === null ? noImage : photo.thumbnail_url})`,
                       }}
                       role="presentation"
                       onClick={() => { this.changeImage(idx); }}
@@ -156,7 +162,7 @@ class ImageGallery extends React.Component {
                 key={`gallery-item${photo.url}`}
                 className="gallery-item"
                 id={`img_${idx}`}
-                style={{ backgroundImage: `url(${photo.url})`, width: `${100 / numPhotos}%` }}
+                style={{ backgroundImage: `url(${(photo.url === null ? noImage : photo.url)}`, width: `${100 / numPhotos}%` }}
               />
             ))}
           </div>
