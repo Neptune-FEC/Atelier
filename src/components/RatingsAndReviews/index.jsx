@@ -93,7 +93,7 @@ class RatingsAndReviews extends React.Component {
 
     // console.log(reviewMeta);
     // console.log(reviews);
-    console.log(`numReviews = ${numReviews}`);
+    // console.log(`numReviews = ${numReviews}`);
 
     return (
       <div id="ratings-and-reviews">
