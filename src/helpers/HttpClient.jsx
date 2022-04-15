@@ -5,7 +5,6 @@ const URL = window.location.origin;
 // Base http request used by all the http calls
 const instance = axios.create({
   baseURL: URL,
-  // headers: { Authorization: TOKEN },
 });
 
 //----------------

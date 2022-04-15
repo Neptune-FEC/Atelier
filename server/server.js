@@ -26,50 +26,24 @@ const getAwsSecret = function () {
       } else {
         // parsing the fetched data into JSON
         const secretsJSON = JSON.parse(data.SecretString);
-
-        // creating a string to store write to .env file
-        // .env file shall look like this :
-        // SECRET_1 = sample_secret_1
-        // SECRET_2 = sample_secret_2
-        const secretsString = '';
-        // Object.keys(secretsJSON).forEach((key) => {
-        //   secretsString += `${key}=${secretsJSON[key]}\n`;
-        // });
         resolve(secretsJSON);
       }
     });
   });
 };
 
-// eslint-disable-next-line prefer-destructuring
-// const URL = process.env.URL;
-// eslint-disable-next-line prefer-destructuring
-// const TOKEN = process.env.TOKEN;
-// const TEST = 5;
-// if (!(URL && TOKEN)) {
-//   getAwsSecret().then((secretsJSON) => {
-//     URL = secretsJSON.URL;
-//     TOKEN = secretsJSON.TOKEN;
-//   });
-// }
-
 const proxy = (req, res) => {
-  // eslint-disable-next-line prefer-destructuring
-  // eslint-disable-next-line prefer-destructuring
-
   axios({
     url: `${URL}${req.originalUrl}`,
     method: req.method.toLowerCase(),
     headers: {
-      // ...req.headers,
       Authorization: TOKEN,
     },
     data: req.body,
   }).then((response) => {
     res.json(response.data);
   }).catch((err) => {
-    console.log('######', err);
-    res.end('Error');
+    res.end('Error', err);
   });
 };
 
