@@ -99,12 +99,16 @@ class ProductCardYO extends React.Component {
 
     return (
       <li className="productCard">
-        <button
+        {/* <button
           className="your-outfit-product-card-remove"
           onClick={() => removeFromOutfit(index)}
         >
           X
-        </button>
+        </button> */}
+        <i
+          className="your-outfit-product-card-remove fa-regular fa-circle-xmark"
+          onClick={() => removeFromOutfit(index)}
+        ></i>
         <img
           className="productCardThumbnail"
           alt="Thumbnail for product"

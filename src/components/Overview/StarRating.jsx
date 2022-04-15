@@ -4,10 +4,10 @@ import { displayStarRating } from '../../helpers/ProductHelper';
 function StarRating(props) {
   const { starRating, numReviews } = props;
   const fullStar = <i className="full-star fa fa-star" />;
-  const emptyStar = <i className="empty-star full-star fa fa-star" />;
-  const quaterStar = <i className="half-star fa fa-star-half" />;
-  const halfStar = <i className="half-star fa fa-star-half" />;
-  const thirdQuaterStar = <i className="half-star fa fa-star-half" />;
+  const emptyStar = <i className="empty-star full-star fa-regular fa-star" />;
+  const quaterStar = <i className="half-star fa-solid fa-star-half-stroke" />;
+  const halfStar = <i className="half-star fa-solid fa-star-half-stroke" />;
+  const thirdQuaterStar = <i className="half-star fa-solid fa-star-half-stroke" />;
   const stars = displayStarRating(
     starRating,
     fullStar,

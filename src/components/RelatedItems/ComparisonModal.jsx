@@ -120,13 +120,11 @@ class ComparisonModal extends React.Component {
           </div>
         )
         : (
-          <button
-            className="actionButtonCompModal"
+          <i
+            className="actionButtonCompModal fa-solid fa-star-exclamation"
             type="button"
             onClick={() => this.toggleModal()}
-          >
-            ☆
-          </button>
+          ></i>
         )
     );
   }

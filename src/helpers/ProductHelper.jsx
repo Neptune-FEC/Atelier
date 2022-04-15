@@ -16,28 +16,26 @@ const averageRating = (ratingObject) => {
 
 const displayStarRating = (
   starRating,
-  fullStart,
+  fullStar,
   emptyStar,
-  quaterStar,
+  quarterStar,
   halfStar,
-  thirdQuaterStar,
+  thirdQuarterStar,
 ) => {
   const remainderStars = 5 - starRating;
   const remainder = remainderStars - Math.floor(remainderStars);
   const stars = [];
   for (let i = 1; i < starRating; i += 1) {
-    stars.push(fullStart);
+    stars.push(fullStar);
   }
-  if (remainder === 0.5) {
+  if (remainder >= 0.75) {
+    stars.push(thirdQuarterStar);
+  } else if (remainder >= 0.5) {
     stars.push(halfStar);
+  } else if (remainder < 0.5) {
+    stars.push(quarterStar);
   }
-  if (remainder === 0.25) {
-    stars.push(quaterStar);
-  }
-  if (remainder === 0.75) {
-    stars.push(thirdQuaterStar);
-  }
-  for (let i = 1; i < remainderStars; i += 1) {
+  for (let i = 1; i <= remainderStars; i += 1) {
     stars.push(emptyStar);
   }
 
