@@ -3,7 +3,7 @@ import ReviewTile from './ReviewTile';
 
 function ReviewsList(props) {
   const { reviews, numReviews, handleChangeReviewSort,
-    reviewSort, getMoreReviews, noMoreReviews, numShownReviews } = props;
+    reviewSort, getMoreReviews, noMoreReviews, numShownReviews, toggleNewReview } = props;
   const numWrittenReviews = reviews ? reviews.length : 0;
 
   // console.log(`shown reviews: ${numShownReviews} , reviews length: ${reviews.length}`);
@@ -27,7 +27,7 @@ function ReviewsList(props) {
       <div className="review-list-footer">
         <div className="review-options">
           {!noMoreReviews ? <button className="" type="button" onClick={() => { getMoreReviews(); }}>More Reviews</button> : ''}
-          <button className="" type="button" id="new-review-btn">Add A Review</button>
+          <button className="" type="button" id="new-review-btn" onClick={() => { toggleNewReview(); }}>Add A Review</button>
         </div>
       </div>
     </div>

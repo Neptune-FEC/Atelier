@@ -17,7 +17,7 @@ import RatingsAndReviews from './RatingsAndReviews';
 
 const { averageRating } = require('../helpers/ProductHelper');
 const {
-  getProduct, getReviewMeta, getStyles, getReviews, postCart, postInteraction,
+  getProduct, getReviewMeta, getStyles, getReviews, addReview, postCart, postInteraction,
 } = require('../helpers/HttpClient');
 
 const testId = 66642; // QandA widget relying on this number to dynamically updatex
@@ -35,7 +35,7 @@ class ProductDetailPage extends React.Component {
       reviews: [],
       reviewsPage: 0,
       reviewSort: 'relevant',
-      noMoreReviews: false,
+      noMoreReviews: true,
       numShownReviews: 0,
       skuId: null,
       selectedQuantity: null,
@@ -53,6 +53,7 @@ class ProductDetailPage extends React.Component {
     this.handleQuantitySelect = this.handleQuantitySelect.bind(this);
     this.handleExpand = this.handleExpand.bind(this);
     this.handleChangeReviewSort = this.handleChangeReviewSort.bind(this);
+    this.handleAddNewReview = this.handleAddNewReview.bind(this);
     this.getMoreReviews = this.getMoreReviews.bind(this);
     this.handleIndexImageRight = this.handleIndexImageRight.bind(this);
     this.handleIndexImageLeft = this.handleIndexImageLeft.bind(this);
@@ -187,6 +188,48 @@ class ProductDetailPage extends React.Component {
     });
   }
 
+  handleAddNewReview(params) {
+    const { product, numReviews, reviewSort } = this.state;
+
+    console.log(params);
+
+    addReview(
+      params.product_id,
+      params.rating,
+      params.summary,
+      params.body,
+      params.recommend,
+      params.name,
+      params.email,
+      params.photos,
+      params.characteristics).then((response) => {
+      if (response.status !== 201) {
+        throw new Error(`POST response returned with status ${response.status}`);
+      }
+
+      const reviewsParams = {
+        product_id: product.id,
+        count: numReviews,
+        reviewSort,
+      };
+
+      return getReviews(reviewsParams);
+    }).then((response) => {
+      if (response.status !== 200) {
+        throw new Error(`GET response returned with status ${response.status}`);
+      }
+
+      this.setState({
+        reviews: response.data.results,
+        reviewSort,
+        noMoreReviews: false,
+        numShownReviews: (response.data.results.length > 2) ? 2 : response.data.results.length,
+      });
+    }).catch((err) => {
+      console.warn('Add New Review error: ', err);
+    });
+  }
+
   setIndexImage(indexImage) {
     this.setState({
       indexImage,
@@ -270,7 +313,7 @@ class ProductDetailPage extends React.Component {
         reviews: response.data.results,
         numShownReviews: 2,
         reviewSort: defaultSort,
-        noMoreReviews: false,
+        noMoreReviews: response.data.results.length < 2,
       });
     });
 
@@ -425,8 +468,11 @@ class ProductDetailPage extends React.Component {
                 reviewSort={reviewSort}
                 noMoreReviews={noMoreReviews}
                 handleChangeReviewSort={this.handleChangeReviewSort}
+                handleAddNewReview={this.handleAddNewReview}
                 getMoreReviews={this.getMoreReviews}
                 numShownReviews={numShownReviews}
+                productName={product.name}
+                productId={product.id}
               />
             </>
           )

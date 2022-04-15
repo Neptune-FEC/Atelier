@@ -134,6 +134,30 @@ const getReviews = (params) => instance.get(
   { params },
 );
 
+const addReview = (
+  productId,
+  rating,
+  summary,
+  body,
+  recommend,
+  name,
+  email,
+  photos,
+  characteristics) => instance.post(
+  'reviews',
+  {
+    product_id: productId,
+    rating,
+    summary,
+    body,
+    recommend,
+    name,
+    email,
+    photos,
+    characteristics,
+  },
+);
+
 module.exports = {
   getProducts,
   getReviewMeta,
@@ -152,4 +176,5 @@ module.exports = {
   getCart,
   postInteraction,
   getReviews,
+  addReview,
 };

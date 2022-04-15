@@ -1200,6 +1200,156 @@ label {
   cursor:pointer;
 }
 
+.new-review-container {
+  display: grid;
+  width: 1200px;
+  height:100%;
+  padding:10px;
+  border: 1px solid;
+  background-color: white;
+  position: absolute;
+  z-index: 1;
+  top: 5%;
+  left: 5%;
+  overflow: auto;
+  /* grid-template-columns: auto;
+  grid-auto-rows: minmax(30px, auto); */
+  /* grid-template-rows: 100px 30px 30px 300px 40px 150px 40px 40px 40px; */
+}
+
+.modal-close-btn {
+  font-size:x-large;
+  font-weight: bold;
+  color: black;
+  text-align: right;
+}
+
+.new-review-container textarea {
+  resize: none;
+}
+
+.new-review-input{
+  width:870px;
+  height:30px;
+}
+
+.new-review-textarea{
+  width:870px;
+  height:75px;
+}
+
+.new-review-header {
+  /* grid-column: 1 / 1;
+  grid-row: 1 / 5; */
+  margin: 5px;
+}
+
+.new-review-rating {
+  /* grid-column: 1 / 1;
+  grid-row: 2 / 5; */
+  margin: 5px;
+}
+
+.new-review-recommend {
+  /* grid-column: 1 / 1;
+  grid-row: 3 / 5; */
+  margin: 5px;
+}
+
+.new-review-characteristics {
+  /* grid-column: 1 / 1;
+  grid-row: 4 / 5; */
+  margin: 5px;
+}
+
+.new-review-characteristics td {
+  text-align: center;
+  width: 180px;
+}
+
+.new-review-characteristics td.char-label {
+  text-align: left;
+  font-weight: bold;
+}
+
+.new-review-text-inputs {
+  /* grid-column: 1 / 1;
+  grid-row: 5 / 5; */
+  margin: 5px;
+}
+
+.new-review-text-inputs-container {
+  display: grid;
+  width: 95%;
+  padding:5px;
+  border: 1px solid;
+  grid-template-columns: 200px auto;
+  grid-auto-rows: minmax(80px, auto);
+}
+
+.new-review-summary-label {
+  grid-column: 1 / 2;
+  grid-row: 1 / 5;
+  margin:5px;
+}
+
+.new-review-summary {
+  grid-column: 2 / 2;
+  grid-row: 1 / 5;
+  margin:5px;
+}
+
+.new-review-body-label {
+  grid-column: 1 / 2;
+  grid-row: 2 / 5;
+  margin:5px;
+}
+
+.new-review-body {
+  grid-column: 2 / 2;
+  grid-row: 2 / 5;
+  margin:5px;
+}
+
+.new-review-nickname-label {
+  grid-column: 1 / 2;
+  grid-row: 3 / 5;
+  margin:5px;
+}
+
+.new-review-nickname {
+  grid-column: 2 / 2;
+  grid-row: 3 / 5;
+  margin:5px;
+}
+
+.new-review-email-label {
+  grid-column: 1 / 2;
+  grid-row: 4 / 5;
+  margin:5px;
+}
+
+.new-review-email {
+  grid-column: 2 / 2;
+  grid-row: 4 / 5;
+  margin:5px;
+}
+
+.new-review-footer {
+  grid-column: 2 / 2;
+  grid-row: 5 / 5;
+  margin:5px;
+}
+
+.info-text {
+  font-size: small;
+}
+
+.submit-error {
+  color: red;
+  font-size:medium;
+}
+
 .uline {
   text-decoration: underline;
 }
