@@ -971,6 +971,7 @@ label {
 .backgroundAddQModal,
 .backgroundAnsModal,
 .backgroundPhotoModal,
+.backgroundImgModal,
 .backgroundModal {
   /* display: grid; */
   /* position: absolute; */
@@ -1231,6 +1232,18 @@ label {
 
 .review-tile-summary {
   font-weight: bold;
+}
+
+img.review-thumb {
+  display:inline;
+  margin: 10px;
+  width: 60px;
+  height: 60px;
+}
+
+.backgroundImgModal{
+  text-align: center;
+  padding-top:100px;
 }
 
 .review-tile-response {
