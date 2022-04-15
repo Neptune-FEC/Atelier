@@ -52,10 +52,11 @@ class QandA extends React.Component {
 
   render() {
     const { currProduct, listOfQuestions, qSearch } = this.state;
+    const { handleClick } = this.props;
     // console.log('product, QnA: ', product);
 
     return (
-      <div className="qna">
+      <div className="qna" onClick={(event) => handleClick(event, 'Q and A')}>
         <h3>QUESTIONS & ANSWERS</h3>
         <SearchQ
           searchQuestionCallback={this.searchQuestionCallback}

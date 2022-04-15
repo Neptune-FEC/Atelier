@@ -2,19 +2,19 @@ import React from 'react';
 import RelatedProductsList from './RelatedProductsList';
 import YourOutfitList from './YourOutfitList';
 
-const { averageRating } = require('../../helpers/ProductHelper');
-const {
-  getProduct, getRelatedIds, getReviewMeta,
-} = require('../../helpers/HttpClient');
+// const { averageRating } = require('../../helpers/ProductHelper');
+// const {
+//   getProduct, getRelatedIds, getReviewMeta,
+// } = require('../../helpers/HttpClient');
 
 class RelatedItemsWidget extends React.Component {
   constructor(props) {
     super(props);
-    const { product } = this.props;
+
     this.state = {
-      currentProduct: product,
-      relatedProducts: ['initialize'],
+      currentProduct: null,
       productsToDisplay: [],
+      relatedProducts: [],
       index: 0,
     };
 
@@ -23,50 +23,33 @@ class RelatedItemsWidget extends React.Component {
   }
 
   componentDidMount() {
-    this.updateRelatedList();
+    const { relatedProducts, product } = this.props;
+
+    this.setState({
+      currentProduct: product,
+      productsToDisplay: relatedProducts.slice(0, 4),
+      relatedProductsForCards: relatedProducts,
+    });
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    this.updateRelatedList(prevState.currentProduct.id);
-  }
+  componentDidUpdate() {
+    const { relatedProducts } = this.props;
+    const { relatedProductsForCards } = this.state;
 
-  setRelatedProducts(relatedProducts) {
-    const { product } = this.props;
+    if (!relatedProductsForCards.length) return;
 
-    const promises = relatedProducts.map((item) => getReviewMeta(item.id)
-      .then((result) => result.data.ratings));
-    Promise.all(promises).then((result) => {
-      relatedProducts.forEach((relatedProd, i) => {
-        const { totalCount, avgRating } = averageRating(result[i]);
-        relatedProd.rating = { totalCount, avgRating };
+    if (relatedProducts[0].id !== relatedProductsForCards[0].id) {
+      this.setState({
+        productsToDisplay: relatedProducts.slice(0, 4),
+        relatedProductsForCards: relatedProducts,
+        index: 0,
       });
-    })
-      .then(() => {
-        this.setState({
-          currentProduct: product,
-          relatedProducts,
-          productsToDisplay: relatedProducts.slice(0, 4),
-        });
-      });
-  }
-
-  updateRelatedList(prevState) {
-    const { product } = this.props;
-
-    if (prevState === product.id) {
-      return;
     }
-
-    getRelatedIds(product.id)
-      .then((idList) => {
-        const promises = idList.data.map((id) => getProduct(id).then((result) => result.data));
-        Promise.all(promises).then((result) => this.setRelatedProducts(result));
-      });
   }
 
   cycleRight() {
     let { index } = this.state;
-    const { relatedProducts } = this.state;
+    const { relatedProducts } = this.props;
     index += 1;
 
     this.setState({
@@ -77,7 +60,7 @@ class RelatedItemsWidget extends React.Component {
 
   cycleLeft() {
     let { index } = this.state;
-    const { relatedProducts } = this.state;
+    const { relatedProducts } = this.props;
     index -= 1;
 
     this.setState({
@@ -88,12 +71,13 @@ class RelatedItemsWidget extends React.Component {
 
   render() {
     const {
-      relatedProducts, productsToDisplay, currentProduct,
-      index,
+      productsToDisplay, index,
     } = this.state;
-    const { fetchData, starRating, numReviews } = this.props;
+    const {
+      fetchData, starRating, numReviews, relatedProducts, product,
+    } = this.props;
 
-    const displayRightArrow = !(relatedProducts.length - index === 4);
+    const displayRightArrow = !(relatedProducts.length - index <= 4);
     const displayLeftArrow = (index > 0);
 
     return (
@@ -104,19 +88,20 @@ class RelatedItemsWidget extends React.Component {
             <h3 className="related-title">Customers also bought these items</h3>
             <div>
               <RelatedProductsList
-                currentProduct={currentProduct}
+                currentProduct={product}
                 relatedProducts={productsToDisplay}
                 displayRightArrow={displayRightArrow}
                 displayLeftArrow={displayLeftArrow}
                 cycleRight={this.cycleRight}
                 cycleLeft={this.cycleLeft}
                 fetchData={fetchData}
+                setInitialState={this.setInitialState}
               />
             </div>
             <h3 className="related-title">Your Outfit</h3>
             <div>
               <YourOutfitList
-                currentProduct={currentProduct}
+                currentProduct={product}
                 starRating={starRating}
                 numReviews={numReviews}
               />

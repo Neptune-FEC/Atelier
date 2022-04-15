@@ -18,7 +18,7 @@ class ProductCard extends React.Component {
 
   componentDidMount() {
     const { relatedProduct } = this.props;
-    const { thumbnail, origPrice, salePrice } = this.state;
+    const { thumbnail } = this.state;
 
     getStyles(relatedProduct.id).then((result) => {
       result.data.results.forEach((style) => {
@@ -37,6 +37,11 @@ class ProductCard extends React.Component {
       if (!thumbnail) {
         this.setState({
           thumbnail: result.data.results[0].photos[0].thumbnail_url,
+        });
+      }
+      if (relatedProduct.id === 66643) {
+        this.setState({
+          thumbnail: 'https://i.kym-cdn.com/entries/icons/original/000/028/926/cove3.jpg',
         });
       }
     })
@@ -110,7 +115,9 @@ class ProductCard extends React.Component {
         </p>
         <p
           className="productCardName"
-          onClick={() => fetchData(relatedProduct.id)}
+          onClick={() => {
+            fetchData(relatedProduct.id)
+          }}
         >
           <b>{relatedProduct.name}</b>
         </p>

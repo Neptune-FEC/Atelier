@@ -17,7 +17,8 @@ import RatingsAndReviews from './RatingsAndReviews';
 
 const { averageRating } = require('../helpers/ProductHelper');
 const {
-  getProduct, getReviewMeta, getStyles, getReviews, addReview, postCart, postInteraction,
+  getProduct, getReviewMeta, getStyles, getReviews,
+  addReview, postCart, postInteraction, getRelatedIds,
 } = require('../helpers/HttpClient');
 
 const testId = 66642; // QandA widget relying on this number to dynamically updatex
@@ -44,6 +45,7 @@ class ProductDetailPage extends React.Component {
       indexImage: null,
       indexThumbnail: null,
       indexStyleMapping: null,
+      relatedProducts: [],
       isSizeDropdown: false,
       message: null,
     };
@@ -271,7 +273,8 @@ class ProductDetailPage extends React.Component {
       this.setState({
         product: product.data,
       });
-    });
+    })
+      .then(() => this.updateRelatedList());
     getStyles(productId).then((response) => {
       this.setState({
         styles: response.data,
@@ -344,9 +347,51 @@ class ProductDetailPage extends React.Component {
     }
   }
 
+  updateRelatedList() {
+    const { product } = this.state;
+
+    getRelatedIds(product.id)
+      .then((idList) => {
+        idList.data.forEach((id, index) => {
+          // sometimes the API includes a product as a related item to itself
+          // this removes the same product id from its related items to reduce API calls
+          if (id === product.id) {
+            idList.data.splice(index, 1);
+          }
+
+          // this removes duplicates from the related ID's to reduce API calls
+          const shallowCopy = [...idList.data];
+          shallowCopy.splice(index, 1);
+          const idx = shallowCopy.indexOf(id);
+          if (idx > -1) {
+            idList.data.splice(idx, 1);
+          }
+        });
+        const promises = idList.data.map((id) => getProduct(id).then((result) => result.data));
+        Promise.all(promises).then((result) => this.setRelatedProducts(result));
+      });
+  }
+
+  setRelatedProducts(relatedProducts) {
+    const promises = relatedProducts.map((item) => getReviewMeta(item.id)
+      .then((result) => result.data.ratings));
+    Promise.all(promises).then((result) => {
+      relatedProducts.forEach((relatedProd, i) => {
+        const { totalCount, avgRating } = averageRating(result[i]);
+        relatedProd.rating = { totalCount, avgRating };
+      });
+    })
+      .then(() => {
+        this.setState({
+          relatedProducts,
+        });
+      })
+      .catch((error) => console.log('Too many requests', error));
+  }
+
   render() {
     const {
-      product, starRating, reviewMeta, numReviews,
+      product, starRating, reviewMeta, numReviews, relatedProducts,
       styles, selectedStyle, selectedSize, skuId, selectedQuantity, isExpand,
       reviews, reviewSort, noMoreReviews, numShownReviews,
       indexImage, indexThumbnail, indexStyleMapping, isSizeDropdown, message,
@@ -356,9 +401,9 @@ class ProductDetailPage extends React.Component {
     return (
       <>
         <header>
-          <h1>Hello Neptune!!!</h1>
+          <h1>Look#</h1>
         </header>
-        {(product && indexStyleMapping)
+        {(relatedProducts[0] && indexStyleMapping)
           ? (
             <>
               <Overview
@@ -436,11 +481,12 @@ class ProductDetailPage extends React.Component {
                 numReviews={numReviews}
                 reviewMeta={reviewMeta}
                 styles={styles}
-                selectedStyle={selectedStyle}
                 fetchData={this.fetchData}
+                relatedProducts={relatedProducts}
               />
               <QandA
                 product={product}
+                handleClick={this.handleClick}
               />
               {isExpand
                 && (

@@ -38,6 +38,11 @@ class ProductCardYO extends React.Component {
           thumbnail: result.data.results[0].photos[0].thumbnail_url,
         });
       }
+      if (product.id === 66643) {
+        this.setState({
+          thumbnail: 'https://i.kym-cdn.com/entries/icons/original/000/028/926/cove3.jpg',
+        });
+      }
     })
       .catch((error) => { console.log('Error getting style for Product Card: ', error); });
   }
