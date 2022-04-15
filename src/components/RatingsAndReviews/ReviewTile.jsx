@@ -15,11 +15,14 @@ class ReviewTile extends React.Component {
       helpfulness: review.helpfulness,
       markedHelpful: false,
       reported: false,
+      expandImgThumb: false,
       // markedHelpful: localStorage[`${review.review_id}-helpful`],
       // reported: localStorage[`${review.review_id}-reported`],
     };
 
     this.expandBody = this.expandBody.bind(this);
+    this.expandImage = this.expandImage.bind(this);
+    this.toggleShowImage = this.toggleShowImage.bind(this);
     this.handleMarkHelpful = this.handleMarkHelpful.bind(this);
     this.handleReport = this.handleReport.bind(this);
   }
@@ -70,6 +73,24 @@ class ReviewTile extends React.Component {
     });
   }
 
+  expandImage(imgUrl) {
+    const { review } = this.props;
+    const { expandImgThumb } = this.state;
+    this.setState({
+      expandImgThumb: !expandImgThumb,
+    }, () => {
+      const img = document.getElementById(`${review.review_id}-img`);
+      img.src = imgUrl;
+    });
+  }
+
+  toggleShowImage() {
+    const { expandImgThumb } = this.state;
+    this.setState({
+      expandImgThumb: !expandImgThumb,
+    });
+  }
+
   renderHelpful() {
     const { markedHelpful, helpfulness } = this.state;
     const helpfulHTML = [];
@@ -113,7 +134,7 @@ class ReviewTile extends React.Component {
   }
 
   render() {
-    const { expandBodyClicked } = this.state;
+    const { expandBodyClicked, expandImgThumb } = this.state;
     const { review } = this.props;
     const {
       review_id, rating, summary, body, recommend,
@@ -125,13 +146,13 @@ class ReviewTile extends React.Component {
       <div id={`${review_id}-review-tile`} className="review-tile">
         <div className="review-tile-header">
           <div className="review-tile-stars">
-            {/* <DisplayStars rating={rating} /> */}
-            {`${rating} STARS`}
+            <DisplayStars rating={rating} />
+            {/* {`${rating} STARS`} */}
           </div>
           <div className="review-tile-user-and-date">
             {/* {verifiedUser ? <i className="fa-solid fa-circle-check"></i> : ''} */}
             {/* {verifiedUser ? '✅ ' : ''} */}
-            {`${reviewer_name}, ${moment(date).format('LL')}`}
+            {`@${reviewer_name}, ${moment(date).format('LL')}`}
           </div>
         </div>
         <div className="review-tile-summary">
@@ -141,6 +162,13 @@ class ReviewTile extends React.Component {
           {(expandBodyClicked || (body.length <= maxBodyLength)) ? body
             : `${body.substring(0, maxBodyLength - 1)}... `}
           {(expandBodyClicked || (body.length <= maxBodyLength)) ? '' : <span className="expand-body" onClick={this.expandBody} onKeyPress={() => {}} role="button" tabIndex="-1">Show More</span>}
+        </div>
+        <div className="review-tile-thumbnails">
+          {photos.map((photo) => (
+            <div onClick={() => { this.expandImage(photo.url); }} onKeyPress={() => {}} role="button" tabIndex="-1">
+              <img className="review-thumb" src={photo.url} alt={photo.id} />
+            </div>
+          ))}
         </div>
         <div className="review-tile-recommend">
           {recommend ? '✔ I recommend this product' : ''}
@@ -161,6 +189,13 @@ class ReviewTile extends React.Component {
             Report
           </span> */}
         </div>
+        {
+          expandImgThumb ? (
+            <div className="backgroundImgModal" onClick={() => { this.toggleShowImage(); }} role="button" onKeyPress={() => {}} tabIndex="-1">
+              <img id={`${review_id}-img`} src="" alt="expand thumbnail" />
+            </div>
+          ) : ''
+        }
       </div>
     );
   }

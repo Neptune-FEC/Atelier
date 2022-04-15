@@ -93,34 +93,43 @@ class RatingsAndReviews extends React.Component {
 
     // console.log(reviewMeta);
     // console.log(reviews);
+    // console.log(`numReviews = ${numReviews}`);
 
     return (
       <div id="ratings-and-reviews">
         <div id="ratings-and-reviews-header">
-          <h3>Ratings and Reviews</h3>
+          <h3>RATINGS & REVIEWS</h3>
         </div>
-        <div id="ratings-and-reviews-container">
-          <RatingsBreakdown
-            reviewMeta={reviewMeta}
-            avgRating={avgRating}
-            addFilter={this.addFilter}
-            removeFilter={this.removeFilter}
-            removeAllFilters={this.removeAllFilters}
-            filters={filters}
-          />
-          <ReviewsList
-            numReviews={numReviews}
-            reviewSort={reviewSort}
-            handleChangeReviewSort={handleChangeReviewSort}
-            getMoreReviews={getMoreReviews}
-            noMoreReviews={Object.keys(filters).length > 0 ? true : noMoreReviews}
-            numShownReviews={numShownReviews}
-            toggleNewReview={this.toggleNewReview}
-            reviews={Object.keys(filters).length > 0
-              ? this.filterReviews() : reviews.slice(0, numShownReviews)}
-          />
-          {showNewReview ? <NewReview productName={productName} toggleNewReview={this.toggleNewReview} availableChars={reviewMeta.characteristics} addNewReview={this.addNewReview} /> : ''}
-        </div>
+        {numReviews > 0
+          ? (
+            <div id="ratings-and-reviews-container">
+              <RatingsBreakdown
+                reviewMeta={reviewMeta}
+                avgRating={avgRating}
+                addFilter={this.addFilter}
+                removeFilter={this.removeFilter}
+                removeAllFilters={this.removeAllFilters}
+                filters={filters}
+              />
+              <ReviewsList
+                numReviews={numReviews}
+                reviewSort={reviewSort}
+                handleChangeReviewSort={handleChangeReviewSort}
+                getMoreReviews={getMoreReviews}
+                noMoreReviews={Object.keys(filters).length > 0 ? true : noMoreReviews}
+                numShownReviews={numShownReviews}
+                toggleNewReview={this.toggleNewReview}
+                reviews={Object.keys(filters).length > 0
+                  ? this.filterReviews() : reviews.slice(0, numShownReviews)}
+              />
+            </div>
+          ) : (
+            <div id="zero-ratings-and-reviews-container">
+              This product currently has no reviews.
+              <button className="" type="button" id="new-review-btn" onClick={() => { this.toggleNewReview(); }}>Add A Review</button>
+            </div>
+          )}
+        {showNewReview ? <NewReview productName={productName} toggleNewReview={this.toggleNewReview} availableChars={reviewMeta.characteristics} addNewReview={this.addNewReview} /> : ''}
       </div>
     );
   }

@@ -36,8 +36,12 @@ function displayRatings(ratings, props) {
     ratingsHTML.push(
       <div className="rating-label">
         <label htmlFor={starId}>{`${star} Stars`}</label>
+        &nbsp;
         <progress id={starId} max="100" value={percentage}  role="button" tabIndex="-1" onKeyPress={() => {}} onClick={
           filters[star] ? () => { removeFilter(star); } : () => { addFilter(star); }} />
+        &nbsp;
+        {ratings[star] ? parseInt(ratings[star], 10) : 0}
+        &nbsp;reviews
         {/* {ratings[star]} */}
       </div>,
     );
@@ -93,7 +97,7 @@ function RatingsBreakdown(props) {
         {displayFilters(props)}
       </div>
       <div className="product-rating">
-        <span className="average-rating-number"><h1>{avgRating}</h1></span>
+        <span className="average-rating-number">{avgRating}</span>
         <div className="average-rating-stars">
           <DisplayStars rating={avgRating} />
         </div>

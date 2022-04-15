@@ -979,6 +979,7 @@ label {
 .backgroundAddQModal,
 .backgroundAnsModal,
 .backgroundPhotoModal,
+.backgroundImgModal,
 .backgroundModal {
   /* display: grid; */
   /* position: absolute; */
@@ -1124,7 +1125,8 @@ label {
 /* ---------------------------------- */
 
 #ratings-and-reviews {
-  margin-top: 5px;
+  margin: auto;
+  width: min(90%, 70.5rem);
 }
 
 #ratings-and-reviews-container {
@@ -1135,6 +1137,17 @@ label {
   grid-template-columns: 30% auto;
   padding: 5px;
   overflow: auto;
+}
+
+#zero-ratings-and-reviews-container {
+  display: block;
+  border: 1px solid;
+  width: 100%;
+  height:100px;
+  padding: 5px;
+  overflow: auto;
+  font-weight: bold;
+  text-align:center;
 }
 
 #ratings-breakdown {
@@ -1153,6 +1166,8 @@ label {
 
 .average-rating-number {
   grid-column: 1 / 2;
+  font-weight: bold;
+  font-size:1.6em;
 }
 
 .average-rating-stars {
@@ -1160,6 +1175,7 @@ label {
 }
 
 .score-breakdown {
+  margin-top: 10px;
   margin-bottom: 10px;
 }
 
@@ -1169,6 +1185,7 @@ label {
 
 .rating-label {
   cursor: pointer;
+  font-size:medium;
 }
 
 .rating-filter {
@@ -1179,6 +1196,12 @@ label {
 
 .categories-breakdown {
   border-top: 1px solid;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.categories-breakdown input{
+  width:300px;
 }
 
 #reviews-list {
@@ -1219,6 +1242,18 @@ label {
   font-weight: bold;
 }
 
+img.review-thumb {
+  display:inline;
+  margin: 10px;
+  width: 60px;
+  height: 60px;
+}
+
+.backgroundImgModal{
+  text-align: center;
+  padding-top:100px;
+}
+
 .review-tile-response {
   background-color: lightgray;
   padding: 5px;
@@ -1228,8 +1263,23 @@ label {
   margin: 0px;
 }
 
+.review-options{
+  text-align:center;
+}
+
 .review-options button {
-  margin: 5px;
+  margin-left: 10px;
+  background-color: white;
+  font-family: roboto;
+  display: inline;
+  width: 40%;
+  height: 50px;
+  border: 1px solid black;
+  /* padding: 14px 0px; */
+  /* margin-right: 15px; */
+  font-size: 16px;
+  cursor: pointer;
+  text-align: center;
 }
 
 .expand-body {
