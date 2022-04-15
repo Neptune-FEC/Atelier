@@ -42,6 +42,24 @@ const displayStarRating = (
   return stars;
 };
 
+const displayFullStarRating = (
+  starRating,
+  fullStar,
+  emptyStar,
+) => {
+  const remainderStars = 5 - starRating;
+  const stars = [];
+  for (let i = 0; i < starRating; i += 1) {
+    stars.push(fullStar);
+  }
+
+  for (let i = 0; i < remainderStars; i += 1) {
+    stars.push(emptyStar);
+  }
+
+  return stars;
+};
+
 const sortAnsHelper = (listOfAnswers) => {
   const sellerResponses = [];
   const otherResponses = [];
@@ -56,4 +74,5 @@ module.exports = {
   averageRating,
   displayStarRating,
   sortAnsHelper,
+  displayFullStarRating,
 };

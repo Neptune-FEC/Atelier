@@ -121,12 +121,14 @@ class ReviewTile extends React.Component {
     } = review;
     const maxBodyLength = 250;
 
+    console.log(rating);
+
     return (
       <div id={`${review_id}-review-tile`} className="review-tile">
         <div className="review-tile-header">
           <div className="review-tile-stars">
-            {/* <DisplayStars rating={rating} /> */}
-            {`${rating} STARS`}
+            <DisplayStars rating={rating} />
+            {/* {`${rating} STARS`} */}
           </div>
           <div className="review-tile-user-and-date">
             {/* {verifiedUser ? <i className="fa-solid fa-circle-check"></i> : ''} */}
