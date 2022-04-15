@@ -1110,6 +1110,17 @@ label {
   overflow: auto;
 }
 
+#zero-ratings-and-reviews-container {
+  display: block;
+  border: 1px solid;
+  width: 100%;
+  height:100px;
+  padding: 5px;
+  overflow: auto;
+  font-weight: bold;
+  text-align:center;
+}
+
 #ratings-breakdown {
   grid-column: 1 / 2;
   grid-row: 1 / 1;

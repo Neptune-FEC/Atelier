@@ -11,7 +11,7 @@ function ReviewsList(props) {
   return (
     <div id="review-list">
       <div className="review-list-header">
-        {numWrittenReviews > 0 ? `${numReviews} Reviews, ` : ''}
+        {numReviews > 0 ? `${numReviews} reviews, ` : 'This product currently has no reviews.'}
         {numWrittenReviews > 0 ? (
           <span>
             <label htmlFor="sort-reviews">sorted by:</label>
@@ -26,7 +26,7 @@ function ReviewsList(props) {
       {reviews.map((review) => <ReviewTile review={review} />)}
       <div className="review-list-footer">
         <div className="review-options">
-          {!noMoreReviews ? <button className="" type="button" onClick={() => { getMoreReviews(); }}>More Reviews</button> : ''}
+          {!noMoreReviews || (numReviews === 0) ? <button className="" type="button" onClick={() => { getMoreReviews(); }}>More Reviews</button> : ''}
           <button className="" type="button" id="new-review-btn" onClick={() => { toggleNewReview(); }}>Add A Review</button>
         </div>
       </div>
