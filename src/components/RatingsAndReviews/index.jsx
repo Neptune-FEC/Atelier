@@ -91,9 +91,9 @@ class RatingsAndReviews extends React.Component {
       reviewSort, getMoreReviews, noMoreReviews, numShownReviews, productName,
     } = this.props;
 
-    // console.log(reviewMeta);
-    // console.log(reviews);
-    // console.log(`numReviews = ${numReviews}`);
+    console.log(reviewMeta);
+    console.log(reviews);
+    console.log(`numReviews = ${numReviews}`);
 
     return (
       <div id="ratings-and-reviews">
