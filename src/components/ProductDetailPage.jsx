@@ -169,8 +169,11 @@ class ProductDetailPage extends React.Component {
     }
   }
 
-  handleChangeReviewSort(sort) {
+  handleChangeReviewSort(event) {
     const { product, numReviews } = this.state;
+    const sort = event.target.vale;
+
+    this.handleClick(event, 'RatingsAndReviews');
 
     const reviewsParams = {
       product_id: product.id,
@@ -510,6 +513,7 @@ class ProductDetailPage extends React.Component {
                 numShownReviews={numShownReviews}
                 productName={product.name}
                 productId={product.id}
+                handleClick={this.handleClick}
               />
             </>
           )

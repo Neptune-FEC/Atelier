@@ -81,13 +81,13 @@ function displayFilters(props) {
 
   Object.keys(filters).forEach((rating) => {
     filtersHTML.push(
-      <span className="rating-filter" onClick={() => { removeFilter(rating); }} onKeyPress={() => {}} role="button" tabIndex="-1">{`${rating} stars`}</span>,
+      <span className="rating-filter" onClick={() => { removeFilter(rating); }} onKeyPress={() => {}} role="button" tabIndex="-1" key={uuidv4()}>{`${rating} stars`}</span>,
     );
   });
 
   if (Object.keys(filters).length > 0) {
     filtersHTML.push(
-      <span className="rating-filter" onClick={() => { removeAllFilters(); }} onKeyPress={() => {}} role="button" tabIndex="-1">remove all filters</span>,
+      <span className="rating-filter" onClick={() => { removeAllFilters(); }} onKeyPress={() => {}} role="button" tabIndex="-1" key={uuidv4()}>remove all filters</span>,
     );
   }
 

@@ -95,6 +95,9 @@ class NewReview extends React.Component {
   }
 
   handleRatingChange(event) {
+    const { handleClick } = this.props;
+    handleClick(event, 'RatingsAndReviews');
+
     this.setState({
       rating: event.target.value,
       ratingMeaning: this.ratingMeanings[event.target.value],
@@ -102,12 +105,18 @@ class NewReview extends React.Component {
   }
 
   handleRecommendChange(event) {
+    const { handleClick } = this.props;
+    handleClick(event, 'RatingsAndReviews');
+
     this.setState({
       recommend: event.target.value,
     });
   }
 
   handleCharacteristicChange(characteristic, event) {
+    const { handleClick } = this.props;
+    handleClick(event, 'RatingsAndReviews');
+
     const { characteristics } = this.state;
     characteristics[characteristic] = event.target.value;
     this.setState({
@@ -151,7 +160,9 @@ class NewReview extends React.Component {
       rating, recommend, characteristics, summary, body, reviewerName, email, photos,
     } = this.state;
 
-    const { addNewReview } = this.props;
+    const { addNewReview, handleClick } = this.props;
+
+    handleClick(event, 'RatingsAndReviews');
 
     let errorMessage = '';
 
