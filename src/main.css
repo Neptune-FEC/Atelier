@@ -1136,7 +1136,6 @@ label {
   height:600px;
   grid-template-columns: 30% auto;
   padding: 5px;
-  overflow: auto;
 }
 
 #zero-ratings-and-reviews-container {
@@ -1186,6 +1185,7 @@ label {
 .rating-label {
   cursor: pointer;
   font-size:medium;
+  text-align:justify;
 }
 
 .rating-filter {
@@ -1214,6 +1214,13 @@ label {
 
 .review-list-header {
   font-weight: bold;
+}
+
+.review-tiles {
+  border-bottom: 1px solid;
+  padding: 5px;
+  height: 490px;
+  overflow: auto;
 }
 
 .review-tile {
@@ -1268,6 +1275,7 @@ img.review-thumb {
 }
 
 .review-options{
+  margin-top: 10px;
   text-align:center;
 }
 

@@ -25,11 +25,12 @@ function displayRatings(ratings, props) {
 
   for (let star = maxStar; star >= minStar; star -= 1) {
     const starId = `${star}-stars`;
+    const ratingNum = ratings[star] ? parseInt(ratings[star], 10) : 0;
     let percentage = 0;
 
     if (ratings && numRatings > 0) {
       if (ratings[star]) {
-        percentage = Math.floor((parseInt(ratings[star]) / numRatings) * 100);
+        percentage = Math.floor((ratingNum / numRatings) * 100);
       }
     }
 
@@ -40,9 +41,9 @@ function displayRatings(ratings, props) {
         <progress id={starId} max="100" value={percentage}  role="button" tabIndex="-1" onKeyPress={() => {}} onClick={
           filters[star] ? () => { removeFilter(star); } : () => { addFilter(star); }} />
         &nbsp;
-        {ratings[star] ? parseInt(ratings[star], 10) : 0}
+        {ratingNum < 10 ? '\u00A0\u00A0' : ''}
+        {ratingNum}
         &nbsp;reviews
-        {/* {ratings[star]} */}
       </div>,
     );
   }

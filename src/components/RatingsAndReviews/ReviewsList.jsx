@@ -23,7 +23,9 @@ function ReviewsList(props) {
           </span>
         ) : ''}
       </div>
-      {reviews.map((review) => <ReviewTile review={review} />)}
+      <div className="review-tiles">
+        {reviews.map((review) => <ReviewTile review={review} />)}
+      </div>
       <div className="review-list-footer">
         <div className="review-options">
           {!noMoreReviews || (numReviews === 0) ? <button className="" type="button" onClick={() => { getMoreReviews(); }}>More Reviews</button> : ''}
