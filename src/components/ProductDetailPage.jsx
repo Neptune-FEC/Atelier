@@ -34,7 +34,6 @@ class ProductDetailPage extends React.Component {
       starRating: null,
       numReviews: null,
       reviews: [],
-      reviewsPage: 0,
       reviewSort: 'relevant',
       noMoreReviews: true,
       numShownReviews: 0,
@@ -170,8 +169,11 @@ class ProductDetailPage extends React.Component {
     }
   }
 
-  handleChangeReviewSort(sort) {
+  handleChangeReviewSort(event) {
     const { product, numReviews } = this.state;
+    const sort = event.target.vale;
+
+    this.handleClick(event, 'RatingsAndReviews');
 
     const reviewsParams = {
       product_id: product.id,
@@ -183,7 +185,7 @@ class ProductDetailPage extends React.Component {
       this.setState({
         reviews: response.data.results,
         reviewSort: sort,
-        noMoreReviews: false,
+        noMoreReviews: response.data.results.length <= 2,
         numShownReviews: (response.data.results.length > 2) ? 2 : response.data.results.length,
         // noMoreReviews: response.data.results.length === 0,
       });
@@ -193,7 +195,7 @@ class ProductDetailPage extends React.Component {
   handleAddNewReview(params) {
     const { product, numReviews, reviewSort } = this.state;
 
-    console.log(params);
+    // console.log(params);
 
     addReview(
       params.product_id,
@@ -204,7 +206,8 @@ class ProductDetailPage extends React.Component {
       params.name,
       params.email,
       params.photos,
-      params.characteristics).then((response) => {
+      params.characteristics,
+    ).then((response) => {
       if (response.status !== 201) {
         throw new Error(`POST response returned with status ${response.status}`);
       }
@@ -224,7 +227,7 @@ class ProductDetailPage extends React.Component {
       this.setState({
         reviews: response.data.results,
         reviewSort,
-        noMoreReviews: false,
+        noMoreReviews: response.data.results.length <= 2,
         numShownReviews: (response.data.results.length > 2) ? 2 : response.data.results.length,
       });
     }).catch((err) => {
@@ -316,21 +319,9 @@ class ProductDetailPage extends React.Component {
         reviews: response.data.results,
         numShownReviews: 2,
         reviewSort: defaultSort,
-        noMoreReviews: response.data.results.length < 2,
+        noMoreReviews: response.data.results.length <= 2,
       });
     });
-
-    // console.log('getReviews params:');
-    // console.log(reviewsParams);
-    // getReviews(reviewsParams).then((response) => {
-    //   // console.log('getReviews response:');
-    //   // console.log(response.data);
-    //   this.setState({
-    //     reviews: response.data.results,
-    //     reviewsPage: 1,
-    //     noMoreReviews: response.data.results.length === 0,
-    //   });
-    // });
 
     this.setState({
       skuId: null,
@@ -522,6 +513,7 @@ class ProductDetailPage extends React.Component {
                 numShownReviews={numShownReviews}
                 productName={product.name}
                 productId={product.id}
+                handleClick={this.handleClick}
               />
             </>
           )

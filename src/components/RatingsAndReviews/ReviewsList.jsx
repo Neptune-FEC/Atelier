@@ -1,12 +1,21 @@
 import React from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import ReviewTile from './ReviewTile';
 
-function ReviewsList(props) {
-  const { reviews, numReviews, handleChangeReviewSort,
-    reviewSort, getMoreReviews, noMoreReviews, numShownReviews, toggleNewReview } = props;
-  const numWrittenReviews = reviews ? reviews.length : 0;
+function handleShowMoreReviews(event, props) {
+  const {
+    getMoreReviews, handleClick,
+  } = props;
 
-  // console.log(`shown reviews: ${numShownReviews} , reviews length: ${reviews.length}`);
+  handleClick(event, 'RatingsAndReviews');
+  getMoreReviews();
+}
+
+function ReviewsList(props) {
+  const {
+    reviews, numReviews, handleChangeReviewSort, noMoreReviews, toggleNewReview,
+  } = props;
+  const numWrittenReviews = reviews ? reviews.length : 0;
 
   return (
     <div id="review-list">
@@ -15,19 +24,22 @@ function ReviewsList(props) {
         {numWrittenReviews > 0 ? (
           <span>
             <label htmlFor="sort-reviews">sorted by:</label>
-            <select id="sort-reviews" onChange={(event) => { handleChangeReviewSort(event.target.value); }}>
-              <option value="relevant" selected={reviewSort === 'relevant'}>Relevant</option>
-              <option value="helpful" selected={reviewSort === 'helpful'}>Helpful</option>
-              <option value="newest" selected={reviewSort === 'newest'}>Newest</option>
+            &nbsp;
+            <select id="sort-reviews" defaultValue="relevant" onChange={(event) => { handleChangeReviewSort(event); }}>
+              <option value="relevant">Relevant</option>
+              <option value="helpful">Helpful</option>
+              <option value="newest">Newest</option>
             </select>
           </span>
         ) : ''}
       </div>
-      {reviews.map((review) => <ReviewTile review={review} />)}
+      <div className="review-tiles">
+        {reviews.map((review) => <ReviewTile review={review} key={uuidv4()} />)}
+      </div>
       <div className="review-list-footer">
         <div className="review-options">
-          {!noMoreReviews || (numReviews === 0) ? <button className="" type="button" onClick={() => { getMoreReviews(); }}>More Reviews</button> : ''}
-          <button className="" type="button" id="new-review-btn" onClick={() => { toggleNewReview(); }}>Add A Review</button>
+          {!noMoreReviews || (numReviews === 0) ? <button className="" type="button" onClick={(e) => { handleShowMoreReviews(e, props); }}>More Reviews</button> : ''}
+          <button className="" type="button" id="new-review-btn" onClick={(e) => { toggleNewReview(e); }}>Add A Review</button>
         </div>
       </div>
     </div>

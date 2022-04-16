@@ -43,16 +43,21 @@ class RatingsAndReviews extends React.Component {
   filterReviews() {
     const { filters } = this.state;
     const { reviews } = this.props;
-    return reviews.reduce((filteredReviews, currentReview) => {
-      return filteredReviews.concat(filters[currentReview.rating] ? currentReview : [])
-    }, []);
+    return reviews.reduce((filteredReviews, currentReview) => filteredReviews.concat(
+      filters[currentReview.rating] ? currentReview : [],
+    ), []);
   }
 
-  toggleNewReview() {
+  toggleNewReview(event) {
     const { showNewReview } = this.state;
+    const { handleClick } = this.props;
     this.setState({
       showNewReview: !showNewReview,
     });
+
+    if (event) {
+      handleClick(event, 'RatingsAndReviews');
+    }
   }
 
   addNewReview(params) {
@@ -65,8 +70,6 @@ class RatingsAndReviews extends React.Component {
       postChars[characteristicId] = parseInt(params.characteristics[charName], 10);
     });
 
-    // console.log(postChars);
-
     const postParams = {
       product_id: productId,
       rating: parseInt(params.rating, 10),
@@ -76,7 +79,7 @@ class RatingsAndReviews extends React.Component {
       recommend: params.recommend === 'true',
       name: params.reviewerName,
       email: params.email,
-      photos: [],
+      photos: params.photos,
     };
 
     handleAddNewReview(postParams);
@@ -89,11 +92,8 @@ class RatingsAndReviews extends React.Component {
     const {
       reviewMeta, avgRating, reviews, numReviews, handleChangeReviewSort,
       reviewSort, getMoreReviews, noMoreReviews, numShownReviews, productName,
+      handleClick,
     } = this.props;
-
-    // console.log(reviewMeta);
-    // console.log(reviews);
-    // console.log(`numReviews = ${numReviews}`);
 
     return (
       <div id="ratings-and-reviews">
@@ -119,6 +119,7 @@ class RatingsAndReviews extends React.Component {
                 noMoreReviews={Object.keys(filters).length > 0 ? true : noMoreReviews}
                 numShownReviews={numShownReviews}
                 toggleNewReview={this.toggleNewReview}
+                handleClick={handleClick}
                 reviews={Object.keys(filters).length > 0
                   ? this.filterReviews() : reviews.slice(0, numShownReviews)}
               />
@@ -126,10 +127,10 @@ class RatingsAndReviews extends React.Component {
           ) : (
             <div id="zero-ratings-and-reviews-container">
               This product currently has no reviews.
-              <button className="" type="button" id="new-review-btn" onClick={() => { this.toggleNewReview(); }}>Add A Review</button>
+              <button className="" type="button" id="new-review-btn" onClick={(e) => { this.toggleNewReview(e); }}>Add A Review</button>
             </div>
           )}
-        {showNewReview ? <NewReview productName={productName} toggleNewReview={this.toggleNewReview} availableChars={reviewMeta.characteristics} addNewReview={this.addNewReview} /> : ''}
+        {showNewReview ? <NewReview productName={productName} toggleNewReview={this.toggleNewReview} availableChars={reviewMeta.characteristics} addNewReview={this.addNewReview} handleClick={handleClick} /> : ''}
       </div>
     );
   }

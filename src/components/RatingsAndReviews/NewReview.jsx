@@ -1,4 +1,6 @@
 import React from 'react';
+import { v4 as uuidv4 } from 'uuid';
+import PhotoModal from '../QandA/PhotoModal';
 
 class NewReview extends React.Component {
   constructor(props) {
@@ -20,9 +22,11 @@ class NewReview extends React.Component {
       characteristics,
       summary: '',
       body: '',
-      reviewerName: 'Example: jackson11!',
-      email: 'Example: jackson11@email.com',
+      reviewerName: '',
+      email: '',
+      photos: [],
       submitError: '',
+      showPhotoModal: false,
     };
 
     this.handleRatingChange = this.handleRatingChange.bind(this);
@@ -32,7 +36,9 @@ class NewReview extends React.Component {
     this.handleBodyChange = this.handleBodyChange.bind(this);
     this.handleNameChange = this.handleNameChange.bind(this);
     this.handleEmailChange = this.handleEmailChange.bind(this);
+    this.handlePhotos = this.handlePhotos.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.togglePhotoModal = this.togglePhotoModal.bind(this);
 
     this.ratingMeanings = {
       1: 'Poor',
@@ -89,6 +95,9 @@ class NewReview extends React.Component {
   }
 
   handleRatingChange(event) {
+    const { handleClick } = this.props;
+    handleClick(event, 'RatingsAndReviews');
+
     this.setState({
       rating: event.target.value,
       ratingMeaning: this.ratingMeanings[event.target.value],
@@ -96,12 +105,18 @@ class NewReview extends React.Component {
   }
 
   handleRecommendChange(event) {
+    const { handleClick } = this.props;
+    handleClick(event, 'RatingsAndReviews');
+
     this.setState({
       recommend: event.target.value,
     });
   }
 
   handleCharacteristicChange(characteristic, event) {
+    const { handleClick } = this.props;
+    handleClick(event, 'RatingsAndReviews');
+
     const { characteristics } = this.state;
     characteristics[characteristic] = event.target.value;
     this.setState({
@@ -134,18 +149,24 @@ class NewReview extends React.Component {
     });
   }
 
+  handlePhotos(photos) {
+    this.setState({ photos });
+  }
+
   handleSubmit(event) {
     event.preventDefault();
 
     const {
-      rating, recommend, characteristics, summary, body, reviewerName, email,
+      rating, recommend, characteristics, summary, body, reviewerName, email, photos,
     } = this.state;
 
-    const { addNewReview } = this.props;
+    const { addNewReview, handleClick } = this.props;
+
+    handleClick(event, 'RatingsAndReviews');
 
     let errorMessage = '';
 
-    //check mandatory inputs
+    // check mandatory inputs
     if (rating === 0) {
       errorMessage += 'Product rating is mandatory. ';
     }
@@ -199,17 +220,25 @@ class NewReview extends React.Component {
         body,
         reviewerName,
         email,
+        photos,
       };
 
       addNewReview(params);
     }
   }
 
+  togglePhotoModal() {
+    const { showPhotoModal } = this.state;
+    this.setState({
+      showPhotoModal: !showPhotoModal,
+    });
+  }
+
   render() {
     const { productName, toggleNewReview } = this.props;
     const {
       lastCharSelectMeaning, rating, ratingMeaning, characteristics,
-      summary, body, reviewerName, email, submitError,
+      summary, body, reviewerName, email, photos, submitError, showPhotoModal,
     } = this.state;
 
     return (
@@ -244,12 +273,12 @@ class NewReview extends React.Component {
               <table>
                 <thead>
                   <tr>
-                    <th colspan="6">Characteristics</th>
+                    <th colSpan="6">Characteristics</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <td colspan="6">{lastCharSelectMeaning}</td>
+                    <td colSpan="6">{lastCharSelectMeaning}</td>
                   </tr>
                   {Object.keys(characteristics).map((charName) => {
                     const tableRowHTML = [];
@@ -286,25 +315,31 @@ class NewReview extends React.Component {
                   Nickname
                 </div>
                 <div className="new-review-nickname">
-                  <input type="text" className="new-review-input" value={reviewerName} onChange={this.handleNameChange} maxLength="60" />
+                  <input type="text" className="new-review-input" placeholder="Example: jackson11!" value={reviewerName} onChange={this.handleNameChange} maxLength="60" />
                   <span className="info-text">For privacy reasons, do not use your full name or email address</span>
                 </div>
                 <div className="new-review-email-label">
                   Email
                 </div>
                 <div className="new-review-email">
-                  <input type="text" className="new-review-input" value={email} onChange={this.handleEmailChange} maxLength="60" />
+                  <input type="text" className="new-review-input" placeholder="Example: jackson11@email.com" value={email} onChange={this.handleEmailChange} maxLength="60" />
                   <span className="info-text">For authentication reasons, you will not be emailed</span>
+                </div>
+                <div className="new-review-thumbnails">
+                  {photos.map((photo) => (
+                    <img className="review-thumb" src={photo} alt="new review" key={uuidv4()} />
+                  ))}
                 </div>
                 <div className="new-review-footer">
                   <div className="submit-error">{submitError}</div>
-                  <button type="button">Upload Photo</button>
+                  <button type="button" onClick={this.togglePhotoModal}>Upload Photo</button>
                   <button type="submit">Submit Review</button>
                 </div>
               </div>
             </div>
           </div>
         </form>
+        {showPhotoModal ? <PhotoModal attachPhotos={this.handlePhotos} closePhotoModal={this.togglePhotoModal} /> : ''}
       </div>
     );
   }

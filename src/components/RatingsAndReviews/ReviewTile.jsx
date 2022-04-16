@@ -1,5 +1,6 @@
 import React from 'react';
 import moment from 'moment';
+import { v4 as uuidv4 } from 'uuid';
 import DisplayStars from '../../helpers/DisplayStars';
 
 const { markReviewHelpful, reportReview } = require('../../helpers/HttpClient');
@@ -58,8 +59,6 @@ class ReviewTile extends React.Component {
           this.setState({
             reported: true,
           });
-
-          // console.log(`${review.review_id} reported`);
         }
       })
       .catch((err) => {
@@ -97,13 +96,13 @@ class ReviewTile extends React.Component {
 
     if (markedHelpful) {
       helpfulHTML.push(
-        <span>
+        <span key={uuidv4()}>
           {`Yes (${helpfulness})`}
         </span>,
       );
     } else {
       helpfulHTML.push(
-        <span className="uline" onClick={this.handleMarkHelpful} role="button" onKeyPress={() => {}} tabIndex="-1">
+        <span className="uline" onClick={this.handleMarkHelpful} role="button" onKeyPress={() => {}} tabIndex="-1" key={uuidv4()}>
           {`Yes (${helpfulness})`}
         </span>,
       );
@@ -118,13 +117,13 @@ class ReviewTile extends React.Component {
 
     if (reported) {
       reportHTML.push(
-        <span>
+        <span key={uuidv4()} >
           Report
         </span>,
       );
     } else {
       reportHTML.push(
-        <span className="uline" onClick={this.handleReport} role="button" onKeyPress={() => {}} tabIndex="-1">
+        <span className="uline" onClick={this.handleReport} role="button" onKeyPress={() => {}} tabIndex="-1" key={uuidv4()}>
           Report
         </span>,
       );
@@ -138,12 +137,12 @@ class ReviewTile extends React.Component {
     const { review } = this.props;
     const {
       review_id, rating, summary, body, recommend,
-      response, date, reviewer_name, helpfulness, photos
+      response, date, reviewer_name, helpfulness, photos,
     } = review;
     const maxBodyLength = 250;
 
     return (
-      <div id={`${review_id}-review-tile`} className="review-tile">
+      <div id={`${review_id}-review-tile`} className="review-tile" key={uuidv4()} >
         <div className="review-tile-header">
           <div className="review-tile-stars">
             <DisplayStars rating={rating} />
@@ -165,8 +164,8 @@ class ReviewTile extends React.Component {
         </div>
         <div className="review-tile-thumbnails">
           {photos.map((photo) => (
-            <div onClick={() => { this.expandImage(photo.url); }} onKeyPress={() => {}} role="button" tabIndex="-1">
-              <img className="review-thumb" src={photo.url} alt={photo.id} />
+            <div className="review-tile-thumbnail-wrapper" onClick={() => { this.expandImage(photo.url); }} onKeyPress={() => {}} role="button" tabIndex="-1" key={uuidv4()}>
+              <img className="review-thumb" src={photo.url} alt={photo.id} key={uuidv4()} />
             </div>
           ))}
         </div>
@@ -185,9 +184,6 @@ class ReviewTile extends React.Component {
           {this.renderHelpful(helpfulness)}
           &nbsp; &nbsp;|&nbsp; &nbsp;
           {this.renderReport()}
-          {/* <span className="uline" onClick={this.handleReport} role="button" onKeyPress={() => {}} tabIndex="-1">
-            Report
-          </span> */}
         </div>
         {
           expandImgThumb ? (
