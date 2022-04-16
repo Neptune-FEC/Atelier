@@ -43,13 +43,14 @@ const proxy = (req, res) => {
   }).then((response) => {
     res.json(response.data);
   }).catch((err) => {
-    res.end('Error', err);
+    res.end();
   });
 };
 
 app.route(/(products|reviews|qa|cart|interactions).*/)
   .get(proxy)
-  .post(proxy);
+  .post(proxy)
+  .put(proxy);
 
 app.listen(3000, async () => {
   await dotenv.config();

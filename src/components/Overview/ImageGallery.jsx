@@ -20,8 +20,10 @@ class ImageGallery extends React.Component {
       selectedStyle, handleIndexStyleMapping,
       setIndexThumbnail, indexThumbnail,
     } = this.props;
+    const { photos } = selectedStyle;
+    const numPhotos = photos.length;
     const { style_id } = selectedStyle;
-    if (indexImage < 4 && indexImage > 0) {
+    if (indexImage < (numPhotos - 2) && indexImage > 0) {
       document.getElementById(`thumbnail_${indexImage - 1}`).scrollIntoView({ inline: 'center', block: 'nearest' });
       setIndexThumbnail(Math.max(1, indexImage));
     }
