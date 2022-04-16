@@ -95,7 +95,7 @@ class Question extends React.Component {
               : (
                 <div>
                   <b
-                    className="moreAns"
+                    className="moreAns clickable"
                     role="button"
                     tabIndex={0}
                     onClick={this.handleShowMoreAns}
