@@ -43,9 +43,9 @@ class RatingsAndReviews extends React.Component {
   filterReviews() {
     const { filters } = this.state;
     const { reviews } = this.props;
-    return reviews.reduce((filteredReviews, currentReview) => {
-      return filteredReviews.concat(filters[currentReview.rating] ? currentReview : [])
-    }, []);
+    return reviews.reduce((filteredReviews, currentReview) => filteredReviews.concat(
+      filters[currentReview.rating] ? currentReview : [],
+    ), []);
   }
 
   toggleNewReview() {
@@ -76,7 +76,7 @@ class RatingsAndReviews extends React.Component {
       recommend: params.recommend === 'true',
       name: params.reviewerName,
       email: params.email,
-      photos: [],
+      photos: params.photos,
     };
 
     handleAddNewReview(postParams);
@@ -91,9 +91,9 @@ class RatingsAndReviews extends React.Component {
       reviewSort, getMoreReviews, noMoreReviews, numShownReviews, productName,
     } = this.props;
 
-    console.log(reviewMeta);
-    console.log(reviews);
-    console.log(`numReviews = ${numReviews}`);
+    // console.log(reviewMeta);
+    // console.log(reviews);
+    // console.log(`numReviews = ${numReviews}`);
 
     return (
       <div id="ratings-and-reviews">
