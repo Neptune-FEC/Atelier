@@ -52,6 +52,7 @@ app.route(/(products|reviews|qa|cart|interactions).*/)
   .post(proxy)
   .put(proxy);
 
+// app.listen(4000, async () => {
 app.listen(3000, async () => {
   await dotenv.config();
   // eslint-disable-next-line prefer-destructuring

@@ -1,5 +1,11 @@
 const axios = require('axios');
 
+// // eslint-disable-next-line prefer-destructuring
+// const URL = process.env.URL;
+// // eslint-disable-next-line prefer-destructuring
+// const TOKEN = process.env.TOKEN;
+
+// const URL = 'http://localhost:3000';
 const URL = window.location.origin;
 
 // Base http request used by all the http calls
