@@ -155,7 +155,7 @@ class NewReview extends React.Component {
 
     let errorMessage = '';
 
-    //check mandatory inputs
+    // check mandatory inputs
     if (rating === 0) {
       errorMessage += 'Product rating is mandatory. ';
     }

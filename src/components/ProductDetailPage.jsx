@@ -21,7 +21,7 @@ const {
   addReview, postCart, postInteraction, getRelatedIds,
 } = require('../helpers/HttpClient');
 
-const testId = 66643; // QandA widget relying on this number to dynamically updatex
+const testId = 66642; // QandA widget relying on this number to dynamically updatex
 
 class ProductDetailPage extends React.Component {
   constructor(props) {
@@ -34,7 +34,6 @@ class ProductDetailPage extends React.Component {
       starRating: null,
       numReviews: null,
       reviews: [],
-      reviewsPage: 0,
       reviewSort: 'relevant',
       noMoreReviews: true,
       numShownReviews: 0,
@@ -320,18 +319,6 @@ class ProductDetailPage extends React.Component {
         noMoreReviews: response.data.results.length <= 2,
       });
     });
-
-    // console.log('getReviews params:');
-    // console.log(reviewsParams);
-    // getReviews(reviewsParams).then((response) => {
-    //   // console.log('getReviews response:');
-    //   // console.log(response.data);
-    //   this.setState({
-    //     reviews: response.data.results,
-    //     reviewsPage: 1,
-    //     noMoreReviews: response.data.results.length === 0,
-    //   });
-    // });
 
     this.setState({
       skuId: null,

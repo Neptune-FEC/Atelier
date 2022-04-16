@@ -1,12 +1,13 @@
 import React from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import ReviewTile from './ReviewTile';
 
 function ReviewsList(props) {
-  const { reviews, numReviews, handleChangeReviewSort,
-    reviewSort, getMoreReviews, noMoreReviews, numShownReviews, toggleNewReview } = props;
+  const {
+    reviews, numReviews, handleChangeReviewSort,
+    getMoreReviews, noMoreReviews, toggleNewReview,
+  } = props;
   const numWrittenReviews = reviews ? reviews.length : 0;
-
-  // console.log(`shown reviews: ${numShownReviews} , reviews length: ${reviews.length}`);
 
   return (
     <div id="review-list">
@@ -15,16 +16,17 @@ function ReviewsList(props) {
         {numWrittenReviews > 0 ? (
           <span>
             <label htmlFor="sort-reviews">sorted by:</label>
-            <select id="sort-reviews" onChange={(event) => { handleChangeReviewSort(event.target.value); }}>
-              <option value="relevant" selected={reviewSort === 'relevant'}>Relevant</option>
-              <option value="helpful" selected={reviewSort === 'helpful'}>Helpful</option>
-              <option value="newest" selected={reviewSort === 'newest'}>Newest</option>
+            &nbsp;
+            <select id="sort-reviews" defaultValue="relevant" onChange={(event) => { handleChangeReviewSort(event.target.value); }}>
+              <option value="relevant">Relevant</option>
+              <option value="helpful">Helpful</option>
+              <option value="newest">Newest</option>
             </select>
           </span>
         ) : ''}
       </div>
       <div className="review-tiles">
-        {reviews.map((review) => <ReviewTile review={review} />)}
+        {reviews.map((review) => <ReviewTile review={review} key={uuidv4()} />)}
       </div>
       <div className="review-list-footer">
         <div className="review-options">

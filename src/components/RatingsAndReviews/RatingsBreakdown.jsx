@@ -1,10 +1,11 @@
 import React from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import DisplayStars from '../../helpers/DisplayStars';
 
 function getRecommendedPercentage(recommended) {
   if (Object.keys(recommended).length > 0) {
-    const numFalse = recommended.false ? parseInt(recommended.false) : 0;
-    const numTrue = recommended.true ? parseInt(recommended.true) : 0;
+    const numFalse = recommended.false ? parseInt(recommended.false, 10) : 0;
+    const numTrue = recommended.true ? parseInt(recommended.true, 10) : 0;
     const total = numFalse + numTrue;
     return Math.floor((numTrue / total) * 100);
   }
@@ -20,7 +21,7 @@ function displayRatings(ratings, props) {
   const ratingsHTML = [];
 
   Object.keys(ratings).forEach((rate) => {
-    numRatings += parseInt(ratings[rate]);
+    numRatings += parseInt(ratings[rate], 10);
   });
 
   for (let star = maxStar; star >= minStar; star -= 1) {
@@ -35,11 +36,17 @@ function displayRatings(ratings, props) {
     }
 
     ratingsHTML.push(
-      <div className="rating-label">
+      <div className="rating-label" key={uuidv4()}>
         <label htmlFor={starId}>{`${star} Stars`}</label>
         &nbsp;
-        <progress id={starId} max="100" value={percentage}  role="button" tabIndex="-1" onKeyPress={() => {}} onClick={
-          filters[star] ? () => { removeFilter(star); } : () => { addFilter(star); }} />
+        <progress
+          id={starId}
+          max="100"
+          value={percentage}
+          role="button"
+          tabIndex="-1"
+          onKeyPress={() => {}}
+          onClick={filters[star] ? () => { removeFilter(star); } : () => { addFilter(star); }} />
         &nbsp;
         {ratingNum < 10 ? '\u00A0\u00A0' : ''}
         {ratingNum}
@@ -58,9 +65,9 @@ function displayCharacteristics(characteristics) {
     const characteristicId = `${key.toLowerCase()}-breakdown`;
 
     characteristicsHTML.push(
-      <div>
+      <div key={uuidv4()}>
         <div><label htmlFor={characteristicId}>{key}</label></div>
-        <input type="range" id={characteristicId} name={key.toLowerCase()} min="0" max="5" value={characteristics[key].value} step=".1" disabled />
+        <input type="range" id={characteristicId} name={key.toLowerCase()} min="0" max="5" value={characteristics[key].value} step=".1" key={uuidv4()} disabled />
       </div>,
     );
   });
@@ -118,3 +125,4 @@ function RatingsBreakdown(props) {
 }
 
 export default RatingsBreakdown;
+export { getRecommendedPercentage };
