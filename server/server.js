@@ -12,6 +12,8 @@ app.use('/', express.static(path.join(__dirname, '../public/')));
 
 const AWS = require('aws-sdk');
 
+const port = process.env.PORT || 4000;
+
 let URL;
 let TOKEN;
 const getAwsSecret = function () {
@@ -53,7 +55,7 @@ app.route(/(products|reviews|qa|cart|interactions).*/)
   .put(proxy);
 
 // app.listen(4000, async () => {
-app.listen(3000, async () => {
+app.listen(port, async () => {
   await dotenv.config();
   // eslint-disable-next-line prefer-destructuring
   URL = process.env.URL;
