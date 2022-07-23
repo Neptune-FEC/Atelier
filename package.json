@@ -43,7 +43,8 @@
     "webpack-dev-server": "^4.7.4"
   },
   "scripts": {
-    "start": "webpack --mode=development",
+    "start": "node server/server.js",
+    "start-dev": "webpack --mode=development",
     "build": "webpack --mode=production",
     "dev": "webpack-dev-server",
     "test": "jest",
