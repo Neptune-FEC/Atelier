@@ -2,12 +2,13 @@ const express = require('express');
 const dotenv = require('dotenv');
 const axios = require('axios');
 const path = require('path');
-
+const compression = require('compression');
 const bodyParser = require('body-parser');
 
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(compression()); // Compress all HTTP responses
 app.use('/', express.static(path.join(__dirname, '../public/')));
 
 const AWS = require('aws-sdk');

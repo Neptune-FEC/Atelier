@@ -1,4 +1,5 @@
 const path = require("path");
+const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
 const Dotenv = require("dotenv-webpack");
 
 module.exports = {
@@ -33,6 +34,7 @@ module.exports = {
     extensions: ['.js', '.jsx'],
   },
   plugins: [
-    new Dotenv()
+    new Dotenv(),
+    new MomentLocalesPlugin(),
   ]
 };
